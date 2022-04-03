@@ -1,0 +1,35 @@
+.nav {
+    grid-area: nav;
+    background-color: #FDFDFD;
+    padding: 20px;
+}
+
+.nav p {
+    font-weight: 500;
+    color: #424242;
+    font-size: 15px;
+}
+
+.nav p:after {
+    content: "";
+    display: block;
+    height: 2px;
+    width: 65px;
+    background-color: #088dcd;
+    text-align: center;
+}
+
+
+.link {
+    font-weight: 400;
+    color: #797979;
+    padding: 10px 0;
+}
+
+.link a {
+    text-decoration: none;
+    color: inherit;
+}
+.link a:hover {
+    color: #088dcd;
+}

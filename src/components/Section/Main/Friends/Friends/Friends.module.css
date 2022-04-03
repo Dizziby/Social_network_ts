@@ -1,0 +1,22 @@
+.group {
+    border: solid 1px #e3e3e3;
+    margin: 0 25px 20px;
+    padding: 20px;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn {
+    background-color: #238ABD;
+    color: #fff;
+    height: 20px;
+    border-radius: 3px;
+    border: none;
+    cursor: pointer;
+}
+
+
+.group img {
+    border-radius: 50%;
+}

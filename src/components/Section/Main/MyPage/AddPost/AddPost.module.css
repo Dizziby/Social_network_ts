@@ -1,0 +1,45 @@
+.addPost {
+    height: 160px;
+    padding: 25px 25px;
+    background-color: #FDFDFD;
+    margin-bottom: 20px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.avatar img {
+    border-radius: 25px;
+    width: 50px;
+}
+
+.textarea {
+    width: 450px;
+    height: 45px;
+    resize: none;
+    border: none;
+    color: #8c8b8b;
+}
+
+
+.btn {
+    background-color: #238ABD;
+    color: #fff;
+    width: 80px;
+    height: 30px;
+    border-radius: 5px;
+    position: relative;
+    bottom: -15px;
+    right: -375px;
+    border: none;
+    cursor: pointer;
+}
+
+.item {
+    border: 2px solid #F4F2F2;
+}
+
+.image-upload>input {
+    display: none;
+}

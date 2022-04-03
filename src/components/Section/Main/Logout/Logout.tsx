@@ -1,12 +1,12 @@
 import React from "react";
 
 
-const Header = () => {
+const Logout = () => {
     return (
         <div>
-            Header
+            Logout
         </div>
     )
 }
 
-export default Header;
+export default Logout;
