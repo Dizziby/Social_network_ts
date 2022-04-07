@@ -9,12 +9,15 @@ import MyPage from "./MyPage/MyPage";
 import Videos from "./Videos/Videos";
 import Groups from "./Groups/Groups";
 
-type mainPropsType = {
+type MainPropsType = {
     section: string
 }
 
 
-const Main = (props: mainPropsType) => {
+const Main = (props: MainPropsType) => {
+    if(props.section === "sectionLogout") {
+        return null;
+    }
     return (
         <div className={styles.main}>
                 <Routes>

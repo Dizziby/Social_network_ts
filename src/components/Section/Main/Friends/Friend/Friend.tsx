@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./Friends.module.css";
+import friendAvatar from "../../../../../img/Contacts/friend-avatar.jpg"
 
 type FriendsPropsType = {
     id: number
@@ -10,12 +11,13 @@ type FriendsPropsType = {
 const Friend = (props: FriendsPropsType) => {
     return (
         <div className={styles.group}>
+            <img src={friendAvatar} alt={props.name}/>
             <div>
                 <a href="#">{props.name}</a>
-                {props.profession}
+                <div>{props.profession}</div>
             </div>
-            <button className={styles.btn}>1</button>
-            <button className={styles.btn}>2</button>
+            <button className={styles.btn}>Unfriends</button>
+            <button className={styles.btn}>Add Friend</button>
         </div>
     )
 }

@@ -7,51 +7,40 @@ import Main from "./components/Section/Main/Main";
 import Contacts from "./components/Section/Contacts/Contacts";
 import Logout from "./components/Section/Main/Logout/Logout";
 
-type SectionType = "sectionAll" | "sectionMessages"
+type SectionCSSType = "sectionAll" | "sectionMessages" | "sectionLogout"
 
-type SectionMessagesType = {
-    section: string
-}
+export type SectionType = "all" | "messages" | "logout"
 
 function App() {
 
-    let section: SectionType = "sectionAll";
+    let section: SectionCSSType = "sectionAll";
 
-    const [sectionMessages, setSectionMessages] = useState(false)
+    const [sectionView, setSectionView] = useState<SectionType>("all")
 
-    const changeGridSection = (value: boolean) => {
-        setSectionMessages(value)
+    const changeGrid = (value: SectionType) => {
+        setSectionView(value)
     }
 
-    if (sectionMessages) {
-        section = "sectionMessages"
-    } else {
+    if (sectionView === "all") {
         section = "sectionAll"
+    } else if (sectionView === "messages") {
+        section = "sectionMessages"
+    } else if ((sectionView === "logout")) {
+        section = "sectionLogout"
     }
 
     return (
         <div className="App">
-            <Header/>
+            <Header section={section}/>
             <div className={section}>
-                <Nav section={section} changeGridSection={changeGridSection}/>
+                <Nav section={section} changeGrid={changeGrid}/>
                 <Main section={section}/>
-                <ContactsControl section={section}/>
+                {section === "sectionAll" && <Contacts/>}
             </div>
-            <Footer/>
+            <Footer section={section}/>
+            {section === "sectionLogout" && <Logout/>}
         </div>
     );
 }
-
-function ContactsControl (props: SectionMessagesType) {
-    if (props.section === "sectionAll") {
-    return <Contacts />
-    } else {
-    return <></>
-    }
-}
-
-
-
-
 
 export default App;

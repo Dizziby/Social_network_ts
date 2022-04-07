@@ -2,7 +2,16 @@ import React from "react";
 import styles from "./Header.module.css"
 import userAvatar from "../../img/user-avatar.jpg"
 
-const Header = () => {
+type HeaderPropsType = {
+    section: string
+}
+
+
+const Header: React.FC<HeaderPropsType> = (props) => {
+    if(props.section === "sectionLogout") {
+        return null;
+    }
+
     return (
         <div className={styles.header}>
             <a href="#" >

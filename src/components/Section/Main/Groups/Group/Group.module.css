@@ -5,6 +5,11 @@
 
     display: flex;
     justify-content: space-between;
+    transition: box-shadow .2s linear;
+}
+
+.group:hover {
+    box-shadow: 5px 5px 5px #eee7e7;
 }
 
 .btn {

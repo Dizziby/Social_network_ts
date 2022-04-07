@@ -11,11 +11,11 @@ const Contacts = () => {
         {id: 4, name: 'Cameron Diaz', email: 'jasonb@gmail.com', avatar: "friendAvatar4"},
         {id: 5, name: 'Daniel Warber', email: 'jasonb@gmail.com', avatar: "friendAvatar5"},
         {id: 6, name: 'Andrew', email: 'jasonb@gmail.com', avatar: "friendAvatar6"},
-        {id: 7, name: 'Amy Watson', email: 'jasonb@gmail.com', avatar: "friendAvatar7"},
+        {id: 7, name: 'Amy Watson', email: 'jasonb@gmail.com', avatar: "friendAvatar7"}
     ];
 
     const contactElement = contactsData.map(contact => <Contact name={contact.name} email={contact.email}
-                                                                avatar={contact.avatar}/>)
+                                                                avatar={contact.avatar} id={contact.id}/>)
 
     return (
         <div className={styles.contacts}>
@@ -23,7 +23,7 @@ const Contacts = () => {
                 Friends
             </div>
             <div>
-                <input className={styles.search} type="search" placeholder="  Search Contacts..."></input>
+                <input className={styles.search} type="search" placeholder="  Search Contacts..." />
             </div>
             <div className={styles.contactElement}>
                 {contactElement}

@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "../Groups/Groups.module.css";
-import Friend from "./Friends/Friend";
+import Friend from "./Friend/Friend";
 
 
 const Friends = () => {

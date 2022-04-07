@@ -1,10 +1,14 @@
-import React from "react";
+import React, {ChangeEvent, useState} from "react";
 import styles from "./AddPost.module.css"
 import userAvatar from "../../../../../img/user-avatar.jpg"
 
 const AddPost = () => {
 
-    let newPostText = "write something"
+    const [newPostText, setNewPostText] = useState("write something")
+
+    const onChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
+        setNewPostText(e.currentTarget.value)
+    }
 
     return (
         <div className={styles.addPost}>
@@ -12,8 +16,12 @@ const AddPost = () => {
                 <img src={userAvatar} alt=""/>
             </div>
             <div className={styles.item}>
-                <textarea className={styles.textarea}></textarea>
-                <button className={styles.btn}>Publish</button>
+                <input  value={newPostText} onChange={onChangeInput}/>
+                <a href="#"><i className="fa-solid fa-music"> </i></a>
+                <a href="#"><i className="fa-solid fa-image"> </i></a>
+                <a href="#"><i className="fa-solid fa-video"> </i></a>
+                <a href="#"><i className="fa-solid fa-camera"> </i></a>
+                <button>Publish</button>
             </div>
         </div>
     )

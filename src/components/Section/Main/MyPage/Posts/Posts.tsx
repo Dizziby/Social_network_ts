@@ -6,12 +6,12 @@ const postData = [
     {
         name: "Janice Griffith",
         date: "02.03.2021, 17:02:02",
-        text: "World\'s most beautiful car in Curabitur #test drive booking ! the most beatuiful car available in america and the saudia arabia, you can book your test drive by our official website"
+        text: "World's most beautiful car in Curabitur #test drive booking ! the most beatuiful car available in america and the saudia arabia, you can book your test drive by our official website"
     },
     {
         name: "Janice Griffith",
         date: "02.03.2021, 17:02:02",
-        text: "Curabitur world\'s most beautiful car in #test drive booking ! the most beatuiful car available in america and the saudia arabia, you can book your test drive by our official website"
+        text: "Curabitur world's most beautiful car in #test drive booking ! the most beatuiful car available in america and the saudia arabia, you can book your test drive by our official website"
     },
     {
         name: "Janice Griffith",
@@ -20,15 +20,13 @@ const postData = [
     },
 ];
 
-
-
 const Posts = () => {
 
-        const postElement = postData.map(post => <Post name={post.name} date={post.date} text={post.text} />)
+    const postElement = postData.map(post => <Post name={post.name} date={post.date} text={post.text}/>)
 
     return (
         <div className={styles.myPage}>
-        {postElement}
+            {postElement}
         </div>
     )
 }

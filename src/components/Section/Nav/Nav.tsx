@@ -1,43 +1,48 @@
 import React from "react";
 import {NavLink} from "react-router-dom";
 import styles from "./Nav.module.css";
+import {SectionType} from "../../../App";
 
-type navPropsType = {
+type NavPropsType = {
     section: string
-    changeGridSection: (value: boolean) => void
+    changeGrid: (value: SectionType) => void
 }
 
-const Nav = (props: navPropsType) => {
+const Nav = (props: NavPropsType) => {
+    if(props.section === "sectionLogout") {
+        return null;
+    }
+
     return (
         <div className={styles.nav}>
             <p>Shortcuts</p>
             <div className={styles.link}>
-                <NavLink to="/" onClick={() => props.changeGridSection(false)}><i className="fa-solid fa-pager"></i> My
+                <NavLink to="/" onClick={() => props.changeGrid("all")}><i className="fa-solid fa-pager"> </i> My
                     Page</NavLink>
             </div>
             <div className={styles.link}>
-                <NavLink to='/messages' onClick={() => props.changeGridSection(true)}><i
-                    className="fa-solid fa-message"></i> Messages</NavLink>
+                <NavLink to='/messages' onClick={() => props.changeGrid("messages")}><i
+                    className="fa-solid fa-message"> </i> Messages</NavLink>
             </div>
             <div className={styles.link}>
-                <NavLink to='/friends' onClick={() => props.changeGridSection(false)}><i
-                    className="fa-solid fa-person"></i> Friends</NavLink>
+                <NavLink to='/friends' onClick={() => props.changeGrid("all")}><i
+                    className="fa-solid fa-person"> </i> Friends</NavLink>
             </div>
             <div className={styles.link}>
-                <NavLink to='/groups' onClick={() => props.changeGridSection(false)}><i
-                    className="fa-solid fa-people-group"></i> Groups</NavLink>
+                <NavLink to='/groups' onClick={() => props.changeGrid("all")}><i
+                    className="fa-solid fa-people-group"> </i> Groups</NavLink>
             </div>
             <div className={styles.link}>
-                <NavLink to='/photos' onClick={() => props.changeGridSection(false)}><i
-                    className="fa-solid fa-image"></i> Photos</NavLink>
+                <NavLink to='/photos' onClick={() => props.changeGrid("all")}><i
+                    className="fa-solid fa-image"> </i> Photos</NavLink>
             </div>
             <div className={styles.link}>
-                <NavLink to='/videos' onClick={() => props.changeGridSection(false)}><i
-                    className="fa-solid fa-video"></i> Videos</NavLink>
+                <NavLink to='/videos' onClick={() => props.changeGrid("all")}><i
+                    className="fa-solid fa-video"> </i> Videos</NavLink>
             </div>
             <div className={styles.link}>
-                <NavLink to='/logout' onClick={() => props.changeGridSection(false)}><i
-                    className="fa-solid fa-arrow-right-from-bracket"></i> Logout</NavLink>
+                <NavLink to='/logout' onClick={() => props.changeGrid("logout")}><i
+                    className="fa-solid fa-arrow-right-from-bracket"> </i> Logout</NavLink>
             </div>
         </div>
     )
