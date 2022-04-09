@@ -8,7 +8,6 @@ type PostPropsType = {
     text: string
 }
 
-
 const Post = (props: PostPropsType) => {
     return (
         <div className={styles.post}>

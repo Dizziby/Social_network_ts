@@ -3,7 +3,7 @@ import styles from "./Message.module.css"
 
 type MessagePropsType = {
     messages: Array<string>
-    id: number
+    id: string
 }
 
 const Message: React.FC<MessagePropsType> = (props) => {
