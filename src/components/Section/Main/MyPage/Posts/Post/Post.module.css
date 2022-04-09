@@ -5,7 +5,7 @@
     background-color: #FDFDFD;
 }
 
-.info {
+.title {
     display: grid;
     grid-template-areas:
             "avatar name"
@@ -38,6 +38,20 @@
     color: #999999;
 }
 
-.text {
+.title button {
+    background-color: rgba(28,28,28,0);
+    border: none;
+    font-size: 20px;
+    color: #424242;
+    opacity: 0;
+    transition: opacity .2s linear;
+}
 
+.title button:hover {
+    opacity: 1;
+}
+
+.info {
+    display: flex;
+    justify-content: space-between;
 }

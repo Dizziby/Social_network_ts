@@ -1,5 +1,9 @@
 import {v1} from "uuid";
 
+let rerenderEntireTree = (state: StateType) => {
+
+}
+
 export type ContactType = {
     id: string
     name: string
@@ -21,7 +25,10 @@ export type MessageType = ({
 
 export type ContactsDataType = Array<ContactType>
 
-export type PostDataType = Array<PostType>
+export type PostDataType = {
+    posts: Array<PostType>
+    newPostText: string
+}
 
 export type MessagesDataType = Array<MessageType>
 
@@ -41,26 +48,29 @@ export const state: StateType = {
         {id: v1(), name: 'Andrew', email: 'jasonb@gmail.com', avatar: "friendAvatar6"},
         {id: v1(), name: 'Amy Watson', email: 'jasonb@gmail.com', avatar: "friendAvatar7"},
     ],
-    postData: [
-        {
-            id: v1(),
-            name: "Janice Griffith",
-            date: "02.03.2021, 17:02:02",
-            text: "World's most beautiful car in Curabitur #test drive booking ! the most beatuiful car available in america and the saudia arabia, you can book your test drive by our official website"
-        },
-        {
-            id: v1(),
-            name: "Janice Griffith",
-            date: "02.03.2021, 17:02:02",
-            text: "Curabitur world's most beautiful car in #test drive booking ! the most beatuiful car available in america and the saudia arabia, you can book your test drive by our official website"
-        },
-        {
-            id: v1(),
-            name: "Janice Griffith",
-            date: "02.03.2021, 17:02:02",
-            text: "Lonely Cat Enjoying in Summer Curabitur #mypage ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc"
-        },
-    ],
+    postData: {
+        posts: [
+            {
+                id: v1(),
+                name: "Janice Griffith",
+                date: "02.03.2021, 17:02:02",
+                text: "World's most beautiful car in Curabitur #test drive booking ! the most beatuiful car available in america and the saudia arabia, you can book your test drive by our official website"
+            },
+            {
+                id: v1(),
+                name: "Janice Griffith",
+                date: "02.03.2021, 17:02:02",
+                text: "Curabitur world's most beautiful car in #test drive booking ! the most beatuiful car available in america and the saudia arabia, you can book your test drive by our official website"
+            },
+            {
+                id: v1(),
+                name: "Janice Griffith",
+                date: "02.03.2021, 17:02:02",
+                text: "Lonely Cat Enjoying in Summer Curabitur #mypage ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc"
+            },
+        ],
+        newPostText: ""
+    },
     messagesData: [
         {
             id: v1(),
@@ -74,14 +84,29 @@ export const state: StateType = {
 }
 
 export const addPost = (newPostText: string) => {
-    debugger
-    alert("1")
-    state.postData.push({
+    state.postData.posts.push({
         id: v1(),
-        name: "fgf",
-        date: "gfg",
+        name: "Janice Griffith",
+        date: new Date().toLocaleString(),
         text: newPostText
     })
+    state.postData.newPostText = ""
+    rerenderEntireTree(state)
+
+}
+
+export const updatePostText = (postText: string) => {
+    state.postData.newPostText = postText
+    rerenderEntireTree(state)
+}
+
+export const deletePost = (id: string) => {
+    state.postData.posts = state.postData.posts.filter(el => el.id !== id)
+    rerenderEntireTree(state)
+}
+
+export const subscriber = (observer: any) => {
+    rerenderEntireTree = observer
 }
 
 export default state;

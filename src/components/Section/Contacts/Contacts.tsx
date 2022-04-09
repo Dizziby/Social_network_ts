@@ -9,7 +9,7 @@ type ContactsPropsType = {
 
 const Contacts = (props: ContactsPropsType) => {
 
-    const contactElement = props.contactsData.map(contact => <Contact name={contact.name} email={contact.email}
+    const contactElement = props.contactsData.map(contact => <Contact key={contact.id} name={contact.name} email={contact.email}
                                                                 avatar={contact.avatar} id={contact.id}/>)
 
     return (

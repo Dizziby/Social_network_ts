@@ -1,23 +1,22 @@
-import React, {ChangeEvent, useState} from "react";
+import React, {ChangeEvent} from "react";
 import styles from "./AddPost.module.css"
 import userAvatar from "../../../../../img/user-avatar.jpg"
 
 type AddPostType = {
     addPost: (newPostText: string) => void
+    updatePostText: (postText: string) => void
+    newPostText: string
 }
 
 const AddPost: React.FC<AddPostType> = (props) => {
 
-    const [newPostText, setNewPostText] = useState("")
-
-    const onChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
-        setNewPostText(e.currentTarget.value)
+    const onChangeInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        props.updatePostText(e.currentTarget.value)
     }
 
     const onClickButtonHandler = () => {
-        props.addPost(newPostText);
-        console.log(newPostText)
-
+        props.addPost(props.newPostText);
+        console.log(props.newPostText)
     }
 
     return (
@@ -26,7 +25,7 @@ const AddPost: React.FC<AddPostType> = (props) => {
                 <img src={userAvatar} alt=""/>
             </div>
             <div className={styles.item}>
-                <input  value={newPostText} onChange={onChangeInput} placeholder="write something"/>
+                <input value={props.newPostText} onChange={onChangeInputHandler} placeholder="write something"/>
                 <a href="#"><i className="fa-solid fa-music"> </i></a>
                 <a href="#"><i className="fa-solid fa-image"> </i></a>
                 <a href="#"><i className="fa-solid fa-video"> </i></a>

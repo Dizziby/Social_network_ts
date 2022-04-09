@@ -14,7 +14,7 @@ const Messages: React.FC<MessagesPropsType> = (props) => {
     const contactElement = props.contactsData.map(contact => <Contact name={contact.name} email={contact.email}
                                                                 avatar={contact.avatar} id={contact.id}/>)
 
-    const messageElement = props.messagesData.map(message => <Message messages={message.messages} id={message.id}/>)
+    const messageElement = props.messagesData.map(message => <Message key={message.id} messages={message.messages} id={message.id}/>)
 
     return (
         <div className={styles.messages}>

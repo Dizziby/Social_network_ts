@@ -5,11 +5,12 @@ import {PostDataType} from "../../../../../redux/state";
 
 export type PostsPropsType = {
     postData: PostDataType
+    deletePost: (id: string) => void
 }
 
 const Posts: React.FC<PostsPropsType> = (props) => {
 
-    const postElement = props.postData.map(post => <Post name={post.name} date={post.date} text={post.text}/>)
+    const postElement = props.postData.posts.map(post => <Post key={post.id} id={post.id} name={post.name} date={post.date} text={post.text} deletePost={props.deletePost}/>)
 
     return (
         <div className={styles.myPage}>
