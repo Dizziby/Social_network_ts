@@ -9,14 +9,14 @@ import MyPage from "./MyPage/MyPage";
 import Videos from "./Videos/Videos";
 import Groups from "./Groups/Groups";
 import {ContactsDataType, MessagesDataType, PostDataType} from "../../../redux/state";
-import {SectionType} from "../../../App";
+import {SectionCSSType} from "../../../App";
 
 type MainPropsType = {
     section: string
     contactsData: ContactsDataType
     postData: PostDataType
     messagesData: MessagesDataType
-    changeGrid: (value: SectionType) => void
+    changeGrid: (value: SectionCSSType) => void
     addPost: (newPostText: string) => void
     updatePostText: (postText: string) => void
     deletePost: (id: string) => void

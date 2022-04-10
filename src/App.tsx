@@ -8,9 +8,7 @@ import Contacts from "./components/Section/Contacts/Contacts";
 import Logout from "./components/Section/Main/Logout/Logout";
 import {ContactsDataType, deletePost, MessagesDataType, PostDataType} from "./redux/state";
 
-type SectionCSSType = "sectionAll" | "sectionMessages" | "sectionLogout"
-
-export type SectionType = "all" | "messages" | "logout"
+export type SectionCSSType = "sectionAll" | "sectionMessages" | "sectionLogout"
 
 type AppPropsType = {
     contactsData: ContactsDataType
@@ -23,22 +21,10 @@ type AppPropsType = {
 
 function App(props: AppPropsType) {
 
-    let section: SectionCSSType = "sectionAll";
+    const [section, setSection] = useState <SectionCSSType>("sectionAll")
 
-    const [sectionView, setSectionView] = useState<SectionType>("all")
-
-    const [sect, setSect] = useState("sectionAll")
-
-    const changeGrid = (value: SectionType) => {
-        setSectionView(value)
-    }
-
-    if (sectionView === "all") {
-        section = "sectionAll"
-    } else if (sectionView === "messages") {
-        section = "sectionMessages"
-    } else if ((sectionView === "logout")) {
-        section = "sectionLogout"
+    const changeGrid = (value: SectionCSSType) => {
+        setSection(value)
     }
 
     return (

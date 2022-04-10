@@ -1,15 +1,15 @@
 import React, {MouseEvent} from "react";
 import styles from "./Logout.module.css"
-import {SectionType} from "../../../../App";
+import {SectionCSSType} from "../../../../App";
 
 type LogoutPropsType = {
-    changeGrid: (value: SectionType) => void
+    changeGrid: (value: SectionCSSType) => void
 }
 
 const Logout: React.FC<LogoutPropsType> = (props) => {
 
     const loginProfile = (e: MouseEvent<HTMLButtonElement>) => {
-        props.changeGrid("all")
+        props.changeGrid("sectionAll")
     }
 
     return (
