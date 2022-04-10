@@ -55,3 +55,11 @@
     display: flex;
     justify-content: space-between;
 }
+
+.text {
+    color: #545454;
+}
+
+.icon {
+    margin-right: 25px;
+}

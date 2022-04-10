@@ -27,6 +27,8 @@ function App(props: AppPropsType) {
 
     const [sectionView, setSectionView] = useState<SectionType>("all")
 
+    const [sect, setSect] = useState("sectionAll")
+
     const changeGrid = (value: SectionType) => {
         setSectionView(value)
     }
@@ -46,11 +48,11 @@ function App(props: AppPropsType) {
                 <Nav section={section} changeGrid={changeGrid}/>
                 <Main section={section} postData={props.postData} contactsData={props.contactsData}
                       messagesData={props.messagesData} addPost={props.addPost} updatePostText={props.updatePostText}
-                      deletePost={props.deletePost}/>
+                      deletePost={props.deletePost} changeGrid={changeGrid}/>
                 {section === "sectionAll" && <Contacts contactsData={props.contactsData}/>}
             </div>
             <Footer section={section}/>
-            {section === "sectionLogout" && <Logout/>}
+            {section === "sectionLogout" && <Logout changeGrid={changeGrid}/>}
         </div>
     );
 }

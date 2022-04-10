@@ -9,12 +9,14 @@ import MyPage from "./MyPage/MyPage";
 import Videos from "./Videos/Videos";
 import Groups from "./Groups/Groups";
 import {ContactsDataType, MessagesDataType, PostDataType} from "../../../redux/state";
+import {SectionType} from "../../../App";
 
 type MainPropsType = {
     section: string
     contactsData: ContactsDataType
     postData: PostDataType
     messagesData: MessagesDataType
+    changeGrid: (value: SectionType) => void
     addPost: (newPostText: string) => void
     updatePostText: (postText: string) => void
     deletePost: (id: string) => void
@@ -36,7 +38,7 @@ const Main: React.FC<MainPropsType> = (props) => {
                 <Route path="/groups" element={<Groups/>}/>
                 <Route path="/photos" element={<Photos/>}/>
                 <Route path="/videos" element={<Videos/>}/>
-                <Route path="/logout" element={<Logout/>}/>
+                <Route path="/logout" element={<Logout changeGrid={props.changeGrid}/>}/>
             </Routes>
         </div>
     )

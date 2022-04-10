@@ -1,4 +1,36 @@
 .footer {
-    height: 200px;
-    background-color: #41AFD1;
+    background-color: #ffffff;
 }
+
+.footer::before {
+    content: "";
+    display: block;
+    height: 4px;
+    width: 100%;
+    background: linear-gradient(to right, #ffffff, #41AFD1, #ffffff);
+    text-align: center;
+
+}
+
+.footerInfo {
+    display: flex;
+    justify-content: space-around;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.reserved {
+    background-color: #F4F2F2;
+
+}
+.reserved p {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 15px;
+    font-size: 13px;
+    font-weight: 300;
+}
+

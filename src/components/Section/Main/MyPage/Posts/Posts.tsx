@@ -10,7 +10,13 @@ export type PostsPropsType = {
 
 const Posts: React.FC<PostsPropsType> = (props) => {
 
-    const postElement = props.postData.posts.map(post => <Post key={post.id} id={post.id} name={post.name} date={post.date} text={post.text} deletePost={props.deletePost}/>)
+    const postElement = props.postData.posts.map(post => <Post key={post.id} id={post.id} name={post.name}
+                                                               date={post.date} text={post.text}
+                                                               views={post.views} comments={post.comments}
+                                                               like={post.like} dislike={post.dislike}
+                                                               deletePost={props.deletePost}
+
+    />)
 
     return (
         <div className={styles.myPage}>
