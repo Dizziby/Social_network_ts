@@ -3,6 +3,9 @@ import styles from "./Messages.module.css"
 import Contact from "../../Contacts/Contact/Contact";
 import Message from "./Message/Message";
 import {ContactsDataType, MessagesDataType} from "../../../../redux/state";
+import {faPaperPlane} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+
 
 type MessagesPropsType = {
     contactsData: ContactsDataType
@@ -12,9 +15,10 @@ type MessagesPropsType = {
 const Messages: React.FC<MessagesPropsType> = (props) => {
 
     const contactElement = props.contactsData.map(contact => <Contact name={contact.name} email={contact.email}
-                                                                avatar={contact.avatar} id={contact.id}/>)
+                                                                      avatar={contact.avatar} id={contact.id}/>)
 
-    const messageElement = props.messagesData.map(message => <Message key={message.id} messages={message.messages} id={message.id}/>)
+    const messageElement = props.messagesData.map(message => <Message key={message.id} messages={message.messages}
+                                                                      id={message.id}/>)
 
     return (
         <div className={styles.messages}>
@@ -27,8 +31,9 @@ const Messages: React.FC<MessagesPropsType> = (props) => {
                 </div>
                 <div>
                     {messageElement}
-                    <input />
-                    <button><i className="fa-solid fa-paper-plane"></i></button>
+                    <input/>
+                    <button>
+                        <FontAwesomeIcon icon={faPaperPlane} size="lg"/></button>
                 </div>
             </div>
         </div>

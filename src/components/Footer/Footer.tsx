@@ -58,7 +58,6 @@ const Footer: React.FC<FooterPropsType> = (props) => {
                         <li>Windows</li>
                     </ul>
                 </div>
-
             </div>
             <div className={styles.reserved}>
                 <p> © Dizzi_by 2022. All rights reserved.

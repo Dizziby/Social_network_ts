@@ -1,12 +1,12 @@
 .groups {
     background-color: #FDFDFD;
+    padding: 20px;
 
 }
 
 .title {
-    font-size: 20px;
+    font-size: 19px;
     font-weight: 400;
-    color: #545454;
-
-    padding: 20px 30px;
+    color: #424242;
+    padding-bottom: 20px;
 }

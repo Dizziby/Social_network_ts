@@ -1,6 +1,8 @@
 import React, {ChangeEvent} from "react";
 import styles from "./AddPost.module.css"
 import userAvatar from "../../../../../img/user-avatar.jpg"
+import {faMusic, faImage, faVideo, faCamera} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 type AddPostType = {
     addPost: (newPostText: string) => void
@@ -10,13 +12,14 @@ type AddPostType = {
 
 const AddPost: React.FC<AddPostType> = (props) => {
 
-    const onChangeInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const onChangeInputHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         props.updatePostText(e.currentTarget.value)
     }
 
     const onClickButtonHandler = () => {
-        props.addPost(props.newPostText);
-        console.log(props.newPostText)
+        if(props.newPostText.trim()) {
+            props.addPost(props.newPostText);
+        }
     }
 
     return (
@@ -25,11 +28,11 @@ const AddPost: React.FC<AddPostType> = (props) => {
                 <img src={userAvatar} alt=""/>
             </div>
             <div className={styles.item}>
-                <input value={props.newPostText} onChange={onChangeInputHandler} placeholder="write something"/>
-                <a href="#"><i className="fa-solid fa-music"> </i></a>
-                <a href="#"><i className="fa-solid fa-image"> </i></a>
-                <a href="#"><i className="fa-solid fa-video"> </i></a>
-                <a href="#"><i className="fa-solid fa-camera"> </i></a>
+                <textarea value={props.newPostText} onChange={onChangeInputHandler} placeholder="write something"/>
+                <a href="#"><FontAwesomeIcon icon={faMusic} size="lg"/></a>
+                <a href="#"><FontAwesomeIcon icon={faImage} size="lg"/></a>
+                <a href="#"><FontAwesomeIcon icon={faVideo} size="lg"/></a>
+                <a href="#"><FontAwesomeIcon icon={faCamera} size="lg"/></a>
                 <button onClick={onClickButtonHandler}>Publish</button>
             </div>
         </div>

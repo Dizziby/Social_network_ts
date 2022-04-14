@@ -1,5 +1,5 @@
 .messages {
-
+    padding: 10px;
     background-color: #FDFDFD;
 }
 
@@ -9,9 +9,20 @@
 }
 
 .title {
-    height: 50px;
+    font-size: 19px;
+    font-weight: 400;
+    color: #424242;
+
+    padding: 15px 30px;
+}
+
+.title::after {
+    content: "";
+    display: block;
+    height: 2px;
+    width: 100px;
+    background-color: #088dcd;
     text-align: center;
-    background-color: #8b8b8b;
 }
 
 

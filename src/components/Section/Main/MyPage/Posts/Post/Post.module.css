@@ -49,6 +49,7 @@
 
 .title button:hover {
     opacity: 1;
+    cursor: pointer;
 }
 
 .info {
@@ -58,6 +59,10 @@
 
 .text {
     color: #545454;
+}
+
+.icons {
+    margin-top: 10px;
 }
 
 .icon {

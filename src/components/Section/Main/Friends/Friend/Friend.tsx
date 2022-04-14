@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./Friends.module.css";
+import styles from "./Friend.module.css";
 import friendAvatar from "../../../../../img/Contacts/friend-avatar.jpg"
 
 type FriendsPropsType = {

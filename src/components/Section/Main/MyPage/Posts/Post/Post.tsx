@@ -1,9 +1,8 @@
 import React from "react";
 import styles from "./Post.module.css"
 import userAvatar from "../../../../../../img/user-avatar.jpg"
-import {faEye, faHeart, faHeartCrack, faComment} from "@fortawesome/free-solid-svg-icons";
+import {faEye, faHeart, faHeartCrack, faComment, faXmark} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-
 
 type PostPropsType = {
     id: string
@@ -35,17 +34,19 @@ const Post = (props: PostPropsType) => {
                         <div className={styles.date}>Published: {props.date}</div>
                     </div>
                     <div>
-                        <button onClick={() => onClickButtonHandler(props.id)}><i className="fa-solid fa-xmark"></i></button>
+                        <button onClick={() => onClickButtonHandler(props.id)}>
+                            <FontAwesomeIcon icon={faXmark} size="lg"/></button>
                     </div>
                 </div>
             </div>
             <div className={styles.text}>
                 {props.text}
-                <div>
-                    <span className={styles.icon}><FontAwesomeIcon icon={faEye} size="lg" />{props.views}</span>
+                <div className={styles.icons}>
+                    <span className={styles.icon}><FontAwesomeIcon icon={faEye} size="lg"/>{props.views}</span>
                     <span className={styles.icon}><FontAwesomeIcon icon={faComment} size="lg"/> {props.comments}</span>
                     <span className={styles.icon}><FontAwesomeIcon icon={faHeart} size="lg"/> {props.like}</span>
-                    <span className={styles.icon}><FontAwesomeIcon icon={faHeartCrack} size="lg"/> {props.dislike}</span>
+                    <span className={styles.icon}><FontAwesomeIcon icon={faHeartCrack}
+                                                                   size="lg"/> {props.dislike}</span>
                 </div>
             </div>
         </div>

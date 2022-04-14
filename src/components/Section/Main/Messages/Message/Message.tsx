@@ -10,7 +10,7 @@ const Message: React.FC<MessagePropsType> = (props) => {
 
     return (
         <div className={styles.message}>
-            {props.messages.map(messsage => `<div>${messsage}</div>`)}
+            {props.messages.map(message => <div>{message}</div>)}
         </div>
     );
 };

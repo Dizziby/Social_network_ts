@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../Groups/Groups.module.css";
+import styles from "../Friends/Friends.module.css";
 import Friend from "./Friend/Friend";
 
 

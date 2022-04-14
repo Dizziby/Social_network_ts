@@ -6,14 +6,12 @@ import Nav from "./components/Section/Nav/Nav";
 import Main from "./components/Section/Main/Main";
 import Contacts from "./components/Section/Contacts/Contacts";
 import Logout from "./components/Section/Main/Logout/Logout";
-import {ContactsDataType, deletePost, MessagesDataType, PostDataType} from "./redux/state";
+import {StateType} from "./redux/state";
 
 export type SectionCSSType = "sectionAll" | "sectionMessages" | "sectionLogout"
 
 type AppPropsType = {
-    contactsData: ContactsDataType
-    postData: PostDataType
-    messagesData: MessagesDataType
+    state: StateType
     addPost: (newPostText: string) => void
     updatePostText: (postText: string) => void
     deletePost: (id: string) => void
@@ -32,10 +30,10 @@ function App(props: AppPropsType) {
             <Header section={section}/>
             <div className={section}>
                 <Nav section={section} changeGrid={changeGrid}/>
-                <Main section={section} postData={props.postData} contactsData={props.contactsData}
-                      messagesData={props.messagesData} addPost={props.addPost} updatePostText={props.updatePostText}
+                <Main section={section} postData={props.state.postData} contactsData={props.state.contactsData}
+                      messagesData={props.state.messagesData} addPost={props.addPost} updatePostText={props.updatePostText}
                       deletePost={props.deletePost} changeGrid={changeGrid}/>
-                {section === "sectionAll" && <Contacts contactsData={props.contactsData}/>}
+                {section === "sectionAll" && <Contacts contactsData={props.state.contactsData}/>}
             </div>
             <Footer section={section}/>
             {section === "sectionLogout" && <Logout changeGrid={changeGrid}/>}

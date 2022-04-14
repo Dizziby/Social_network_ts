@@ -11,6 +11,17 @@
     margin-bottom: 30px;
     color: #000;
 }
+
+.title::after {
+    content: "";
+    display: block;
+    height: 2px;
+    width: 50px;
+    background-color: #088dcd;
+    text-align: center;
+}
+
+
 .search {
     font-family: inherit;
     font-size: inherit;
