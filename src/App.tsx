@@ -6,15 +6,10 @@ import Nav from "./components/Section/Nav/Nav";
 import Main from "./components/Section/Main/Main";
 import Contacts from "./components/Section/Contacts/Contacts";
 import Logout from "./components/Section/Main/Logout/Logout";
-import {ActionType, StateType} from "./redux/my_store";
 
 export type SectionCSSType = "sectionAll" | "sectionMessages" | "sectionLogout"
 
-type AppPropsType = {
-    dispatch: (action: ActionType) => void
-}
-
-function App(props: AppPropsType) {
+function App() {
 
     const [section, setSection] = useState <SectionCSSType>("sectionAll")
 
@@ -27,7 +22,7 @@ function App(props: AppPropsType) {
             <Header section={section}/>
             <div className={section}>
                 <Nav section={section} changeGrid={changeGrid}/>
-                <Main section={section} dispatch={props.dispatch} changeGrid={changeGrid}/>
+                <Main section={section} changeGrid={changeGrid}/>
                 {section === "sectionAll" && <Contacts/>}
             </div>
             <Footer section={section}/>

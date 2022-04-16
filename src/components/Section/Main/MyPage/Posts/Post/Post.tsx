@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "./Post.module.css"
 import userAvatar from "../../../../../../img/user-avatar.jpg"
-import {faEye, faHeart, faHeartCrack, faComment, faXmark} from "@fortawesome/free-solid-svg-icons";
+import {faComment, faEye, faHeart, faHeartCrack, faXmark} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {ActionType} from "../../../../../../redux/my_store";
+import {useDispatch} from "react-redux";
 
 type PostPropsType = {
     id: string
@@ -14,13 +14,14 @@ type PostPropsType = {
     comments: number
     like: number
     dislike: number
-    dispatch: (action: ActionType) => void
 }
 
 const Post = (props: PostPropsType) => {
 
+    const dispatch = useDispatch()
+
     const onClickButtonHandler = (id: string) => {
-        props.dispatch({type: "DELETE_POST", id: id})
+        dispatch({type: "DELETE_POST", id: id})
     }
 
     return (

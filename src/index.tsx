@@ -14,7 +14,7 @@ export const rerenderEntireTree = (state: StateType) => {
         <BrowserRouter>
             <React.StrictMode>
                 <Provider store={store}>
-                    <App dispatch={store.dispatch.bind(store)}/>
+                    <App />
                 </Provider>
             </React.StrictMode>
         </BrowserRouter>,

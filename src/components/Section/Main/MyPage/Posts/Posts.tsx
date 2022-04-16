@@ -1,15 +1,12 @@
 import React from "react";
 import styles from "./Posts.module.css"
 import Post from "./Post/Post";
-import {ActionType, PostDataType} from "../../../../../redux/my_store";
+import {PostDataType} from "../../../../../redux/my_store";
 import {useSelector} from "react-redux";
 import {RootState} from "../../../../../redux/store";
 
-export type PostsPropsType = {
-    dispatch: (action: ActionType) => void
-}
 
-const Posts: React.FC<PostsPropsType> = (props) => {
+const Posts = () => {
 
     const postsData = useSelector<RootState, PostDataType>(state => state.postsData)
 
@@ -17,7 +14,6 @@ const Posts: React.FC<PostsPropsType> = (props) => {
                                                                date={post.date} text={post.text}
                                                                views={post.views} comments={post.comments}
                                                                like={post.like} dislike={post.dislike}
-                                                               dispatch={props.dispatch}
     />)
 
     return (

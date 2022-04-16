@@ -4,25 +4,21 @@ import userAvatar from "../../../../../img/user-avatar.jpg"
 import {faCamera, faImage, faMusic, faVideo} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {addPostAC, updatePostTextAC} from "../../../../../redux/postsReducer";
-import {ActionType} from "../../../../../redux/my_store";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../../../redux/store";
 
-type AddPostType = {
-    dispatch: (action:ActionType) => void
-}
-
-const AddPost: React.FC<AddPostType> = (props) => {
+const AddPost = () => {
+    const dispatch = useDispatch()
 
     const newPostText = useSelector<RootState, string | undefined>(state => state.postsData.newPostText)
 
     const onChangeInputHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch(updatePostTextAC(e.currentTarget.value))
+        dispatch(updatePostTextAC(e.currentTarget.value))
     }
 
     const onClickButtonHandler = () => {
         if(newPostText !== undefined && newPostText.trim()) {
-            props.dispatch(addPostAC())
+            dispatch(addPostAC())
         }
     }
 

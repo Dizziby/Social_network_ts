@@ -8,13 +8,11 @@ import Logout from "./Logout/Logout";
 import MyPage from "./MyPage/MyPage";
 import Videos from "./Videos/Videos";
 import Groups from "./Groups/Groups";
-import {ActionType} from "../../../redux/my_store";
 import {SectionCSSType} from "../../../App";
 
 type MainPropsType = {
     section: string
     changeGrid: (value: SectionCSSType) => void
-    dispatch: (action: ActionType) => void
 }
 
 const Main: React.FC<MainPropsType> = (props) => {
@@ -24,7 +22,7 @@ const Main: React.FC<MainPropsType> = (props) => {
     return (
         <div className={styles.main}>
             <Routes>
-                <Route path="/" element={<MyPage dispatch={props.dispatch}/>}/>
+                <Route path="/" element={<MyPage />}/>
                 <Route path="/messages"
                        element={<Messages />}/>
                 <Route path="/friends" element={<Friends/>}/>
