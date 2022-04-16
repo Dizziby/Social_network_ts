@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./Messages.module.css"
 import Contact from "../../Contacts/Contact/Contact";
 import Message from "./Message/Message";
-import {ContactsDataType, MessagesDataType} from "../../../../redux/state";
+import {ContactsDataType, MessagesDataType} from "../../../../redux/my_store";
 import {faPaperPlane} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 

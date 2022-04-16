@@ -2,20 +2,18 @@ import React from "react";
 import styles from "./MyPage.module.css"
 import AddPost from "./AddPost/AddPost";
 import Posts from "./Posts/Posts";
-import {PostDataType} from "../../../../redux/state";
+import {ActionType, PostDataType} from "../../../../redux/my_store";
 
 type MyPagePropsType = {
-    postData: PostDataType
-    addPost: (newPostText: string) => void
-    updatePostText: (postText: string) => void
-    deletePost: (id: string) => void
+    postsData: PostDataType
+    dispatch: (action: ActionType) => void
 }
 
 const MyPage: React.FC<MyPagePropsType> = (props) => {
     return (
         <div className={styles.myPage}>
-            <AddPost addPost={props.addPost} newPostText={props.postData.newPostText} updatePostText={props.updatePostText}/>
-            <Posts postData={props.postData} deletePost={props.deletePost}/>
+            <AddPost newPostText={props.postsData.newPostText}  dispatch={props.dispatch}/>
+            <Posts postsData={props.postsData} dispatch={props.dispatch}/>
         </div>
     )
 }

@@ -1,4 +1,5 @@
 import {v1} from "uuid";
+import postsReducer from "./postsReducer";
 
 //types
 
@@ -13,7 +14,7 @@ export type PostType = {
     id: string
     name: string
     date: string
-    text: string
+    text: string | undefined
     views: number
     comments: number
     like: number
@@ -29,25 +30,30 @@ export type ContactsDataType = Array<ContactType>
 
 export type PostDataType = {
     posts: Array<PostType>
-    newPostText: string
+    newPostText: string | undefined
 }
 
 export type MessagesDataType = Array<MessageType>
 
+export type ActionType = {
+    type: "ADD_POST" | "UPDATE_POST_TEXT" | "DELETE_POST"
+    newPostText?: string | undefined
+    postText?: string | undefined
+    id?: string
+}
+
 export type StateType = {
     contactsData: ContactsDataType
-    postData: PostDataType
+    postsData: PostDataType
     messagesData: MessagesDataType
 }
 
 export type StoreType = {
     _state: StateType
     getState: () => StateType
-    _callSubscriber: (state: StateType) => void
-    addPost: (newPostText: string) => void
-    updatePostText: (postText: string) => void
-    deletePost: (id: string) => void
-    subscriber: (observer: any) => void
+    _callSubscribe: (state: StateType) => void
+    subscribe: (observer: any) => void
+    dispatch: (action: ActionType) => void
 }
 
 //store
@@ -63,7 +69,7 @@ let store: StoreType = {
             {id: v1(), name: 'Andrew', email: 'jasonb@gmail.com', avatar: "friendAvatar6"},
             {id: v1(), name: 'Amy Watson', email: 'jasonb@gmail.com', avatar: "friendAvatar7"},
         ],
-        postData: {
+        postsData: {
             posts: [
                 {
                     id: v1(),
@@ -111,39 +117,21 @@ let store: StoreType = {
             },
         ]
     },
-    _callSubscriber (state: StateType) {
+    _callSubscribe(state: StateType) {
     },
 
     getState() {
         return this._state;
     },
-    subscriber (observer: any) {
-        this._callSubscriber = observer
+    subscribe(observer: any) {
+        this._callSubscribe = observer
     },
 
-    addPost(newPostText: string) {
-        this._state.postData.posts.push({
-            id: v1(),
-            name: "Janice Griffith",
-            date: new Date().toLocaleString(),
-            text: newPostText,
-            views: 0,
-            comments: 0,
-            like: 0,
-            dislike: 0
-        })
-        this._state.postData.newPostText = ""
-        this._callSubscriber(this._state)
-
-    },
-    updatePostText(postText: string) {
-        this._state.postData.newPostText = postText
-        this._callSubscriber(this._state)
-    },
-    deletePost(id: string) {
-        this._state.postData.posts = this._state.postData.posts.filter(el => el.id !== id)
-        this._callSubscriber(this._state)
-    },
+    dispatch(action: ActionType) {
+        this._state.postsData = postsReducer(this._state.postsData, action)
+        this._callSubscribe(this._state)
+    }
 }
+
 
 export default store;

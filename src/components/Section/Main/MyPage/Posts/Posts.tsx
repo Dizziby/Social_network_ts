@@ -1,20 +1,20 @@
 import React from "react";
 import styles from "./Posts.module.css"
 import Post from "./Post/Post";
-import {PostDataType} from "../../../../../redux/state";
+import {ActionType, PostDataType} from "../../../../../redux/my_store";
 
 export type PostsPropsType = {
-    postData: PostDataType
-    deletePost: (id: string) => void
+    postsData: PostDataType
+    dispatch: (action: ActionType) => void
 }
 
 const Posts: React.FC<PostsPropsType> = (props) => {
 
-    const postElement = props.postData.posts.map(post => <Post key={post.id} id={post.id} name={post.name}
+    const postElement = props.postsData.posts.map(post => <Post key={post.id} id={post.id} name={post.name}
                                                                date={post.date} text={post.text}
                                                                views={post.views} comments={post.comments}
                                                                like={post.like} dislike={post.dislike}
-                                                               deletePost={props.deletePost}
+                                                               dispatch={props.dispatch}
 
     />)
 

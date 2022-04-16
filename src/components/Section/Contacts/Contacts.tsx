@@ -1,7 +1,7 @@
 import React from "react";
 import Contact from "./Contact/Contact";
 import styles from "./Contacts.module.css"
-import {ContactsDataType} from "../../../redux/state";
+import {ContactsDataType} from "../../../redux/my_store";
 
 type ContactsPropsType = {
     contactsData: ContactsDataType

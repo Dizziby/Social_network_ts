@@ -3,23 +3,24 @@ import styles from "./Post.module.css"
 import userAvatar from "../../../../../../img/user-avatar.jpg"
 import {faEye, faHeart, faHeartCrack, faComment, faXmark} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {ActionType} from "../../../../../../redux/my_store";
 
 type PostPropsType = {
     id: string
     name: string
     date: string
-    text: string
+    text: string | undefined
     views: number
     comments: number
     like: number
     dislike: number
-    deletePost: (id: string) => void
+    dispatch: (action: ActionType) => void
 }
 
 const Post = (props: PostPropsType) => {
 
     const onClickButtonHandler = (id: string) => {
-        props.deletePost(id)
+        props.dispatch({type: "DELETE_POST", id: id})
     }
 
     return (
