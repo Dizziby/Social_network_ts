@@ -11,7 +11,6 @@ import {ActionType, StateType} from "./redux/my_store";
 export type SectionCSSType = "sectionAll" | "sectionMessages" | "sectionLogout"
 
 type AppPropsType = {
-    state: StateType
     dispatch: (action: ActionType) => void
 }
 
@@ -28,9 +27,8 @@ function App(props: AppPropsType) {
             <Header section={section}/>
             <div className={section}>
                 <Nav section={section} changeGrid={changeGrid}/>
-                <Main section={section} postsData={props.state.postsData} contactsData={props.state.contactsData}
-                      messagesData={props.state.messagesData} dispatch={props.dispatch} changeGrid={changeGrid}/>
-                {section === "sectionAll" && <Contacts contactsData={props.state.contactsData}/>}
+                <Main section={section} dispatch={props.dispatch} changeGrid={changeGrid}/>
+                {section === "sectionAll" && <Contacts/>}
             </div>
             <Footer section={section}/>
             {section === "sectionLogout" && <Logout changeGrid={changeGrid}/>}

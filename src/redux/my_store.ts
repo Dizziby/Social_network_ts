@@ -56,6 +56,10 @@ export type StoreType = {
     dispatch: (action: ActionType) => void
 }
 
+
+
+
+
 //store
 
 let store: StoreType = {
@@ -132,6 +136,5 @@ let store: StoreType = {
         this._callSubscribe(this._state)
     }
 }
-
 
 export default store;

@@ -2,7 +2,6 @@ import React from "react";
 import styles from "./Contact.module.css";
 import friendAvatar from "../../../../img/Contacts/friend-avatar.jpg"
 import {NavLink} from "react-router-dom";
-import {ContactType} from "../../../../redux/my_store";
 
 type ContactPropsType = {
     id: string

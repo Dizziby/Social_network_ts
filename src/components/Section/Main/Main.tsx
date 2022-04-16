@@ -8,14 +8,11 @@ import Logout from "./Logout/Logout";
 import MyPage from "./MyPage/MyPage";
 import Videos from "./Videos/Videos";
 import Groups from "./Groups/Groups";
-import {ActionType, ContactsDataType, MessagesDataType, PostDataType} from "../../../redux/my_store";
+import {ActionType} from "../../../redux/my_store";
 import {SectionCSSType} from "../../../App";
 
 type MainPropsType = {
     section: string
-    contactsData: ContactsDataType
-    postsData: PostDataType
-    messagesData: MessagesDataType
     changeGrid: (value: SectionCSSType) => void
     dispatch: (action: ActionType) => void
 }
@@ -27,9 +24,9 @@ const Main: React.FC<MainPropsType> = (props) => {
     return (
         <div className={styles.main}>
             <Routes>
-                <Route path="/" element={<MyPage postsData={props.postsData} dispatch={props.dispatch}/>}/>
+                <Route path="/" element={<MyPage dispatch={props.dispatch}/>}/>
                 <Route path="/messages"
-                       element={<Messages contactsData={props.contactsData} messagesData={props.messagesData}/>}/>
+                       element={<Messages />}/>
                 <Route path="/friends" element={<Friends/>}/>
                 <Route path="/groups" element={<Groups/>}/>
                 <Route path="/photos" element={<Photos/>}/>

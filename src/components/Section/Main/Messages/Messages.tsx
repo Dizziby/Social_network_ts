@@ -5,19 +5,18 @@ import Message from "./Message/Message";
 import {ContactsDataType, MessagesDataType} from "../../../../redux/my_store";
 import {faPaperPlane} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {useSelector} from "react-redux";
+import {RootState} from "../../../../redux/store";
 
+const Messages = () => {
 
-type MessagesPropsType = {
-    contactsData: ContactsDataType
-    messagesData: MessagesDataType
-}
+    const contactsData = useSelector<RootState, ContactsDataType>(state => state.contactsData)
+    const messagesData = useSelector<RootState, MessagesDataType>(state => state.messagesData)
 
-const Messages: React.FC<MessagesPropsType> = (props) => {
-
-    const contactElement = props.contactsData.map(contact => <Contact name={contact.name} email={contact.email}
+    const contactElement = contactsData.map(contact => <Contact name={contact.name} email={contact.email}
                                                                       avatar={contact.avatar} id={contact.id}/>)
 
-    const messageElement = props.messagesData.map(message => <Message key={message.id} messages={message.messages}
+    const messageElement = messagesData.map(message => <Message key={message.id} messages={message.messages}
                                                                       id={message.id}/>)
 
     return (

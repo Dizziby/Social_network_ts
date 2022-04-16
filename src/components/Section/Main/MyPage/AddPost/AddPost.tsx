@@ -5,19 +5,23 @@ import {faCamera, faImage, faMusic, faVideo} from "@fortawesome/free-solid-svg-i
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {addPostAC, updatePostTextAC} from "../../../../../redux/postsReducer";
 import {ActionType} from "../../../../../redux/my_store";
+import {useSelector} from "react-redux";
+import {RootState} from "../../../../../redux/store";
 
 type AddPostType = {
     dispatch: (action:ActionType) => void
-    newPostText: string | undefined
 }
 
 const AddPost: React.FC<AddPostType> = (props) => {
+
+    const newPostText = useSelector<RootState, string | undefined>(state => state.postsData.newPostText)
+
     const onChangeInputHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         props.dispatch(updatePostTextAC(e.currentTarget.value))
     }
 
     const onClickButtonHandler = () => {
-        if(props.newPostText !== undefined && props.newPostText.trim()) {
+        if(newPostText !== undefined && newPostText.trim()) {
             props.dispatch(addPostAC())
         }
     }
@@ -28,7 +32,7 @@ const AddPost: React.FC<AddPostType> = (props) => {
                 <img src={userAvatar} alt=""/>
             </div>
             <div className={styles.item}>
-                <textarea value={props.newPostText} onChange={onChangeInputHandler} placeholder="write something"/>
+                <textarea value={newPostText} onChange={onChangeInputHandler} placeholder="write something"/>
                 <a href="#"><FontAwesomeIcon icon={faMusic} size="lg"/></a>
                 <a href="#"><FontAwesomeIcon icon={faImage} size="lg"/></a>
                 <a href="#"><FontAwesomeIcon icon={faVideo} size="lg"/></a>

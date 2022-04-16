@@ -2,14 +2,15 @@ import React from "react";
 import Contact from "./Contact/Contact";
 import styles from "./Contacts.module.css"
 import {ContactsDataType} from "../../../redux/my_store";
+import {useSelector} from "react-redux";
+import {RootState} from "../../../redux/store";
 
-type ContactsPropsType = {
-    contactsData: ContactsDataType
-}
 
-const Contacts = (props: ContactsPropsType) => {
+const Contacts = () => {
 
-    const contactElement = props.contactsData.map(contact => <Contact key={contact.id} name={contact.name} email={contact.email}
+    const contactsData = useSelector<RootState, ContactsDataType>(state => state.contactsData)
+
+    const contactElement = contactsData.map(contact => <Contact key={contact.id} name={contact.name} email={contact.email}
                                                                 avatar={contact.avatar} id={contact.id}/>)
 
     return (
