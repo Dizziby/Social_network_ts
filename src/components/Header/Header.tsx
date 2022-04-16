@@ -6,7 +6,6 @@ type HeaderPropsType = {
     section: string
 }
 
-
 const Header: React.FC<HeaderPropsType> = (props) => {
     if(props.section === "sectionLogout") {
         return null;

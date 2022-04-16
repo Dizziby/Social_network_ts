@@ -1,3 +1,11 @@
 .logout {
     font-size: 25px;
+    text-align: center;
+    margin: 150px auto;
+}
+
+
+.logout button {
+    display: block;
+    margin: 0 auto;
 }

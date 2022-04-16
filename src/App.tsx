@@ -11,7 +11,7 @@ export type SectionCSSType = "sectionAll" | "sectionMessages" | "sectionLogout"
 
 function App() {
 
-    const [section, setSection] = useState <SectionCSSType>("sectionAll")
+    const [section, setSection] = useState<SectionCSSType>("sectionAll")
 
     const changeGrid = (value: SectionCSSType) => {
         setSection(value)

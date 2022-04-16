@@ -1,13 +1,15 @@
-.video {
-    display: grid;
-    /*grid-template-rows: 1fr 1fr 1fr;*/
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: 10px;
-
+.videos {
+    padding: 20px;
+    background-color: #FDFDFD;
 }
 
-.video img {
+.videos img {
     width: 100%;
 }
 
+.videosInner {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 10px;
+}
 

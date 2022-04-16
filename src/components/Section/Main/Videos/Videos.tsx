@@ -15,19 +15,21 @@ import photo12 from "../../../../img/Images/photo12.jpg";
 
 const Videos = () => {
     return (
-        <div className={styles.video}>
-            <img src={photo1} alt="photo1"/>
-            <img src={photo2} alt="photo2"/>
-            <img src={photo3} alt="photo3"/>
-            <img src={photo4} alt="photo4"/>
-            <img src={photo5} alt="photo5"/>
-            <img src={photo6} alt="photo6"/>
-            <img src={photo7} alt="photo7"/>
-            <img src={photo8} alt="photo8"/>
-            <img src={photo9} alt="photo9"/>
-            <img src={photo10} alt="photo10"/>
-            <img src={photo11} alt="photo11"/>
-            <img src={photo12} alt="photo12"/>
+        <div className={styles.videos}>
+            <div className={styles.videosInner}>
+                <img src={photo2} alt="photo2"/>
+                <img src={photo1} alt="photo1"/>
+                <img src={photo3} alt="photo3"/>
+                <img src={photo4} alt="photo4"/>
+                <img src={photo5} alt="photo5"/>
+                <img src={photo6} alt="photo6"/>
+                <img src={photo7} alt="photo7"/>
+                <img src={photo8} alt="photo8"/>
+                <img src={photo9} alt="photo9"/>
+                <img src={photo10} alt="photo10"/>
+                <img src={photo11} alt="photo11"/>
+                <img src={photo12} alt="photo12"/>
+            </div>
         </div>
     )
 }

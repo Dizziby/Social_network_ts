@@ -1,7 +1,6 @@
 import {ActionType, ContactsDataType} from "./my_store";
 import {v1} from "uuid";
 
-
 const initialState: ContactsDataType = [
     {id: v1(), name: 'Bucky Bames', email: 'wintersolder@gmail.com', avatar: "friendAvatar"},
     {id: v1(), name: 'Sarah Lorender', email: 'barnes@gmail.com', avatar: "friendAvatar2"},

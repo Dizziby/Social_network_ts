@@ -5,7 +5,6 @@ import {ContactsDataType} from "../../../redux/my_store";
 import {useSelector} from "react-redux";
 import {RootState} from "../../../redux/store";
 
-
 const Contacts = () => {
 
     const contactsData = useSelector<RootState, ContactsDataType>(state => state.contactsData)

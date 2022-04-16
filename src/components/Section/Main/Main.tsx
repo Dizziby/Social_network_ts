@@ -22,9 +22,8 @@ const Main: React.FC<MainPropsType> = (props) => {
     return (
         <div className={styles.main}>
             <Routes>
-                <Route path="/" element={<MyPage />}/>
-                <Route path="/messages"
-                       element={<Messages />}/>
+                <Route path="/" element={<MyPage/>}/>
+                <Route path="/messages" element={<Messages/>}/>
                 <Route path="/friends" element={<Friends/>}/>
                 <Route path="/groups" element={<Groups/>}/>
                 <Route path="/photos" element={<Photos/>}/>

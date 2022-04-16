@@ -17,7 +17,7 @@ const AddPost = () => {
     }
 
     const onClickButtonHandler = () => {
-        if(newPostText !== undefined && newPostText.trim()) {
+        if (newPostText !== undefined && newPostText.trim()) {
             dispatch(addPostAC())
         }
     }

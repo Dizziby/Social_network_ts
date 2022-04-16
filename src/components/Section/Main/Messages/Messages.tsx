@@ -13,7 +13,7 @@ const Messages = () => {
     const contactsData = useSelector<RootState, ContactsDataType>(state => state.contactsData)
     const messagesData = useSelector<RootState, MessagesDataType>(state => state.messagesData)
 
-    const contactElement = contactsData.map(contact => <Contact name={contact.name} email={contact.email}
+    const contactElement = contactsData.map(contact => <Contact key={contact.id} name={contact.name} email={contact.email}
                                                                       avatar={contact.avatar} id={contact.id}/>)
 
     const messageElement = messagesData.map(message => <Message key={message.id} messages={message.messages}

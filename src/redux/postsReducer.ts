@@ -40,45 +40,38 @@ const initialState: PostDataType = {
     newPostText: ""
 }
 
-const postsReducer = (state= initialState, action: ActionType): PostDataType => {
-    if (action.type === ADD_POST) {
-        state.posts.push({
-            id: v1(),
-            name: "Janice Griffith",
-            date: new Date().toLocaleString(),
-            text: state.newPostText,
-            views: 0,
-            comments: 0,
-            like: 0,
-            dislike: 0
-        });
-        state.newPostText = "";
-    } else if (action.type === UPDATE_POST_TEXT) {
-        state.newPostText = action.postText;
-    } else if (action.type === DELETE_POST) {
-        state.posts = state.posts.filter(el => el.id !== action.id);
+const postsReducer = (state = initialState, action: ActionType): PostDataType => {
+    switch (action.type) {
+        case ADD_POST: {
+            const stateCopy = {...state}
+            stateCopy.posts = [...state.posts]
+            stateCopy.posts.push({
+                id: v1(),
+                name: "Janice Griffith",
+                date: new Date().toLocaleString(),
+                text: state.newPostText,
+                views: 0,
+                comments: 0,
+                like: 0,
+                dislike: 0
+            });
+            stateCopy.newPostText = "";
+            return stateCopy;
+        }
+        case UPDATE_POST_TEXT: {
+            const stateCopy = {...state}
+            stateCopy.newPostText = action.postText;
+            return stateCopy;
+        }
+        case DELETE_POST: {
+            const stateCopy = {...state}
+            stateCopy.posts = [...state.posts]
+            stateCopy.posts = stateCopy.posts.filter(el => el.id !== action.id);
+            return stateCopy;
+        }
+        default:
+            return state;
     }
-    return state;
-    // switch (action.type) {
-    //     case ADD_POST:
-    //         state.posts.push({
-    //             id: v1(),
-    //             name: "Janice Griffith",
-    //             date: new Date().toLocaleString(),
-    //             text: state.newPostText,
-    //             views: 0,
-    //             comments: 0,
-    //             like: 0,
-    //             dislike: 0
-    //         });
-    //         state.newPostText = "";
-    //     case UPDATE_POST_TEXT:
-    //         state.newPostText = action.postText;
-    //     case DELETE_POST:
-    //         state.posts = state.posts.filter(el => el.id !== action.id);
-    //     default:
-    //         return state;
-    // }
 }
 
 export const addPostAC = (): ActionType => ({
@@ -89,6 +82,5 @@ export const updatePostTextAC = (postText: string): ActionType => ({
     type: "UPDATE_POST_TEXT",
     postText
 })
-
 
 export default postsReducer;

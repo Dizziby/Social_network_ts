@@ -11,9 +11,9 @@ const Posts = () => {
     const postsData = useSelector<RootState, PostDataType>(state => state.postsData)
 
     const postElement = postsData.posts.map(post => <Post key={post.id} id={post.id} name={post.name}
-                                                               date={post.date} text={post.text}
-                                                               views={post.views} comments={post.comments}
-                                                               like={post.like} dislike={post.dislike}
+                                                          date={post.date} text={post.text}
+                                                          views={post.views} comments={post.comments}
+                                                          like={post.like} dislike={post.dislike}
     />)
 
     return (

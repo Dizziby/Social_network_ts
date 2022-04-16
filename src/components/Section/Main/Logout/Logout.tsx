@@ -1,6 +1,7 @@
 import React, {MouseEvent} from "react";
 import styles from "./Logout.module.css"
 import {SectionCSSType} from "../../../../App";
+import {NavLink} from "react-router-dom";
 
 type LogoutPropsType = {
     changeGrid: (value: SectionCSSType) => void
@@ -8,14 +9,15 @@ type LogoutPropsType = {
 
 const Logout: React.FC<LogoutPropsType> = (props) => {
 
-    const loginProfile = (e: MouseEvent<HTMLButtonElement>) => {
+    const loginProfile = (e: MouseEvent<HTMLAnchorElement>) => {
         props.changeGrid("sectionAll")
     }
 
     return (
         <div className={styles.logout}>
             <textarea>Login</textarea>
-            <button onClick={loginProfile}>Login</button>
+            <button ><NavLink to='/' onClick={loginProfile}>Login</NavLink></button>
+            <button ><NavLink to='/' onClick={loginProfile}>Register</NavLink></button>
         </div>
     )
 }
