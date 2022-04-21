@@ -1,3 +1,6 @@
 export const ADD_POST = "ADD_POST"
 export const UPDATE_POST_TEXT = "UPDATE_POST_TEXT"
 export const DELETE_POST = "DELETE_POST"
+
+export const ADD_MESSAGE = "ADD_MESSAGE"
+export const UPDATE_MESSAGE_TEXT = "UPDATE_MESSAGE_TEXT"

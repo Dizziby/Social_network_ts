@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.css';
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
@@ -12,6 +12,17 @@ export type SectionCSSType = "sectionAll" | "sectionMessages" | "sectionLogout"
 function App() {
 
     const [section, setSection] = useState<SectionCSSType>("sectionAll")
+
+    useEffect(() => {
+        const section = JSON.parse(localStorage.getItem('section') || "{}");
+        if (section) {
+            setSection(section);
+        }
+    }, []);
+
+    useEffect(() => {
+        localStorage.setItem('section', JSON.stringify(section));
+    }, [section]);
 
     const changeGrid = (value: SectionCSSType) => {
         setSection(value)

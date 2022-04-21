@@ -1,6 +1,21 @@
 import {v1} from "uuid";
-import {ActionType, PostDataType} from "./my_store";
-import {ADD_POST, DELETE_POST, UPDATE_POST_TEXT} from "./types";
+import {ADD_POST, DELETE_POST, UPDATE_POST_TEXT} from "../types";
+import {ActionType} from "../store";
+
+export type PostType = {
+    id: string
+    name: string
+    date: string
+    text: string
+    views: number
+    comments: number
+    like: number
+    dislike: number
+}
+export type PostDataType = {
+    posts: Array<PostType>
+    newPostText: string
+}
 
 const initialState: PostDataType = {
     posts: [
@@ -45,7 +60,7 @@ const postsReducer = (state = initialState, action: ActionType): PostDataType =>
         case ADD_POST: {
             const stateCopy = {...state}
             stateCopy.posts = [...state.posts]
-            stateCopy.posts.push({
+            stateCopy.posts.unshift({
                 id: v1(),
                 name: "Janice Griffith",
                 date: new Date().toLocaleString(),
@@ -60,7 +75,9 @@ const postsReducer = (state = initialState, action: ActionType): PostDataType =>
         }
         case UPDATE_POST_TEXT: {
             const stateCopy = {...state}
-            stateCopy.newPostText = action.postText;
+            if (action.postText) {
+                stateCopy.newPostText = action.postText;
+            }
             return stateCopy;
         }
         case DELETE_POST: {
@@ -82,5 +99,12 @@ export const updatePostTextAC = (postText: string): ActionType => ({
     type: "UPDATE_POST_TEXT",
     postText
 })
+
+
+export const deletePostAC = (id: string): ActionType => ({
+    type: "DELETE_POST",
+    id: id
+})
+
 
 export default postsReducer;

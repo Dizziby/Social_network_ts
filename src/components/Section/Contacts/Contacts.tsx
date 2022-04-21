@@ -1,15 +1,16 @@
 import React from "react";
 import Contact from "./Contact/Contact";
 import styles from "./Contacts.module.css"
-import {ContactsDataType} from "../../../redux/my_store";
 import {useSelector} from "react-redux";
 import {RootState} from "../../../redux/store";
+import {ContactsDataType} from "../../../redux/reducers/contactsReducer";
 
 const Contacts = () => {
 
     const contactsData = useSelector<RootState, ContactsDataType>(state => state.contactsData)
 
-    const contactElement = contactsData.map(contact => <Contact key={contact.id} name={contact.name} email={contact.email}
+    const contactElement = contactsData.map(contact => <Contact key={contact.id} name={contact.name}
+                                                                email={contact.email}
                                                                 avatar={contact.avatar} id={contact.id}/>)
 
     return (
@@ -18,7 +19,7 @@ const Contacts = () => {
                 Friends
             </div>
             <div>
-                <input className={styles.search} type="search" placeholder="  Search Contacts..." />
+                <input className={styles.search} type="search" placeholder="  Search Contacts..."/>
             </div>
             <div className={styles.contactElement}>
                 {contactElement}

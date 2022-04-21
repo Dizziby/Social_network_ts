@@ -4,6 +4,7 @@ import userAvatar from "../../../../../../img/user-avatar.jpg"
 import {faComment, faEye, faHeart, faHeartCrack, faXmark} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {useDispatch} from "react-redux";
+import {deletePostAC} from "../../../../../../redux/reducers/postsReducer";
 
 type PostPropsType = {
     id: string
@@ -21,7 +22,7 @@ const Post = (props: PostPropsType) => {
     const dispatch = useDispatch()
 
     const onClickButtonHandler = (id: string) => {
-        dispatch({type: "DELETE_POST", id: id})
+        dispatch(deletePostAC(id))
     }
 
     return (

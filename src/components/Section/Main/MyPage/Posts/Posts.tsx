@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "./Posts.module.css"
 import Post from "./Post/Post";
-import {PostDataType} from "../../../../../redux/my_store";
 import {useSelector} from "react-redux";
 import {RootState} from "../../../../../redux/store";
+import {PostDataType} from "../../../../../redux/reducers/postsReducer";
 
 
 const Posts = () => {

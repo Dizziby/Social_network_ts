@@ -1,7 +1,6 @@
 import React from "react";
 import {NavLink} from "react-router-dom";
 import styles from "./Nav.module.css";
-import {SectionCSSType} from "../../../App";
 import {
     faPager,
     faMessage,
@@ -12,6 +11,7 @@ import {
     faArrowRightFromBracket
 } from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {SectionCSSType} from "../../../App";
 
 
 type NavPropsType = {

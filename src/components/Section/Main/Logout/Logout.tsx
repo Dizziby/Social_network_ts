@@ -1,7 +1,7 @@
 import React, {MouseEvent} from "react";
 import styles from "./Logout.module.css"
-import {SectionCSSType} from "../../../../App";
 import {NavLink} from "react-router-dom";
+import {SectionCSSType} from "../../../../App";
 
 type LogoutPropsType = {
     changeGrid: (value: SectionCSSType) => void

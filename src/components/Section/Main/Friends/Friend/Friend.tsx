@@ -3,7 +3,6 @@ import styles from "./Friend.module.css";
 import friendAvatar from "../../../../../img/Contacts/friend-avatar.jpg"
 
 type FriendsPropsType = {
-    id: number
     name: string
     profession: string
 }

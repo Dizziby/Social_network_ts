@@ -1,20 +1,15 @@
 import React from "react";
 import styles from "../Friends/Friends.module.css";
 import Friend from "./Friend/Friend";
+import {useSelector} from "react-redux";
+import {RootState} from "../../../../redux/store";
+import {FriendsDataType} from "../../../../redux/reducers/friendsReducer";
 
 
 const Friends = () => {
-    const friendsData = [
-        {id: 1, name: "Jhon Kates", profession: "Ftv Model"},
-        {id: 2, name: "Sophia Gate", profession: "Tv Actresses"},
-        {id: 3, name: "Sara Grey", profession: "Work At IBM"},
-        {id: 4, name: "Sexy Cat", profession: "Student"},
-        {id: 5, name: "Sara Grey", profession: "Ftv Model"},
-        {id: 6, name: "Amy Watson", profession: "Study In University"},
+    const friendsData = useSelector<RootState, FriendsDataType>(state => state.friendsData)
 
-    ]
-
-    const friendElement = friendsData.map(friend => <Friend id={friend.id} name={friend.name} profession={friend.profession}/>)
+    const friendElement = friendsData.map(friend => <Friend key={friend.id} name={friend.name} profession={friend.profession}/>)
 
     return (
         <div className={styles.friends}>

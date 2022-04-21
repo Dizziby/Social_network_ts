@@ -1,5 +1,15 @@
-import {ActionType, ContactsDataType} from "./my_store";
 import {v1} from "uuid";
+import {ActionType} from "../store";
+
+
+export type ContactType = {
+    id: string
+    name: string
+    email: string
+    avatar: string
+}
+export type ContactsDataType = Array<ContactType>
+
 
 const initialState: ContactsDataType = [
     {id: v1(), name: 'Bucky Bames', email: 'wintersolder@gmail.com', avatar: "friendAvatar"},
