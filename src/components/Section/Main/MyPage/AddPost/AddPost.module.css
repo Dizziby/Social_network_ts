@@ -41,6 +41,11 @@
     border: none;
     cursor: pointer;
     margin: 10px;
+    transition: background-color .2s linear;
+}
+
+.item button:hover {
+    background-color: #3b95c2;
 }
 
 .item a {

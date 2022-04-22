@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from "react";
+import React, {ChangeEvent, KeyboardEventHandler} from "react";
 import styles from "./AddPost.module.css"
 import userAvatar from "../../../../../img/user-avatar.jpg"
 import {faCamera, faImage, faMusic, faVideo} from "@fortawesome/free-solid-svg-icons";
@@ -29,8 +29,8 @@ const AddPost = () => {
             </div>
             <div className={styles.item}>
                 <textarea value={newPostText}
-                          onChange={onChangeInputHandler}
                           placeholder="write something"
+                          onChange={onChangeInputHandler}
                 />
                 <a href="#"><FontAwesomeIcon icon={faMusic} size="lg"/></a>
                 <a href="#"><FontAwesomeIcon icon={faImage} size="lg"/></a>
