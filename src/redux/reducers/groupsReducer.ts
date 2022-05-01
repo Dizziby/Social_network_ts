@@ -1,5 +1,4 @@
 import {v1} from "uuid";
-import {ActionType} from "../store";
 
 export type GroupType = {
     id: string
@@ -9,6 +8,9 @@ export type GroupType = {
     logo: string
 }
 export type GroupsDataType = Array<GroupType>
+type GroupActionType = {
+    type: string
+}
 
 const initialState: GroupsDataType = [
     {id: v1(), name: "Funparty", follow: 32, type: "Public", logo: "group1"},
@@ -20,7 +22,7 @@ const initialState: GroupsDataType = [
     {id: v1(), name: "Bachelor's Fun", follow: 50, type: "Public", logo: "group7"}
 ]
 
-const groupsReducer = (state = initialState, action: ActionType): GroupsDataType => {
+const groupsReducer = (state = initialState, action: GroupActionType): GroupsDataType => {
     return state
 }
 

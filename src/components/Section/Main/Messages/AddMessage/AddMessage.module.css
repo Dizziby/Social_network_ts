@@ -1,6 +1,8 @@
 .addMessage {
-
+    display: flex;
 }
+
+
 
 .addMessage input {
     width: 100%;

@@ -1,21 +1,30 @@
 .friends {
     background-color: #FDFDFD;
     padding: 20px;
-
 }
 
 .title {
+    margin-bottom: 20px;
+}
+
+.titleItem {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.titleItem::after {
+    content: "";
+    display: block;
+    height: 2px;
+    background-color: #088dcd;
+    text-align: center;
+}
+
+.titleItem a {
     font-size: 19px;
     font-weight: 400;
     color: #424242;
     padding-bottom: 20px;
+    text-decoration: none;
 }
 
-.title::after {
-    content: "";
-    display: block;
-    height: 2px;
-    width: 100px;
-    background-color: #088dcd;
-    text-align: center;
-}

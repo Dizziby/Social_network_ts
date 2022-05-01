@@ -30,6 +30,7 @@
     font-family: inherit;
     font-size: inherit;
     padding: 10px;
+    outline: none;
 }
 
 .item button {

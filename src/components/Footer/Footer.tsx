@@ -1,6 +1,22 @@
 import React from "react";
 import styles from "./Footer.module.css";
-import {faCcMastercard, faCcVisa} from "@fortawesome/free-brands-svg-icons";
+import {
+    faCcMastercard,
+    faCcVisa,
+    faAndroid,
+    faApple,
+    faWindows,
+    faFacebook,
+    faTwitter,
+    faInstagram,
+    faGooglePlusG,
+    faPinterestSquare,
+} from "@fortawesome/free-brands-svg-icons";
+import {
+    faMobileScreen,
+    faMapLocation
+} from "@fortawesome/free-solid-svg-icons";
+
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 type FooterPropsType = {
@@ -15,47 +31,60 @@ const Footer: React.FC<FooterPropsType> = (props) => {
     return (
         <div className={styles.footer}>
             <div className={styles.footerInfo}>
-                <div>
-                    <p>33 new montgomery st.750 san francisco, CA USA 94105.</p>
-                    <p>+1-56-346 345</p>
-                </div>
-                <div>
-                    <p>Follow</p>
+                <div className={styles.footerColumn}>
+                    <img
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTcYlkV56VGdNwaJ53NIZB2ARjseaAwiVD01vbp-l6x3I8lgPKphqU6moDMuwMPnTSdZY&usqp=CAU"
+                        alt="Dizzi_by"/>
+                    <p>The Social Network. <br/> 2022.
+                    </p>
                     <ul>
-                        <li>Facebook</li>
-                        <li>Twitter</li>
-                        <li>Instagram</li>
-                        <li>Google+</li>
-                        <li>Pintrest</li>
+                        <li><FontAwesomeIcon icon={faMapLocation} size="lg" pull="left"/>Belarus, Vitebsk, 210036</li>
+                        <li><FontAwesomeIcon icon={faMobileScreen} size="lg" pull="left"/>+375-29-290-90-90</li>
                     </ul>
                 </div>
-                <div>
-                    <p>Navigate</p>
+                <div className={styles.footerColumn}>
+                    <h4>Follow</h4>
                     <ul>
-                        <li>About</li>
-                        <li>Us Contact</li>
-                        <li>Us Terms & Conditions</li>
-                        <li>RSS Syndication</li>
-                        <li>Sitemap</li>
+                        <li><FontAwesomeIcon icon={faFacebook} size="lg" pull="left"/><a href={"#"}>Facebook</a></li>
+                        <li><FontAwesomeIcon icon={faTwitter} size="lg" pull="left"/><a href={"#"}>Twitter</a></li>
+                        <li><FontAwesomeIcon icon={faInstagram} size="lg" pull="left"/><a href={"#"}>Instagram</a></li>
+                        <li><FontAwesomeIcon icon={faGooglePlusG} size="lg" pull="left"/><a href={"#"}>Google+</a></li>
+                        <li><FontAwesomeIcon icon={faPinterestSquare} size="lg" pull="left"/><a href={"#"}>Pintrest</a>
+                        </li>
+
                     </ul>
                 </div>
-                <div>
-                    <p>Useful Links</p>
+                <div className={styles.footerColumn}>
+                    <h4>Navigate</h4>
                     <ul>
-                        <li>Leasing</li>
-                        <li>Submit Route</li>
-                        <li>How Does It Work?</li>
-                        <li>Agent Listings</li>
-                        <li>View All</li>
+                        <li><a href={"#"}>About</a></li>
+                        <li><a href={"#"}>Us Contact</a></li>
+                        <li><a href={"#"}>Us Terms & Conditions</a></li>
+                        <li><a href={"#"}>RSS Syndication</a></li>
+                        <li><a href={"#"}>Sitemap</a></li>
+
+                    </ul>
+                </div>
+                <div className={styles.footerColumn}>
+                    <h4>Useful Links</h4>
+                    <ul>
+                        <li><a href={"#"}>Leasing</a></li>
+                        <li><a href={"#"}>Submit Route</a></li>
+                        <li><a href={"#"}>How Does It Work?</a></li>
+                        <li><a href={"#"}>Agent Listings</a></li>
+                        <li><a href={"#"}>View All</a></li>
                     </ul>
 
                 </div>
-                <div>
-                    <p>Download Apps</p>
+                <div className={styles.footerColumnButton}>
+                    <h4>Download Apps</h4>
                     <ul>
-                        <li>Android</li>
-                        <li>IPhone</li>
-                        <li>Windows</li>
+                        <li><FontAwesomeIcon className={styles.fa} icon={faAndroid} size="lg" pull="left"/><a
+                            href="#">Android</a></li>
+                        <li><FontAwesomeIcon className={styles.fa} icon={faApple} size="lg" pull="left"/><a
+                            href="#">IPhone</a></li>
+                        <li><FontAwesomeIcon className={styles.fa} icon={faWindows} size="lg" pull="left"/><a
+                            href="#">Windows</a></li>
                     </ul>
                 </div>
             </div>

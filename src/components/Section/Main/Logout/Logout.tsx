@@ -1,6 +1,6 @@
 import React, {MouseEvent} from "react";
 import styles from "./Logout.module.css"
-import {NavLink} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 import {SectionCSSType} from "../../../../App";
 
 type LogoutPropsType = {

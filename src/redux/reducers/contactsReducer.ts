@@ -1,6 +1,4 @@
 import {v1} from "uuid";
-import {ActionType} from "../store";
-
 
 export type ContactType = {
     id: string
@@ -9,7 +7,9 @@ export type ContactType = {
     avatar: string
 }
 export type ContactsDataType = Array<ContactType>
-
+type ContactsActionType = {
+    type: string
+}
 
 const initialState: ContactsDataType = [
     {id: v1(), name: 'Bucky Bames', email: 'wintersolder@gmail.com', avatar: "friendAvatar"},
@@ -21,7 +21,7 @@ const initialState: ContactsDataType = [
     {id: v1(), name: 'Amy Watson', email: 'jasonb@gmail.com', avatar: "friendAvatar7"},
 ]
 
-const contactsReducer = (state = initialState, action: ActionType): ContactsDataType => {
+const contactsReducer = (state = initialState, action: ContactsActionType): ContactsDataType => {
     return state
 }
 

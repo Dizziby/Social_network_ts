@@ -1,17 +1,15 @@
 import {v1} from "uuid";
-import {ActionType} from "../store";
 import {ADD_MESSAGE, UPDATE_MESSAGE_TEXT} from "../types";
-import React, {useState} from "react";
 
 export type MessagesData = {
     id: string
     message: string
 }
-
 export type MessagesDataType = {
     messages: Array<MessagesData>,
     newMessageText: string
 }
+type MessagesActionType = ReturnType<typeof addMessageAC> | ReturnType<typeof updateMessageTextAC>
 
 const initialState: MessagesDataType = {
     messages: [
@@ -22,7 +20,7 @@ const initialState: MessagesDataType = {
     newMessageText: ""
 }
 
-const messagesReducer = (state = initialState, action: ActionType): MessagesDataType => {
+const messagesReducer = (state = initialState, action: MessagesActionType): MessagesDataType => {
 
     switch (action.type) {
         case ADD_MESSAGE: {
@@ -47,13 +45,13 @@ const messagesReducer = (state = initialState, action: ActionType): MessagesData
     }
 }
 
-export const addMessageAC = (): ActionType => ({
+export const addMessageAC = () => ({
     type: ADD_MESSAGE
-})
+}) as const;
 
-export const updateMessageTextAC = (messageText: string): ActionType => ({
+export const updateMessageTextAC = (messageText: string) => ({
     type: UPDATE_MESSAGE_TEXT,
     messageText
-})
+}) as const;
 
 export default messagesReducer;

@@ -1,4 +1,4 @@
-import React, {ChangeEvent, KeyboardEventHandler} from "react";
+import React, {ChangeEvent} from "react";
 import styles from "./AddPost.module.css"
 import userAvatar from "../../../../../img/user-avatar.jpg"
 import {faCamera, faImage, faMusic, faVideo} from "@fortawesome/free-solid-svg-icons";

@@ -1,6 +1,5 @@
 import {v1} from "uuid";
 import {ADD_POST, DELETE_POST, UPDATE_POST_TEXT} from "../types";
-import {ActionType} from "../store";
 
 export type PostType = {
     id: string
@@ -16,6 +15,10 @@ export type PostDataType = {
     posts: Array<PostType>
     newPostText: string
 }
+type PostsActionType =
+    ReturnType<typeof addPostAC>
+    | ReturnType<typeof updatePostTextAC>
+    | ReturnType<typeof deletePostAC>
 
 const initialState: PostDataType = {
     posts: [
@@ -55,7 +58,8 @@ const initialState: PostDataType = {
     newPostText: ""
 }
 
-const postsReducer = (state = initialState, action: ActionType): PostDataType => {
+const postsReducer = (state = initialState, action: PostsActionType): PostDataType => {
+    debugger
     switch (action.type) {
         case ADD_POST: {
             const stateCopy = {...state}
@@ -75,9 +79,7 @@ const postsReducer = (state = initialState, action: ActionType): PostDataType =>
         }
         case UPDATE_POST_TEXT: {
             const stateCopy = {...state}
-            if (action.postText) {
                 stateCopy.newPostText = action.postText;
-            }
             return stateCopy;
         }
         case DELETE_POST: {
@@ -91,20 +93,20 @@ const postsReducer = (state = initialState, action: ActionType): PostDataType =>
     }
 }
 
-export const addPostAC = (): ActionType => ({
+export const addPostAC = () => ({
     type: "ADD_POST"
-})
+}) as const;
 
-export const updatePostTextAC = (postText: string): ActionType => ({
+export const updatePostTextAC = (postText: string) => ({
     type: "UPDATE_POST_TEXT",
     postText
-})
+}) as const;
 
 
-export const deletePostAC = (id: string): ActionType => ({
+export const deletePostAC = (id: string) => ({
     type: "DELETE_POST",
     id: id
-})
+}) as const;
 
 
 export default postsReducer;
