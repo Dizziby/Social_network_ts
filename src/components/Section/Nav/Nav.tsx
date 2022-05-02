@@ -37,7 +37,7 @@ export const Nav = (props: NavPropsType) => {
             </div>
             <div className={styles.link}>
                 <FontAwesomeIcon icon={faPerson} size="lg" pull="left"/>
-                <NavLink to='/friends' onClick={() => props.changeGrid("sectionAll")}>Friends</NavLink>
+                <NavLink to='/friends/my' onClick={() => props.changeGrid("sectionAll")}>Friends</NavLink>
             </div>
             <div className={styles.link}>
                 <FontAwesomeIcon icon={faPeopleGroup} size="lg" pull="left"/>

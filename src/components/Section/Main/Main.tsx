@@ -24,15 +24,15 @@ export const Main: React.FC<MainPropsType> = (props) => {
     return (
         <div className={styles.main}>
             <Routes>
-                <Route path="/*" element={<Error/>} />
-                <Route path="/React-Social-Network-TS" element={<MyPage/>}/>
+                <Route path="*" element={<Error/>}/>
+                <Route path="React-Social-Network-TS" element={<MyPage/>}/>
                 <Route path="/" element={<MyPage/>}/>
-                <Route path="/messages" element={<Messages/>}/>
-                <Route path="/friends" element={<Friends/>}/>
-                <Route path="/groups" element={<Groups/>}/>
-                <Route path="/photos" element={<Photos/>}/>
-                <Route path="/videos" element={<Videos/>}/>
-                <Route path="/logout" element={<Logout changeGrid={props.changeGrid}/>}/>
+                <Route path="messages" element={<Messages/>}/>
+                <Route path="friends/*" element={<Friends/>}/>
+                <Route path="groups" element={<Groups/>}/>
+                <Route path="photos" element={<Photos/>}/>
+                <Route path="videos" element={<Videos/>}/>
+                <Route path="logout" element={<Logout changeGrid={props.changeGrid}/>}/>
             </Routes>
         </div>
     )

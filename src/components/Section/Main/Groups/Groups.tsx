@@ -14,7 +14,7 @@ export const Groups = () => {
     return (
         <div className={styles.groups}>
             <div className={styles.title}>
-                joined Groups
+                Joined Groups
             </div>
             {groupElement}
         </div>

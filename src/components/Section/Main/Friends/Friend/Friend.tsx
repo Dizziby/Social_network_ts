@@ -2,39 +2,31 @@ import React from "react";
 import styles from "./Friend.module.css";
 import friendAvatar from "../../../../../img/Contacts/friend-avatar.jpg"
 import {Button} from "../../../../UIKit/Button";
-import {changeStatusFriendAC} from "../../../../../redux/reducers/friendsReducer";
-import {useDispatch} from "react-redux";
 
 type FriendsPropsType = {
     id: string
     name: string
-    profession: string
-    status: boolean
+    followed: boolean
+    photos: string
+    status: string
+    callback: (id: string) => void
 }
 
-const Friend = (props: FriendsPropsType) => {
+export const Friend = (props: FriendsPropsType) => {
 
-    const dispatch = useDispatch()
-
-    const changeStatusFriend = () => {
-        dispatch(changeStatusFriendAC(props.id))
+    const onClickButtonHandler = () => {
+        props.callback(props.id)
     }
 
     return (
         <div className={styles.friend}>
             <div className={styles.info}>
-                <img src={friendAvatar} alt={props.name}/>
-                <div>
-                    <a href="#">{props.name}</a>
-                    <div>{props.profession}</div>
-                </div>
+                <img src={/^http/.test(props.photos) ? props.photos : friendAvatar} alt={props.name}/>
+                <a href="#">{props.name}</a>
             </div>
-            <div className={styles.btn}>
-                <Button name={props.status ? "Unfriends" : "Add Friend"} status={props.status}
-                        callback={changeStatusFriend}/>
-            </div>
+            <div>{props.status}</div>
+            <Button name={props.followed ? "Unfriends" : "Add Friend"} status={props.followed}
+                    callback={onClickButtonHandler}/>
         </div>
     )
 }
-
-export default Friend;
