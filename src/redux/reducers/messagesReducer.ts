@@ -20,7 +20,7 @@ const initialState: MessagesDataType = {
     newMessageText: ""
 }
 
-const messagesReducer = (state = initialState, action: MessagesActionType): MessagesDataType => {
+export const messagesReducer = (state = initialState, action: MessagesActionType): MessagesDataType => {
 
     switch (action.type) {
         case ADD_MESSAGE: {
@@ -53,5 +53,3 @@ export const updateMessageTextAC = (messageText: string) => ({
     type: UPDATE_MESSAGE_TEXT,
     messageText
 }) as const;
-
-export default messagesReducer;

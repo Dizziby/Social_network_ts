@@ -3,7 +3,7 @@ import styles from "./MyPage.module.css"
 import AddPost from "./AddPost/AddPost";
 import Posts from "./Posts/Posts";
 
-const MyPage = () => {
+export const MyPage = () => {
     return (
         <div className={styles.myPage}>
             <AddPost />
@@ -11,5 +11,3 @@ const MyPage = () => {
         </div>
     )
 }
-
-export default MyPage;

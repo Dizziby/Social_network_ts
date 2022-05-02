@@ -1,13 +1,13 @@
 import React, {MouseEvent} from "react";
 import styles from "./Logout.module.css"
-import {NavLink, useNavigate} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import {SectionCSSType} from "../../../../App";
 
 type LogoutPropsType = {
     changeGrid: (value: SectionCSSType) => void
 }
 
-const Logout: React.FC<LogoutPropsType> = (props) => {
+export const Logout: React.FC<LogoutPropsType> = (props) => {
 
     const loginProfile = (e: MouseEvent<HTMLAnchorElement>) => {
         props.changeGrid("sectionAll")
@@ -21,5 +21,3 @@ const Logout: React.FC<LogoutPropsType> = (props) => {
         </div>
     )
 }
-
-export default Logout;

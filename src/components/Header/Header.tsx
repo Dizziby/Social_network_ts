@@ -6,8 +6,8 @@ type HeaderPropsType = {
     section: string
 }
 
-const Header: React.FC<HeaderPropsType> = (props) => {
-    if(props.section === "sectionLogout") {
+export const Header: React.FC<HeaderPropsType> = (props) => {
+    if(props.section === "sectionLogout" || props.section === "sectionError") {
         return null;
     }
 
@@ -20,5 +20,3 @@ const Header: React.FC<HeaderPropsType> = (props) => {
         </div>
     )
 }
-
-export default Header;

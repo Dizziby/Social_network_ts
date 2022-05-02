@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
-import Header from "./components/Header/Header";
-import Footer from "./components/Footer/Footer";
-import Nav from "./components/Section/Nav/Nav";
-import Main from "./components/Section/Main/Main";
-import Contacts from "./components/Section/Contacts/Contacts";
-import Logout from "./components/Section/Main/Logout/Logout";
+import {Header} from "./components/Header/Header";
+import {Footer} from "./components/Footer/Footer";
+import {Nav} from "./components/Section/Nav/Nav";
+import {Main} from "./components/Section/Main/Main";
+import {Contacts} from "./components/Section/Contacts/Contacts";
+import {Logout} from "./components/Section/Main/Logout/Logout";
+import {Error} from "./components/Error";
 
 export type SectionCSSType = "sectionAll" | "sectionMessages" | "sectionLogout"
 

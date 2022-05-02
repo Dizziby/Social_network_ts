@@ -8,8 +8,7 @@ export type FriendsType = {
     status: boolean
 }
 export type FriendsDataType = {
-    friends: Array<FriendsType>,
-    requests: Array<FriendsType>
+    friends: Array<FriendsType>
 }
 type FriendsActionType = ReturnType<typeof changeStatusFriendAC>
 
@@ -27,9 +26,6 @@ const initialState: FriendsDataType = {
         {id: v1(), name: "2Sexy Cat", profession: "Student", status: false},
         {id: v1(), name: "2Sara Grey", profession: "Ftv Model", status: false},
         {id: v1(), name: "2Amy Watson", profession: "Study In University", status: false},
-    ],
-    requests: [
-
     ]
 }
 
@@ -49,5 +45,3 @@ export const changeStatusFriendAC = (id: string) => ({
     type: CHANGE_FRIEND_STATUS,
     id
 }) as const
-
-export default friendsReducer;

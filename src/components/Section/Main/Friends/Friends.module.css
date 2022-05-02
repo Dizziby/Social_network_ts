@@ -9,7 +9,7 @@
 
 .titleItem {
     display: inline-block;
-    margin-right: 20px;
+    margin-right: 5px;
 }
 
 .titleItem::after {
@@ -20,11 +20,20 @@
     text-align: center;
 }
 
-.titleItem a {
+.titleItem button {
     font-size: 19px;
     font-weight: 400;
     color: #424242;
-    padding-bottom: 20px;
-    text-decoration: none;
+    background-color: #FDFDFD;
+    border: none;
+    cursor: pointer;
+}
+
+.title b {
+    border: 1px solid #9f9494;
+    border-radius: 5px;
+    padding: 0 2px;
+    font-weight: 400;
+    margin-right: 20px;
 }
 

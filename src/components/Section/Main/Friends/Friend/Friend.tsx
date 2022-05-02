@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Friend.module.css";
 import friendAvatar from "../../../../../img/Contacts/friend-avatar.jpg"
-import {Button} from "../../../../other/Button";
+import {Button} from "../../../../UIKit/Button";
 import {changeStatusFriendAC} from "../../../../../redux/reducers/friendsReducer";
 import {useDispatch} from "react-redux";
 

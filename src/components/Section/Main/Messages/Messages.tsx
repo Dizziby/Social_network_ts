@@ -1,13 +1,13 @@
 import React from "react";
 import styles from "./Messages.module.css"
-import Contact from "../../Contacts/Contact/Contact";
-import Message from "./Message/Message";
+import {Contact} from "../../Contacts/Contact/Contact";
+import {Message} from "./Message/Message";
 import {useSelector} from "react-redux";
 import {RootState} from "../../../../redux/store";
 import {ContactsDataType} from "../../../../redux/reducers/contactsReducer";
-import AddMessage from "./AddMessage/AddMessage";
+import {AddMessage} from "./AddMessage/AddMessage";
 
-const Messages = () => {
+export const Messages = () => {
 
     const contactsData = useSelector<RootState, ContactsDataType>(state => state.contactsData)
 
@@ -31,5 +31,3 @@ const Messages = () => {
         </div>
     )
 }
-
-export default Messages;

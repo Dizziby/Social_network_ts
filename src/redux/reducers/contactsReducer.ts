@@ -21,8 +21,6 @@ const initialState: ContactsDataType = [
     {id: v1(), name: 'Amy Watson', email: 'jasonb@gmail.com', avatar: "friendAvatar7"},
 ]
 
-const contactsReducer = (state = initialState, action: ContactsActionType): ContactsDataType => {
+export const contactsReducer = (state = initialState, action: ContactsActionType): ContactsDataType => {
     return state
 }
-
-export default contactsReducer;

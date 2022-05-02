@@ -23,8 +23,8 @@ type FooterPropsType = {
     section: string
 }
 
-const Footer: React.FC<FooterPropsType> = (props) => {
-    if (props.section === "sectionLogout") {
+export const Footer: React.FC<FooterPropsType> = (props) => {
+    if (props.section === "sectionLogout" || props.section === "sectionError") {
         return null;
     }
 
@@ -97,5 +97,3 @@ const Footer: React.FC<FooterPropsType> = (props) => {
         </div>
     )
 }
-
-export default Footer;

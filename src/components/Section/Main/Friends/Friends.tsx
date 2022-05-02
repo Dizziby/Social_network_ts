@@ -5,7 +5,7 @@ import {useSelector} from "react-redux";
 import {RootState} from "../../../../redux/store";
 import {FriendsType} from "../../../../redux/reducers/friendsReducer";
 
-const Friends = () => {
+export const Friends = () => {
 
     const friendsData = useSelector<RootState, Array<FriendsType>>(state => state.friendsData.friends)
 
@@ -15,29 +15,30 @@ const Friends = () => {
     let friendsDataFilterTrue = friendsData.filter(el => el.status)
     let friendsDataFilterFalse = friendsData.filter(el => !el.status)
 
-    if(filter) {
+    if (filter) {
         friendsDataFilter = friendsDataFilterTrue
     } else {
         friendsDataFilter = friendsDataFilterFalse
     }
 
     const friendElement = friendsDataFilter.map(friend => <Friend key={friend.id} id={friend.id} name={friend.name}
-                                                            profession={friend.profession} status={friend.status}/>)
+                                                                  profession={friend.profession}
+                                                                  status={friend.status}/>)
 
     return (
         <div className={styles.friends}>
             <div className={styles.title}>
                 <div className={styles.titleItem}>
-                    <a href="#" onClick={()=>setFilter(true)}>My Friends {friendsDataFilterTrue.length}</a>
+                    <button onClick={() => setFilter(true)}>My Friends</button>
                 </div>
+                <b>{friendsDataFilterTrue.length}</b>
                 <div className={styles.titleItem}>
-                    <a href="#" onClick={()=>setFilter(false)}>Friend Requests {friendsDataFilterFalse.length}</a>
+                    <button onClick={() => setFilter(false)}>Friend Requests</button>
                 </div>
+                <b>{friendsDataFilterFalse.length}</b>
             </div>
 
             {friendElement}
         </div>
     )
 }
-
-export default Friends;

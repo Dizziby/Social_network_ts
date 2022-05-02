@@ -58,8 +58,7 @@ const initialState: PostDataType = {
     newPostText: ""
 }
 
-const postsReducer = (state = initialState, action: PostsActionType): PostDataType => {
-    debugger
+export const postsReducer = (state = initialState, action: PostsActionType): PostDataType => {
     switch (action.type) {
         case ADD_POST: {
             const stateCopy = {...state}
@@ -107,6 +106,3 @@ export const deletePostAC = (id: string) => ({
     type: "DELETE_POST",
     id: id
 }) as const;
-
-
-export default postsReducer;

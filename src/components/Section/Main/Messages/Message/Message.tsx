@@ -4,7 +4,7 @@ import {useSelector} from "react-redux";
 import {RootState} from "../../../../../redux/store";
 import {MessagesData} from "../../../../../redux/reducers/messagesReducer";
 
-const Message = () => {
+export const Message = () => {
 
     const messages = useSelector<RootState, Array<MessagesData>>(state => state.messagesData.messages)
 
@@ -16,5 +16,3 @@ const Message = () => {
         </div>
     );
 };
-
-export default Message;

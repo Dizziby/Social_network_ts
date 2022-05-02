@@ -1,11 +1,11 @@
 import React, {ChangeEvent, useState} from "react";
-import Contact from "./Contact/Contact";
+import {Contact} from "./Contact/Contact";
 import styles from "./Contacts.module.css"
 import {useSelector} from "react-redux";
 import {RootState} from "../../../redux/store";
 import {ContactsDataType} from "../../../redux/reducers/contactsReducer";
 
-const Contacts = () => {
+export const Contacts = () => {
 
     const contactsData = useSelector<RootState, ContactsDataType>(state => state.contactsData)
 
@@ -36,5 +36,3 @@ const Contacts = () => {
         </div>
     )
 }
-
-export default Contacts;

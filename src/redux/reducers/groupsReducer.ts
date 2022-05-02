@@ -1,4 +1,6 @@
 import {v1} from "uuid";
+import {LEAVE_GROUP} from "../types";
+import {changeStatusFriendAC} from "./friendsReducer";
 
 export type GroupType = {
     id: string
@@ -8,9 +10,7 @@ export type GroupType = {
     logo: string
 }
 export type GroupsDataType = Array<GroupType>
-type GroupActionType = {
-    type: string
-}
+type GroupActionType = ReturnType<typeof leaveGroupAC>
 
 const initialState: GroupsDataType = [
     {id: v1(), name: "Funparty", follow: 32, type: "Public", logo: "group1"},
@@ -22,8 +22,17 @@ const initialState: GroupsDataType = [
     {id: v1(), name: "Bachelor's Fun", follow: 50, type: "Public", logo: "group7"}
 ]
 
-const groupsReducer = (state = initialState, action: GroupActionType): GroupsDataType => {
+export const groupsReducer = (state = initialState, action: GroupActionType): GroupsDataType => {
+    switch (action.type) {
+        case LEAVE_GROUP: {
+            const stateCopy = state.filter(el => el.id !== action.id)
+            return stateCopy
+        }
+    }
     return state
 }
 
-export default groupsReducer;
+export const leaveGroupAC = (id: string) => ({
+    type: LEAVE_GROUP,
+    id
+}) as const

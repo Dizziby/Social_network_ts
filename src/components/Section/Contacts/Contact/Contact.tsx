@@ -10,7 +10,7 @@ type ContactPropsType = {
     avatar: string
 }
 
-const Contact = (props: ContactPropsType) => {
+export const Contact = (props: ContactPropsType) => {
     return (
         <div className={styles.contact}>
             <div className={styles.avatar}>
@@ -23,5 +23,3 @@ const Contact = (props: ContactPropsType) => {
         </div>
     )
 }
-
-export default Contact;

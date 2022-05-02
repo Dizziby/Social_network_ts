@@ -6,7 +6,7 @@ import {RootState} from "../../../../../redux/store";
 import {addMessageAC, updateMessageTextAC} from "../../../../../redux/reducers/messagesReducer";
 import styles from "./AddMessage.module.css"
 
-const AddMessage = () => {
+export const AddMessage = () => {
     console.log("AddMessage rendering")
     const dispatch = useDispatch()
     const newMessageText = useSelector<RootState, string>(state => state.messagesData.newMessageText)
@@ -28,5 +28,3 @@ const AddMessage = () => {
         </div>
     )
 };
-
-export default AddMessage;

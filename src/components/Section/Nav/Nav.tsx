@@ -19,8 +19,8 @@ type NavPropsType = {
     changeGrid: (value: SectionCSSType) => void
 }
 
-const Nav = (props: NavPropsType) => {
-    if (props.section === "sectionLogout") {
+export const Nav = (props: NavPropsType) => {
+    if (props.section === "sectionLogout" || props.section === "sectionError") {
         return null;
     }
 
@@ -58,5 +58,3 @@ const Nav = (props: NavPropsType) => {
         </div>
     )
 }
-
-export default Nav;

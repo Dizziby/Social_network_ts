@@ -13,7 +13,7 @@ import photo10 from "../../../../img/Images/photo10.jpg";
 import photo11 from "../../../../img/Images/photo11.jpg";
 import photo12 from "../../../../img/Images/photo12.jpg";
 
-const Videos = () => {
+export const Videos = () => {
     return (
         <div className={styles.videos}>
             <div className={styles.videosInner}>
@@ -33,5 +33,3 @@ const Videos = () => {
         </div>
     )
 }
-
-export default Videos;
