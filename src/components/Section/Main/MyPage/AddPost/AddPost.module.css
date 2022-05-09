@@ -53,3 +53,8 @@
     padding: 0 8px;
     color: #424242;
 }
+
+
+.icon:hover {
+    color: #961d1d;
+}

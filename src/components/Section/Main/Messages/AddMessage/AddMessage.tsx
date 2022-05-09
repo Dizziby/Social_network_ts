@@ -1,15 +1,15 @@
 import React, {ChangeEvent} from 'react';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPaperPlane} from "@fortawesome/free-solid-svg-icons";
-import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../../../../../redux/store";
 import {addMessageAC, updateMessageTextAC} from "../../../../../redux/reducers/messagesReducer";
 import styles from "./AddMessage.module.css"
+import {useAppDispatch, useAppSelector} from "../../../../../redux/hooks";
 
 export const AddMessage = () => {
-    console.log("AddMessage rendering")
-    const dispatch = useDispatch()
-    const newMessageText = useSelector<RootState, string>(state => state.messagesData.newMessageText)
+
+    const dispatch = useAppDispatch()
+
+    const newMessageText = useAppSelector(state => state.messagesData.newMessageText)
 
     const onChangeInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
         dispatch(updateMessageTextAC(e.currentTarget.value))

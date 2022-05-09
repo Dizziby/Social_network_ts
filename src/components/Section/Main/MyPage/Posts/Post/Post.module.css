@@ -65,6 +65,12 @@
     margin-top: 10px;
 }
 
-.icon {
+.icons span {
     margin-right: 25px;
+    transition: color .2s ease;
+    cursor: pointer;
+}
+
+.icon:hover {
+    color: #961d1d;
 }

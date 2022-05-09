@@ -38,4 +38,6 @@
 
 .avatar img {
     border-radius: 20px;
+    width: 45px;
+    height: 45px;
 }

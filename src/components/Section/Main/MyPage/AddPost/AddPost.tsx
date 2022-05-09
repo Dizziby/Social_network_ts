@@ -4,13 +4,12 @@ import userAvatar from "../../../../../img/user-avatar.jpg"
 import {faCamera, faImage, faMusic, faVideo} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {addPostAC, updatePostTextAC} from "../../../../../redux/reducers/postsReducer";
-import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../../../../../redux/store";
+import {useAppDispatch, useAppSelector} from "../../../../../redux/hooks";
 
 const AddPost = () => {
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
-    const newPostText = useSelector<RootState, string>(state => state.postsData.newPostText)
+    const newPostText = useAppSelector(state => state.postsData.newPostText)
 
     const onChangeInputHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         dispatch(updatePostTextAC(e.currentTarget.value))
@@ -32,10 +31,10 @@ const AddPost = () => {
                           placeholder="write something"
                           onChange={onChangeInputHandler}
                 />
-                <a href="#"><FontAwesomeIcon icon={faMusic} size="lg"/></a>
-                <a href="#"><FontAwesomeIcon icon={faImage} size="lg"/></a>
-                <a href="#"><FontAwesomeIcon icon={faVideo} size="lg"/></a>
-                <a href="#"><FontAwesomeIcon icon={faCamera} size="lg"/></a>
+                <a href="#"><FontAwesomeIcon className={styles.icon} icon={faMusic} size="lg"/></a>
+                <a href="#"><FontAwesomeIcon className={styles.icon} icon={faImage} size="lg"/></a>
+                <a href="#"><FontAwesomeIcon className={styles.icon} icon={faVideo} size="lg"/></a>
+                <a href="#"><FontAwesomeIcon className={styles.icon} icon={faCamera} size="lg"/></a>
                 <button onClick={onClickButtonHandler}>Publish</button>
             </div>
         </div>

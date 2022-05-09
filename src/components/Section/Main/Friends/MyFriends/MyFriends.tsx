@@ -1,9 +1,8 @@
 import React from "react";
 import styles from "./MyFriends.module.css";
-import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../../../../../redux/store";
-import {changeStatusFriendAC, FriendsType} from "../../../../../redux/reducers/friendsReducer";
+import {changeStatusFriendAC} from "../../../../../redux/reducers/friendsReducer";
 import {Friend} from "../Friend/Friend";
+import {useAppDispatch, useAppSelector} from "../../../../../redux/hooks";
 
 type MyFriendsProps = {
     filter: boolean
@@ -11,9 +10,9 @@ type MyFriendsProps = {
 
 export const MyFriends: React.FC<MyFriendsProps> = (props) => {
 
-    const friendsData = useSelector<RootState, Array<FriendsType>>(state => state.friendsData.friends)
+    const friendsData = useAppSelector(state => state.friendsData.friends)
 
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
     const changeStatusFriend = (id: string) => {
         dispatch(changeStatusFriendAC(id))

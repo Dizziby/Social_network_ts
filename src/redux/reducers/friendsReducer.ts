@@ -1,5 +1,12 @@
 import {v1} from "uuid";
-import {ADD_FRIEND, CHANGE_FRIEND_STATUS, SET_FRIENDS} from "../types";
+import {
+    ADD_FRIEND,
+    CHANGE_FRIEND_STATUS,
+    SET_CURRENT_PAGE,
+    SET_FRIENDS,
+    SET_TOTAL_FOUND_FRIENDS,
+    SHOW_MORE_FOUND_FRIENDS, TOGGLE_IS_FETCHING
+} from "../types";
 
 export type FriendsType = {
     id: string
@@ -7,63 +14,139 @@ export type FriendsType = {
     followed: boolean
     photos: string
     status: string
+    email: string
 }
 export type FriendsDataType = {
     friends: Array<FriendsType>
-    findFriends: Array<FriendsType>
+    foundFriends: Array<FriendsType>
+    pageSize: number
+    totalFoundFriends: number
+    currentPageFoundFriends: number
+    isFetching: boolean
 }
-type FriendsActionType = ReturnType<typeof changeStatusFriendAC> | ReturnType<typeof addFriendsAC> | ReturnType<typeof setFriendsAC>
+type FriendsActionType =
+    ReturnType<typeof changeStatusFriendAC>
+    | ReturnType<typeof addFriendsAC>
+    | ReturnType<typeof setFriendsAC>
+    | ReturnType<typeof snowMoreFoundFriendsAC>
+    | ReturnType<typeof setCurrentPageAC>
+    | ReturnType<typeof setTotalFoundFriendsAC>
+    | ReturnType<typeof toggleIsFetchingAC>
 
 const initialState: FriendsDataType = {
     friends: [
-        {id: v1(), name: "Jhon Kates", followed: true, photos: "Jhon Kates", status: "I'm OK"},
-        {id: v1(), name: "Sophia Gate", followed: true, photos: "Sophia Gate", status: "I'm OK"},
-        {id: v1(), name: "Sara Grey", followed: true, photos: "Sara Grey", status: "I'm OK"},
-        {id: v1(), name: "Sexy Cat", followed: true, photos: "Sexy Cat", status: "I'm OK"},
-        {id: v1(), name: "Sara Grey", followed: true, photos: "Sara Grey", status: "I'm OK"},
-        {id: v1(), name: "Amy Watson", followed: true, photos: "Amy Watson", status: "I'm OK"},
-        {id: v1(), name: "2Jhon Kates", followed: false, photos: "2Jhon Kates", status: "I'm OK"},
-        {id: v1(), name: "2Sophia Gate", followed: false, photos: "2Sophia Gate", status: "I'm OK"},
-        {id: v1(), name: "2Sara Grey", followed: false, photos: "2Sara Greys", status: "I'm OK"},
-        {id: v1(), name: "2Sexy Cat", followed: false, photos: "2Sexy Cat", status: "I'm OK"},
-        {id: v1(), name: "2Sara Grey", followed: false, photos: "2Sara Grey", status: "I'm OK"},
-        {id: v1(), name: "2Amy Watson", followed: false, photos: "2Amy Watson", status: "I'm OK"}
+        {
+            id: v1(),
+            name: "Jhon Kates",
+            followed: true,
+            photos: "Jhon Kates",
+            status: "I'm OK",
+            email: 'jhonkates@gmail.com'
+        },
+        {
+            id: v1(),
+            name: "Sophia Gate",
+            followed: true,
+            photos: "Sophia Gate",
+            status: "I'm OK",
+            email: 'sophiagate@gmail.com'
+        },
+        {
+            id: v1(),
+            name: "Sara Grey",
+            followed: true,
+            photos: "Sara Grey",
+            status: "I'm OK",
+            email: 'saragrey@gmail.com'
+        },
+        {id: v1(), name: "Sexy Cat", followed: true, photos: "Sexy Cat", status: "I'm OK", email: 'sexycat@gmail.com'},
+        {
+            id: v1(),
+            name: "Amy Watson",
+            followed: true,
+            photos: "Amy Watson",
+            status: "I'm OK",
+            email: 'amywatson@gmail.com'
+        },
+        {
+            id: v1(),
+            name: "Amelia Span",
+            followed: true,
+            photos: "Amelia Span",
+            status: "I'm OK",
+            email: 'ameliaspan@gmail.com'
+        },
+        {id: v1(), name: "Isla Ken", followed: true, photos: "Isla Ken", status: "I'm OK", email: 'islaken@gmail.com'},
+        {id: v1(), name: "Ruby Cry", followed: true, photos: "Ruby Cry", status: "I'm OK", email: 'rubycry@gmail.com'},
+        {
+            id: v1(),
+            name: "Ella Wins",
+            followed: false,
+            photos: "Ella Wins",
+            status: "I'm OK",
+            email: 'ellawins@gmail.com'
+        },
+        {
+            id: v1(),
+            name: "Harry Potter",
+            followed: false,
+            photos: "Harry Potter",
+            status: "I'm OK",
+            email: 'harrypotter@gmail.com'
+        },
+        {
+            id: v1(),
+            name: "James Born",
+            followed: false,
+            photos: "James Born",
+            status: "I'm OK",
+            email: 'jamesborn@gmail.com'
+        }
     ],
-    findFriends: [
-        {id: v1(), name: "3Jhon Kates", followed: false, photos: "Jhon Kates", status: "I'm OK"},
-        {id: v1(), name: "3Sophia Gate", followed: false, photos: "Sophia Gate", status: "I'm OK"},
-        {id: v1(), name: "3Sara Grey", followed: false, photos: "Sara Grey", status: "I'm OK"}
-    ]
+    foundFriends: [],
+
+    pageSize: 10,
+    totalFoundFriends: 12,
+    currentPageFoundFriends: 1,
+    isFetching: false
+
 }
 
 export const friendsReducer = (state = initialState, action: FriendsActionType): FriendsDataType => {
-    debugger
     switch (action.type) {
         case CHANGE_FRIEND_STATUS: {
-            const stateCopy = {...state}
-            stateCopy.friends = [...state.friends]
-            stateCopy.friends = stateCopy.friends.map(el => el.id === action.id ? {...el, followed: !el.followed} : el)
-            return stateCopy
+            return {
+                ...state,
+                friends: state.friends.map(el => el.id === action.id ? {...el, followed: !el.followed} : el)
+            }
         }
         case ADD_FRIEND: {
             const copyState = {...state}
-            // const newFriend = state.findFriends.filter(el => el.id === action.id ? {...el, followed: true} : "")
-            const newFriend = state.findFriends.find(el => el.id === action.id)
-            console.log(newFriend)
-            if(newFriend) {
-                copyState.friends = [...state.friends, newFriend]
+            const newFriend = state.foundFriends.find(el => el.id === action.id)
+            if (newFriend) {
+                copyState.friends = [...state.friends, {...newFriend, followed: true}]
             }
-            const newfindFriends = state.findFriends.filter(el => el.id !== action.id)
-            copyState.findFriends = newfindFriends
+            copyState.foundFriends = state.foundFriends.filter(el => el.id !== action.id)
             return copyState
         }
         case SET_FRIENDS: {
-            const copyState = {...state}
-            copyState.findFriends = action.friends
-            return copyState
+            return {...state, foundFriends: action.friends}
         }
+        case SHOW_MORE_FOUND_FRIENDS: {
+            return {...state, pageSize: state.pageSize + 10}
+        }
+        case SET_CURRENT_PAGE: {
+            return {...state, currentPageFoundFriends: action.currentPage}
+        }
+        case SET_TOTAL_FOUND_FRIENDS: {
+            return {...state, totalFoundFriends: action.totalCount}
+        }
+        case TOGGLE_IS_FETCHING: {
+            return {...state, isFetching: action.isFetching}
+        }
+        default:
+            return state
     }
-    return state
 }
 
 export const changeStatusFriendAC = (id: string) => ({
@@ -79,4 +162,23 @@ export const addFriendsAC = (id: string) => ({
 export const setFriendsAC = (friends: Array<FriendsType>) => ({
     type: SET_FRIENDS,
     friends
+}) as const
+
+export const snowMoreFoundFriendsAC = () => ({
+    type: SHOW_MORE_FOUND_FRIENDS
+}) as const
+
+export const setCurrentPageAC = (currentPage: number) => ({
+    type: SET_CURRENT_PAGE,
+    currentPage
+}) as const
+
+export const setTotalFoundFriendsAC = (totalCount: number) => ({
+    type: SET_TOTAL_FOUND_FRIENDS,
+    totalCount
+}) as const
+
+export const toggleIsFetchingAC = (isFetching: boolean) => ({
+    type: TOGGLE_IS_FETCHING,
+    isFetching
 }) as const

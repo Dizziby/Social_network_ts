@@ -3,8 +3,8 @@ import styles from "./Post.module.css"
 import userAvatar from "../../../../../../img/user-avatar.jpg"
 import {faComment, faEye, faHeart, faHeartCrack, faXmark} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {useDispatch} from "react-redux";
 import {deletePostAC} from "../../../../../../redux/reducers/postsReducer";
+import {useAppDispatch} from "../../../../../../redux/hooks";
 
 type PostPropsType = {
     id: string
@@ -19,7 +19,7 @@ type PostPropsType = {
 
 const Post = (props: PostPropsType) => {
 
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
     const onClickButtonHandler = (id: string) => {
         dispatch(deletePostAC(id))
@@ -45,11 +45,11 @@ const Post = (props: PostPropsType) => {
             <div className={styles.text}>
                 {props.text}
                 <div className={styles.icons}>
-                    <span className={styles.icon}><FontAwesomeIcon icon={faEye} size="lg"/>{props.views}</span>
-                    <span className={styles.icon}><FontAwesomeIcon icon={faComment} size="lg"/> {props.comments}</span>
-                    <span className={styles.icon}><FontAwesomeIcon icon={faHeart} size="lg"/> {props.like}</span>
-                    <span className={styles.icon}><FontAwesomeIcon icon={faHeartCrack}
-                                                                   size="lg"/> {props.dislike}</span>
+                    <span><FontAwesomeIcon className={styles.icon} icon={faEye} size="lg"/>{props.views}</span>
+                    <span><FontAwesomeIcon className={styles.icon} icon={faComment} size="lg"/> {props.comments}</span>
+                    <span><FontAwesomeIcon className={styles.icon} icon={faHeart} size="lg"/> {props.like}</span>
+                    <span><FontAwesomeIcon className={styles.icon} icon={faHeartCrack}
+                                           size="lg"/> {props.dislike}</span>
                 </div>
             </div>
         </div>

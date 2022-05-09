@@ -2,18 +2,19 @@ import React from "react";
 import styles from "./Messages.module.css"
 import {Contact} from "../../Contacts/Contact/Contact";
 import {Message} from "./Message/Message";
-import {useSelector} from "react-redux";
-import {RootState} from "../../../../redux/store";
-import {ContactsDataType} from "../../../../redux/reducers/contactsReducer";
 import {AddMessage} from "./AddMessage/AddMessage";
+import {useAppSelector} from "../../../../redux/hooks";
 
 export const Messages = () => {
 
-    const contactsData = useSelector<RootState, ContactsDataType>(state => state.contactsData)
+    const friendsData = useAppSelector(state => state.friendsData.friends)
 
-    const contactElement = contactsData.map(contact => <Contact key={contact.id} name={contact.name}
+    let friendsDataFilter = friendsData.filter(el => el.followed);
+
+
+    const contactElement = friendsDataFilter.map(contact => <Contact key={contact.id} name={contact.name}
                                                                 email={contact.email}
-                                                                avatar={contact.avatar} id={contact.id}/>)
+                                                                photos={contact.photos} id={contact.id}/>)
     return (
         <div className={styles.messages}>
             <div className={styles.title}>All Messages</div>

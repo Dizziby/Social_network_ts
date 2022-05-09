@@ -10,19 +10,15 @@ import {Logout} from "./components/Section/Main/Logout/Logout";
 export type SectionCSSType = "sectionAll" | "sectionMessages" | "sectionLogout"
 
 function App() {
+    const useLocalStateSection = (key: string, defaultValue: SectionCSSType) => {
+        const [section, setSection] = useState(()=> JSON.parse(localStorage.getItem(key) || `"${defaultValue}"`))
+        useEffect(() => {
+            localStorage.setItem(key, JSON.stringify(section));
+        }, [section]);
+        return [section, setSection]
+    }
 
-    const [section, setSection] = useState<SectionCSSType>("sectionAll")
-
-    useEffect(() => {
-        const section = JSON.parse(localStorage.getItem('section') || "{}");
-        if (section) {
-            setSection(section);
-        }
-    }, []);
-
-    useEffect(() => {
-        localStorage.setItem('section', JSON.stringify(section));
-    }, [section]);
+    const [section, setSection] = useLocalStateSection("section", "sectionAll")
 
     const changeGrid = (value: SectionCSSType) => {
         setSection(value)

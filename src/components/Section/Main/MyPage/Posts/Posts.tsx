@@ -1,14 +1,12 @@
 import React from "react";
 import styles from "./Posts.module.css"
 import Post from "./Post/Post";
-import {useSelector} from "react-redux";
-import {RootState} from "../../../../../redux/store";
-import {PostDataType} from "../../../../../redux/reducers/postsReducer";
+import {useAppSelector} from "../../../../../redux/hooks";
 
 
 const Posts = () => {
 
-    const postsData = useSelector<RootState, PostDataType>(state => state.postsData)
+    const postsData = useAppSelector(state => state.postsData)
 
     const postElement = postsData.posts.map(post => <Post key={post.id} id={post.id} name={post.name}
                                                           date={post.date} text={post.text}

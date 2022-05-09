@@ -10,10 +10,18 @@ export const Friends = () => {
 
     return (
         <div className={styles.friends}>
-            <NavLink className={styles.titleItem} to="my" onClick={() => setFilter(true)}>My Friends</NavLink>
-            <NavLink className={styles.titleItem} to="requests" onClick={() => setFilter(false)}>Friend
-                Requests</NavLink>
-            <NavLink className={styles.titleItem} to="find">Find Friends</NavLink>
+            <div className={styles.title}>
+                <NavLink className={({isActive}) =>
+                    (isActive ? `${styles.titleItem} ${styles.activeItem}` : `${styles.titleItem}`)} to="my"
+                         onClick={() => setFilter(true)}>My Friends</NavLink>
+                <NavLink className={({isActive}) =>
+                    (isActive ? `${styles.titleItem} ${styles.activeItem}` : `${styles.titleItem}`)} to="requests"
+                         onClick={() => setFilter(false)}>Friend
+                    Requests</NavLink>
+                <NavLink className={({isActive}) =>
+                    (isActive ? `${styles.titleItem} ${styles.activeItem}` : `${styles.titleItem}`)} to="find">Find
+                    Friends</NavLink>
+            </div>
             <Routes>
                 <Route path="my" element={<MyFriends filter={filter}/>}/>
                 <Route path="requests" element={<MyFriends filter={filter}/>}/>

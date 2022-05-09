@@ -61,31 +61,32 @@ const initialState: PostDataType = {
 export const postsReducer = (state = initialState, action: PostsActionType): PostDataType => {
     switch (action.type) {
         case ADD_POST: {
-            const stateCopy = {...state}
-            stateCopy.posts = [...state.posts]
-            stateCopy.posts.unshift({
-                id: v1(),
-                name: "Janice Griffith",
-                date: new Date().toLocaleString(),
-                text: state.newPostText,
-                views: 0,
-                comments: 0,
-                like: 0,
-                dislike: 0
-            });
-            stateCopy.newPostText = "";
-            return stateCopy;
+            return {
+                ...state,
+                posts: [
+                    {
+                        id: v1(),
+                        name: "Janice Griffith",
+                        date: new Date().toLocaleString(),
+                        text: state.newPostText,
+                        views: 0,
+                        comments: 0,
+                        like: 0,
+                        dislike: 0
+                    },
+                    ...state.posts
+                ],
+                newPostText: ""
+            }
         }
         case UPDATE_POST_TEXT: {
-            const stateCopy = {...state}
-                stateCopy.newPostText = action.postText;
-            return stateCopy;
+            return {...state, newPostText: action.postText}
         }
         case DELETE_POST: {
-            const stateCopy = {...state}
-            stateCopy.posts = [...state.posts]
-            stateCopy.posts = stateCopy.posts.filter(el => el.id !== action.id);
-            return stateCopy;
+            return {
+                ...state,
+                posts: state.posts.filter(el => el.id !== action.id)
+            }
         }
         default:
             return state;
@@ -100,7 +101,6 @@ export const updatePostTextAC = (postText: string) => ({
     type: "UPDATE_POST_TEXT",
     postText
 }) as const;
-
 
 export const deletePostAC = (id: string) => ({
     type: "DELETE_POST",

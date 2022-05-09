@@ -3,11 +3,13 @@ import {Contact} from "./Contact/Contact";
 import styles from "./Contacts.module.css"
 import {useSelector} from "react-redux";
 import {RootState} from "../../../redux/store";
-import {ContactsDataType} from "../../../redux/reducers/contactsReducer";
+import {FriendsType} from "../../../redux/reducers/friendsReducer";
 
 export const Contacts = () => {
 
-    const contactsData = useSelector<RootState, ContactsDataType>(state => state.contactsData)
+    const friendsData = useSelector<RootState, Array<FriendsType>>(state => state.friendsData.friends)
+
+    let friendsDataFilter = friendsData.filter(el => el.followed);
 
     let regExp = new RegExp("", "gi")
     const [filter, setFilter] = useState(regExp)
@@ -16,11 +18,12 @@ export const Contacts = () => {
         setFilter(regExp)
     }
 
-    const contactElementFilterSearch = contactsData.filter(el => filter.test(el.name))
+    const contactElementFilterSearch = friendsDataFilter.filter(el => filter.test(el.name))
 
-    const contactElement = contactElementFilterSearch.map(contact => <Contact key={contact.id} name={contact.name}
-                                                                email={contact.email}
-                                                                avatar={contact.avatar} id={contact.id}/>)
+    const contactElement = contactElementFilterSearch.map(contact => <Contact key={contact.id} id={contact.id}
+                                                                              name={contact.name}
+                                                                              email={contact.email}
+                                                                              photos={contact.photos}/>)
 
     return (
         <div className={styles.contacts}>
@@ -28,7 +31,8 @@ export const Contacts = () => {
                 Friends
             </div>
             <div>
-                <input className={styles.search} type="search" placeholder="  Search Contacts..." onChange={onChangeHandlerFilter}/>
+                <input className={styles.search} type="search" placeholder="  Search Contacts..."
+                       onChange={onChangeHandlerFilter}/>
             </div>
             <div className={styles.contactElement}>
                 {contactElement}
