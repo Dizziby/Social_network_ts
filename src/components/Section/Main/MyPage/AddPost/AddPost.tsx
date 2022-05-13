@@ -3,13 +3,13 @@ import styles from "./AddPost.module.css"
 import userAvatar from "../../../../../img/user-avatar.jpg"
 import {faCamera, faImage, faMusic, faVideo} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {addPostAC, updatePostTextAC} from "../../../../../redux/reducers/postsReducer";
+import {addPostAC, updatePostTextAC} from "../../../../../redux/reducers/profileReducer";
 import {useAppDispatch, useAppSelector} from "../../../../../redux/hooks";
 
-const AddPost = () => {
+export const AddPost = () => {
     const dispatch = useAppDispatch()
 
-    const newPostText = useAppSelector(state => state.postsData.newPostText)
+    const newPostText = useAppSelector(state => state.profileData.newPostText)
 
     const onChangeInputHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         dispatch(updatePostTextAC(e.currentTarget.value))
@@ -40,5 +40,3 @@ const AddPost = () => {
         </div>
     )
 }
-
-export default AddPost;

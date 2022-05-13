@@ -33,27 +33,27 @@ export const Nav = (props: NavPropsType) => {
             </div>
             <div className={styles.link}>
                 <FontAwesomeIcon icon={faMessage} size="lg" pull="left"/>
-                <NavLink to='/messages' onClick={() => props.changeGrid("sectionMessages")}>Messages</NavLink>
+                <NavLink to='messages' onClick={() => props.changeGrid("sectionMessages")}>Messages</NavLink>
             </div>
             <div className={styles.link}>
                 <FontAwesomeIcon icon={faPerson} size="lg" pull="left"/>
-                <NavLink to='/friends/my' onClick={() => props.changeGrid("sectionAll")}>Friends</NavLink>
+                <NavLink to='friends/my' onClick={() => props.changeGrid("sectionAll")}>Friends</NavLink>
             </div>
             <div className={styles.link}>
                 <FontAwesomeIcon icon={faPeopleGroup} size="lg" pull="left"/>
-                <NavLink to='/groups' onClick={() => props.changeGrid("sectionAll")}>Groups</NavLink>
+                <NavLink to='groups' onClick={() => props.changeGrid("sectionAll")}>Groups</NavLink>
             </div>
             <div className={styles.link}>
                 <FontAwesomeIcon icon={faImage} size="lg" pull="left"/>
-                <NavLink to='/photos' onClick={() => props.changeGrid("sectionAll")}>Photos</NavLink>
+                <NavLink to='photos' onClick={() => props.changeGrid("sectionAll")}>Photos</NavLink>
             </div>
             <div className={styles.link}>
                 <FontAwesomeIcon icon={faVideo} size="lg" pull="left"/>
-                <NavLink to='/videos' onClick={() => props.changeGrid("sectionAll")}>Videos</NavLink>
+                <NavLink to='videos' onClick={() => props.changeGrid("sectionAll")}>Videos</NavLink>
             </div>
             <div className={styles.link}>
                 <FontAwesomeIcon icon={faArrowRightFromBracket} size="lg" pull="left"/>
-                <NavLink to='/logout' onClick={() => props.changeGrid("sectionLogout")}>Logout</NavLink>
+                <NavLink to='logout' onClick={() => props.changeGrid("sectionLogout")}>Logout</NavLink>
             </div>
         </div>
     )

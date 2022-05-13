@@ -1,5 +1,5 @@
 // import {v1} from "uuid";
-// import postsReducer, {PostDataType} from "./reducers/postsReducer";
+// import profileReducer, {PostDataType} from "./reducers/profileReducer";
 // import {MessagesDataType} from "./reducers/messagesReducer";
 // import {ContactsDataType} from "./reducers/contactsReducer";
 // import {ActionType} from "./store";
@@ -88,7 +88,7 @@
 //     },
 //
 //     dispatch(action: ActionType) {
-//         this._state.postsData = postsReducer(this._state.postsData, action)
+//         this._state.postsData = profileReducer(this._state.postsData, action)
 //         this._callSubscribe(this._state)
 //     }
 // }

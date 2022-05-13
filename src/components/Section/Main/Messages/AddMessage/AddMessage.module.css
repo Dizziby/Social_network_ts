@@ -1,9 +1,14 @@
 .addMessage {
     display: flex;
+
 }
 
 
 
 .addMessage input {
     width: 100%;
+    border: 1px solid #545454;
+    border-radius: 5px;
+    box-shadow: 2px 2px #545454;
+    outline: none;
 }

@@ -26,7 +26,7 @@ function App() {
 
     return (
         <div className="App">
-            <Header section={section}/>
+            <Header section={section} changeGrid={changeGrid}/>
             <div className={section}>
                 <Nav section={section} changeGrid={changeGrid}/>
                 <Main section={section} changeGrid={changeGrid}/>

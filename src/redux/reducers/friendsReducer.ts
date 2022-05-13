@@ -2,10 +2,12 @@ import {v1} from "uuid";
 import {
     ADD_FRIEND,
     CHANGE_FRIEND_STATUS,
+    DELETE_FRIEND,
     SET_CURRENT_PAGE,
     SET_FRIENDS,
     SET_TOTAL_FOUND_FRIENDS,
-    SHOW_MORE_FOUND_FRIENDS, TOGGLE_IS_FETCHING
+    SHOW_MORE_FOUND_FRIENDS,
+    TOGGLE_IS_RECEIVED
 } from "../types";
 
 export type FriendsType = {
@@ -22,16 +24,18 @@ export type FriendsDataType = {
     pageSize: number
     totalFoundFriends: number
     currentPageFoundFriends: number
-    isFetching: boolean
+    isReceived: boolean
 }
 type FriendsActionType =
     ReturnType<typeof changeStatusFriendAC>
     | ReturnType<typeof addFriendsAC>
+    | ReturnType<typeof deleteFriendsAC>
     | ReturnType<typeof setFriendsAC>
     | ReturnType<typeof snowMoreFoundFriendsAC>
     | ReturnType<typeof setCurrentPageAC>
     | ReturnType<typeof setTotalFoundFriendsAC>
-    | ReturnType<typeof toggleIsFetchingAC>
+    | ReturnType<typeof toggleIsReceivedAC>
+
 
 const initialState: FriendsDataType = {
     friends: [
@@ -76,8 +80,8 @@ const initialState: FriendsDataType = {
             status: "I'm OK",
             email: 'ameliaspan@gmail.com'
         },
-        {id: v1(), name: "Isla Ken", followed: true, photos: "Isla Ken", status: "I'm OK", email: 'islaken@gmail.com'},
-        {id: v1(), name: "Ruby Cry", followed: true, photos: "Ruby Cry", status: "I'm OK", email: 'rubycry@gmail.com'},
+        {id: v1(), name: "Isla Ken", followed: false, photos: "Isla Ken", status: "I'm OK", email: 'islaken@gmail.com'},
+        {id: v1(), name: "Ruby Cry", followed: false, photos: "Ruby Cry", status: "I'm OK", email: 'rubycry@gmail.com'},
         {
             id: v1(),
             name: "Ella Wins",
@@ -108,11 +112,11 @@ const initialState: FriendsDataType = {
     pageSize: 10,
     totalFoundFriends: 12,
     currentPageFoundFriends: 1,
-    isFetching: false
-
+    isReceived: false
 }
 
 export const friendsReducer = (state = initialState, action: FriendsActionType): FriendsDataType => {
+    debugger
     switch (action.type) {
         case CHANGE_FRIEND_STATUS: {
             return {
@@ -121,13 +125,16 @@ export const friendsReducer = (state = initialState, action: FriendsActionType):
             }
         }
         case ADD_FRIEND: {
-            const copyState = {...state}
-            const newFriend = state.foundFriends.find(el => el.id === action.id)
-            if (newFriend) {
-                copyState.friends = [...state.friends, {...newFriend, followed: true}]
+            return {
+                ...state,
+                foundFriends: state.foundFriends.map(el => el.id === action.id ? {...el, followed: true} : el)
             }
-            copyState.foundFriends = state.foundFriends.filter(el => el.id !== action.id)
-            return copyState
+        }
+        case DELETE_FRIEND: {
+            return {
+                ...state,
+                foundFriends: state.foundFriends.map(el => el.id === action.id ? {...el, followed: false} : el)
+            }
         }
         case SET_FRIENDS: {
             return {...state, foundFriends: action.friends}
@@ -141,8 +148,8 @@ export const friendsReducer = (state = initialState, action: FriendsActionType):
         case SET_TOTAL_FOUND_FRIENDS: {
             return {...state, totalFoundFriends: action.totalCount}
         }
-        case TOGGLE_IS_FETCHING: {
-            return {...state, isFetching: action.isFetching}
+        case TOGGLE_IS_RECEIVED: {
+            return {...state, isReceived: action.isReceived}
         }
         default:
             return state
@@ -156,6 +163,11 @@ export const changeStatusFriendAC = (id: string) => ({
 
 export const addFriendsAC = (id: string) => ({
     type: ADD_FRIEND,
+    id
+}) as const
+
+export const deleteFriendsAC = (id: string) => ({
+    type: DELETE_FRIEND,
     id
 }) as const
 
@@ -178,7 +190,7 @@ export const setTotalFoundFriendsAC = (totalCount: number) => ({
     totalCount
 }) as const
 
-export const toggleIsFetchingAC = (isFetching: boolean) => ({
-    type: TOGGLE_IS_FETCHING,
-    isFetching
+export const toggleIsReceivedAC = (isReceived: boolean) => ({
+    type: TOGGLE_IS_RECEIVED,
+    isReceived
 }) as const

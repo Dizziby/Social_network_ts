@@ -3,7 +3,7 @@ import styles from "./Post.module.css"
 import userAvatar from "../../../../../../img/user-avatar.jpg"
 import {faComment, faEye, faHeart, faHeartCrack, faXmark} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {deletePostAC} from "../../../../../../redux/reducers/postsReducer";
+import {deletePostAC} from "../../../../../../redux/reducers/profileReducer";
 import {useAppDispatch} from "../../../../../../redux/hooks";
 
 type PostPropsType = {

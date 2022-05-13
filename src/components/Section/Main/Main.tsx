@@ -19,7 +19,7 @@ type MainPropsType = {
 export const Main: React.FC<MainPropsType> = (props) => {
 
     if (props.section === "sectionLogout") {
-        return null;
+        return null
     }
     return (
         <div className={styles.main}>
@@ -27,6 +27,7 @@ export const Main: React.FC<MainPropsType> = (props) => {
                 <Route path="*" element={<Error/>}/>
                 <Route path="React-Social-Network-TS" element={<MyPage/>}/>
                 <Route path="/" element={<MyPage/>}/>
+                <Route path="/:id" element={<MyPage/>}/>
                 <Route path="messages" element={<Messages/>}/>
                 <Route path="friends/*" element={<Friends/>}/>
                 <Route path="groups" element={<Groups/>}/>

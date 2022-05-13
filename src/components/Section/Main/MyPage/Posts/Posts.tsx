@@ -4,9 +4,9 @@ import Post from "./Post/Post";
 import {useAppSelector} from "../../../../../redux/hooks";
 
 
-const Posts = () => {
+export const Posts = () => {
 
-    const postsData = useAppSelector(state => state.postsData)
+    const postsData = useAppSelector(state => state.profileData)
 
     const postElement = postsData.posts.map(post => <Post key={post.id} id={post.id} name={post.name}
                                                           date={post.date} text={post.text}
@@ -20,5 +20,3 @@ const Posts = () => {
         </div>
     )
 }
-
-export default Posts;
