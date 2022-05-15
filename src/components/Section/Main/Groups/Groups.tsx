@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./Groups.module.css";
 import Group from "./Group/Group";
 import {useAppSelector} from "../../../../redux/hooks";
+import {ShowMore} from "../../../UIKit/ShowMore";
 
 export const Groups = () => {
 
@@ -15,6 +16,7 @@ export const Groups = () => {
                 Joined Groups
             </div>
             {groupElement}
+            <ShowMore callback={() => {}}/>
         </div>
     )
 }

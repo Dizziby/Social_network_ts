@@ -3,7 +3,7 @@ import styles from "./Post.module.css"
 import userAvatar from "../../../../../../img/user-avatar.jpg"
 import {faComment, faEye, faHeart, faHeartCrack, faXmark} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {deletePostAC} from "../../../../../../redux/reducers/profileReducer";
+import {clickLikeAC, deletePostAC} from "../../../../../../redux/reducers/profileReducer";
 import {useAppDispatch} from "../../../../../../redux/hooks";
 
 type PostPropsType = {
@@ -15,6 +15,8 @@ type PostPropsType = {
     comments: number
     like: number
     dislike: number
+    isLike: boolean
+    isDislike: boolean
 }
 
 const Post = (props: PostPropsType) => {
@@ -24,6 +26,23 @@ const Post = (props: PostPropsType) => {
     const onClickButtonHandler = (id: string) => {
         dispatch(deletePostAC(id))
     }
+
+    const onClickLike = () => {
+        if(!props.isLike) {
+            dispatch(clickLikeAC(props.id, "like"))
+        }
+    }
+
+    const onClickDisLike = () => {
+        debugger
+        if(!props.isDislike) {
+            dispatch(clickLikeAC(props.id, "disLike"))
+        }
+    }
+
+    const likeClass = props.isLike ? `${styles.iconClick}` : `${styles.icon}`
+    const disLikeClass = props.isDislike ? `${styles.iconClick}` : `${styles.icon}`
+
 
     return (
         <div className={styles.post}>
@@ -47,9 +66,9 @@ const Post = (props: PostPropsType) => {
                 <div className={styles.icons}>
                     <span><FontAwesomeIcon className={styles.icon} icon={faEye} size="lg"/>{props.views}</span>
                     <span><FontAwesomeIcon className={styles.icon} icon={faComment} size="lg"/> {props.comments}</span>
-                    <span><FontAwesomeIcon className={styles.icon} icon={faHeart} size="lg"/> {props.like}</span>
-                    <span><FontAwesomeIcon className={styles.icon} icon={faHeartCrack}
-                                           size="lg"/> {props.dislike}</span>
+                    <span onClick={onClickLike}><FontAwesomeIcon className={likeClass} icon={faHeart} size="lg"/> {props.like}</span>
+                    <span onClick={onClickDisLike}><FontAwesomeIcon className={disLikeClass} icon={faHeartCrack}
+                                        size="lg"/> {props.dislike}</span>
                 </div>
             </div>
         </div>

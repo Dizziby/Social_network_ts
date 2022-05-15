@@ -73,4 +73,14 @@
 
 .icon:hover {
     color: #961d1d;
+    cursor: pointer;
+}
+
+.iconClick {
+    color: #961d1d;
+}
+
+.iconClick:hover {
+    color: #961d1d;
+    cursor: pointer;
 }

@@ -12,6 +12,7 @@ export const Posts = () => {
                                                           date={post.date} text={post.text}
                                                           views={post.views} comments={post.comments}
                                                           like={post.like} dislike={post.dislike}
+                                                          isLike={post.isLike} isDislike={post.isDislike}
     />)
 
     return (

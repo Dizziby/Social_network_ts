@@ -1,5 +1,5 @@
 import {v1} from "uuid";
-import {ADD_POST, DELETE_POST, SET_PROFILE, UPDATE_POST_TEXT} from "../types";
+import {ADD_POST, CLICK_LIKE, DELETE_POST, SET_PROFILE, UPDATE_POST_TEXT} from "../types";
 
 export type PostType = {
     id: string
@@ -10,6 +10,10 @@ export type PostType = {
     comments: number
     like: number
     dislike: number
+    isViews: boolean
+    isComments: boolean
+    isLike: boolean
+    isDislike: boolean
 }
 
 export type ProfileType = {
@@ -56,6 +60,7 @@ type PostsActionType =
     | ReturnType<typeof updatePostTextAC>
     | ReturnType<typeof deletePostAC>
     | ReturnType<typeof setProfileAC>
+    | ReturnType<typeof clickLikeAC>
 
 const initialState: PostDataType = {
     posts: [
@@ -67,9 +72,11 @@ const initialState: PostDataType = {
             views: 125,
             comments: 10,
             like: 14,
-            dislike: 3
-
-
+            dislike: 3,
+            isViews: false,
+            isComments: false,
+            isLike: false,
+            isDislike: false,
         },
         {
             id: v1(),
@@ -79,7 +86,11 @@ const initialState: PostDataType = {
             views: 145,
             comments: 445,
             like: 45,
-            dislike: 2
+            dislike: 2,
+            isViews: false,
+            isComments: false,
+            isLike: false,
+            isDislike: false,
         },
         {
             id: v1(),
@@ -89,7 +100,11 @@ const initialState: PostDataType = {
             views: 45,
             comments: 1,
             like: 556,
-            dislike: 14
+            dislike: 14,
+            isViews: false,
+            isComments: false,
+            isLike: false,
+            isDislike: false,
         },
     ],
     newPostText: "",
@@ -110,7 +125,11 @@ export const profileReducer = (state = initialState, action: PostsActionType): P
                         views: 0,
                         comments: 0,
                         like: 0,
-                        dislike: 0
+                        dislike: 0,
+                        isViews: false,
+                        isComments: false,
+                        isLike: false,
+                        isDislike: false,
                     },
                     ...state.posts
                 ],
@@ -128,6 +147,13 @@ export const profileReducer = (state = initialState, action: PostsActionType): P
         }
         case SET_PROFILE: {
             return {...state, profile: action.profile}
+        }
+        case CLICK_LIKE: {
+            if(action.name === "like") {
+                return {...state, posts: state.posts.map(el => el.id === action.id ? {...el, like: el.like + 1, isLike: true, isDislike: false} : el)}
+            } else {
+                return {...state, posts: state.posts.map(el => el.id === action.id ? {...el, like: el.like - 1, dislike: el.dislike + 1, isLike: false, isDislike: true} : el)}
+            }
         }
         default:
             return state;
@@ -151,4 +177,10 @@ export const deletePostAC = (id: string) => ({
 export const setProfileAC = (profile: ProfileType) => ({
     type: SET_PROFILE,
     profile
+}) as const
+
+export const clickLikeAC = (id: string, name: string) => ({
+    type: CLICK_LIKE,
+    id,
+    name
 }) as const

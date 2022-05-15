@@ -12,6 +12,8 @@ import photo9 from "../../../../img/Images/photo9.jpg";
 import photo10 from "../../../../img/Images/photo10.jpg";
 import photo11 from "../../../../img/Images/photo11.jpg";
 import photo12 from "../../../../img/Images/photo12.jpg";
+import {Preloader} from "../../../UIKit/Preloader";
+import {ShowMore} from "../../../UIKit/ShowMore";
 
 export const Photos = () => {
     return (
@@ -30,6 +32,7 @@ export const Photos = () => {
                 <img src={photo11} alt="photo11"/>
                 <img src={photo12} alt="photo12"/>
             </div>
+            <ShowMore callback={() => {}}/>
         </div>
     )
 }

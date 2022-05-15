@@ -8,7 +8,18 @@ const instance = axios.create({
     }
 })
 
-export const getFriends = (currentPageFoundFriends, pageSize) => {
+export const getUsers = (currentPageFoundFriends, pageSize) => {
     return instance.get(`users?page=${currentPageFoundFriends}&count=${pageSize}`).then(response => response.data)
 }
 
+export const followingUser = (id) => {
+    return instance.post(`follow/${id}`)
+}
+
+export const unfollowingUser = (id) => {
+    return instance.delete(`follow/${id}`)
+}
+
+export const getUserProfile = (id) => {
+    return instance.get(`profile/${id}`)
+}

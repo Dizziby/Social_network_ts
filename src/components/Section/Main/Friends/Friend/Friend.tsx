@@ -10,6 +10,7 @@ type FriendsPropsType = {
     followed: boolean
     photos: string
     status: string
+    disabled?: boolean
     callback: (id: string, followed: boolean) => void
 }
 
@@ -26,12 +27,12 @@ export const Friend = (props: FriendsPropsType) => {
             <div className={styles.info}>
                 <NavLink to={`/${props.id}`} >
                     <img src={/^http/.test(props.photos) ? props.photos : friendAvatar} alt={props.name}/>
-                    <a href="#">{props.name}</a>
+                    <a href="#">{props.name.length > 12 ? `${props.name.slice(0,12)}...` : props.name}</a>
                 </NavLink>
             </div>
             <div>{props.status.length > 20 ? `${props.status.slice(0,20)}...` : props.status}</div>
             <Button name={props.followed ? "Unfriends" : "Add Friend"} status={props.followed}
-                    callback={onClickButtonHandler}/>
+                    callback={onClickButtonHandler} disabled={props.disabled}/>
         </div>
     )
 }

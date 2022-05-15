@@ -1,10 +1,10 @@
 import React, {useEffect} from "react";
 import styles from "./ProfileInfo.module.css"
-import axios from "axios";
 import userAvatar from "../../../../../img/user-avatar.jpg";
 import {useAppDispatch, useAppSelector} from "../../../../../redux/hooks";
 import {setProfileAC} from "../../../../../redux/reducers/profileReducer";
 import {useParams} from "react-router-dom";
+import {getUserProfile} from "../../../../../api/api";
 
 export const ProfileInfo = () => {
 
@@ -14,8 +14,7 @@ export const ProfileInfo = () => {
     let { id } = useParams<"id">();
 
     useEffect(() => {
-
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${id}`)
+        getUserProfile(id)
             .then(response => {
                 dispatch(setProfileAC(response.data))
             })
@@ -24,13 +23,13 @@ export const ProfileInfo = () => {
     return (
         <div className={styles.profileInfo}>
             <div>
-                <img className={styles.userAvatar} src={userAvatar}/>
+                <img className={styles.userAvatar} src={infoProfile?.photos.large !== null ? infoProfile?.photos.large : userAvatar}/>
             </div>
             <div>
                 <p><b>Name:</b> {infoProfile?.fullName}</p>
                 <p><b>About me:</b> {infoProfile?.aboutMe
                     ? infoProfile?.aboutMe
-                    : "..."
+                    : "No information"
                 } </p>
                 <p><b>Job:</b> {infoProfile?.lookingForAJobDescription
                     ? infoProfile?.lookingForAJobDescription

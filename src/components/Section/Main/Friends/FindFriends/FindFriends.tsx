@@ -2,31 +2,31 @@ import React, {useEffect} from "react";
 import styles from "./FindFriends.module.css";
 import {Friend} from "../Friend/Friend";
 import {
-    addFriendsAC, deleteFriendsAC,
+    followingUserAC,
     setCurrentPageAC,
-    setFriendsAC,
     setTotalFoundFriendsAC,
-    snowMoreFoundFriendsAC,
-    toggleIsReceivedAC
+    setUsersAC,
+    showMoreFoundUsersAC,
+    toggleFollowingInProgressAC,
+    toggleIsReceivedAC,
+    unfollowingUserAC
 } from "../../../../../redux/reducers/friendsReducer";
-import axios from "axios";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faRotateRight} from "@fortawesome/free-solid-svg-icons";
 import {Preloader} from "../../../../UIKit/Preloader";
 import {useAppDispatch, useAppSelector} from "../../../../../redux/hooks";
-import {getFriends} from "../../../../../api/api";
+import {followingUser, getUsers, unfollowingUser} from "../../../../../api/api";
+import {ShowMore} from "../../../../UIKit/ShowMore";
 
-type FriendsGetType = {
-    name: string
-    id: number
-    uniqueUrlName: string
-    photos: {
-        small: string
-        large: string
-    }
-    status: string
-    followed: boolean
-}
+// type FriendsGetType = {
+//     name: string
+//     id: number
+//     uniqueUrlName: string
+//     photos: {
+//         small: string
+//         large: string
+//     }
+//     status: string
+//     followed: boolean
+// }
 
 export const FindFriends = () => {
 
@@ -37,12 +37,11 @@ export const FindFriends = () => {
     const totalFoundFriends = useAppSelector(state => state.friendsData.totalFoundFriends)
     const currentPageFoundFriends = useAppSelector(state => state.friendsData.currentPageFoundFriends)
     const isReceived = useAppSelector(state => state.friendsData.isReceived)
-
-    console.log("Rendering findfriends")
+    const isFollowingInProgress = useAppSelector(state => state.friendsData.isFollowingInProgress)
 
     useEffect(() => {
         dispatch(toggleIsReceivedAC(true))
-        getFriends(currentPageFoundFriends, pageSize).then(data => {
+        getUsers(currentPageFoundFriends, pageSize).then(data => {
             const friends = data.items.map((el: any) => ({
                 id: el.id,
                 name: el.name,
@@ -52,33 +51,27 @@ export const FindFriends = () => {
                 email: `${el.name.replace(" ", "").toLowerCase()}@gmail.com`
             }))
             dispatch(toggleIsReceivedAC(false))
-            dispatch(setFriendsAC(friends))
+            dispatch(setUsersAC(friends))
             dispatch(setTotalFoundFriendsAC(100))
         })
     }, [pageSize, currentPageFoundFriends, totalFoundFriends])
 
-    const addFriends = (id: string, followed: boolean) => {
+    const changeFollowingUser = (id: string, followed: boolean) => {
+        dispatch(toggleFollowingInProgressAC(id, true))
         if (!followed) {
-            axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${id}`, {}, {
-                withCredentials: true,
-                headers: {
-                    "API-KEY": "a85d113e-18ad-4422-b723-0a671fb9cb19"
-                }
-            })
+            followingUser(id)
                 .then(response => {
-                    response.data.resultCode === 0 && dispatch(addFriendsAC(id))
+                    response.data.resultCode === 0 && dispatch(followingUserAC(id))
+                    dispatch(toggleFollowingInProgressAC(id, false))
                 })
         } else {
-            axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${id}`, {
-                withCredentials: true,
-                headers: {
-                    "API-KEY": "a85d113e-18ad-4422-b723-0a671fb9cb19"
-                }
-            })
+            unfollowingUser(id)
                 .then(response => {
-                    response.data.resultCode === 0 && dispatch(deleteFriendsAC(id))
+                    response.data.resultCode === 0 && dispatch(unfollowingUserAC(id))
+                    dispatch(toggleFollowingInProgressAC(id, false))
                 })
         }
+
     }
 
     //Pagination
@@ -97,13 +90,14 @@ export const FindFriends = () => {
     const friendsFindElement = friendsFindData.map(friend => <Friend key={friend.id} id={friend.id} name={friend.name}
                                                                      followed={friend.followed} photos={friend.photos}
                                                                      status={friend.status}
-                                                                     callback={addFriends}/>)
+                                                                     callback={changeFollowingUser}
+                                                                     disabled={isFollowingInProgress.some(id => id === friend.id)}/>)
     const onClickHandler = (currentPage: number) => {
         dispatch(setCurrentPageAC(currentPage))
     }
 
-    const snowMoreFoundFriends = () => {
-        dispatch(snowMoreFoundFriendsAC())
+    const showMoreFoundUsers = () => {
+        dispatch(showMoreFoundUsersAC())
     }
 
     return (
@@ -113,9 +107,7 @@ export const FindFriends = () => {
                 :
                 <div>
                     {friendsFindElement}
-                    <div className={styles.btn} onClick={snowMoreFoundFriends}><FontAwesomeIcon className={styles.icon}
-                                                                                                icon={faRotateRight}
-                                                                                                size="lg"/></div>
+                    <ShowMore callback={showMoreFoundUsers}/>
                     <div className={styles.totalPages}>
                         Number of pages {pagesCount}
                     </div>
