@@ -8,8 +8,10 @@ export type GroupType = {
     type: string
     logo: string
 }
+
 export type GroupsDataType = Array<GroupType>
-type GroupActionType = ReturnType<typeof leaveGroupAC>
+
+export type GroupActionType = ReturnType<typeof leaveGroupAC>
 
 const initialState: GroupsDataType = [
     {id: v1(), name: "Funparty", follow: 32, type: "Public", logo: "group1"},

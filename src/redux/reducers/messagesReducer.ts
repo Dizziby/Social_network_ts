@@ -9,7 +9,6 @@ export type MessagesDataType = {
     messages: Array<MessagesData>,
     newMessageText: string
 }
-type MessagesActionType = ReturnType<typeof addMessageAC> | ReturnType<typeof updateMessageTextAC>
 
 const initialState: MessagesDataType = {
     messages: [
@@ -47,6 +46,11 @@ export const messagesReducer = (state = initialState, action: MessagesActionType
             return state
     }
 }
+
+//ActionCreator
+
+export type MessagesActionType = ReturnType<typeof addMessageAC> | ReturnType<typeof updateMessageTextAC>
+
 
 export const addMessageAC = () => ({
     type: ADD_MESSAGE

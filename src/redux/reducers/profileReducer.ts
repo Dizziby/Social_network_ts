@@ -1,5 +1,8 @@
 import {v1} from "uuid";
-import {ADD_POST, CLICK_LIKE, DELETE_POST, SET_PROFILE, UPDATE_POST_TEXT} from "../types";
+import {ActionTypeForApp, ADD_POST, CLICK_LIKE, DELETE_POST, SET_PROFILE, UPDATE_POST_TEXT} from "../types";
+import {api} from "../../api/api";
+import {ThunkAction, ThunkDispatch} from "redux-thunk";
+import {AppStateType} from "../store";
 
 export type PostType = {
     id: string
@@ -23,14 +26,6 @@ export type ProfileType = {
     lookingForAJobDescription: string
     fullName: string
     contacts: ContactsProfileType
-    github: string
-    vk: string
-    facebook: string
-    instagram: string
-    twitter: string
-    website: string
-    youtube: string
-    mainLink: string
     photos: PhotosProfileType
 }
 
@@ -55,12 +50,14 @@ export type PostDataType = {
     newPostText: string
     profile: null | ProfileType
 }
-type PostsActionType =
+
+export type PostsActionType =
     ReturnType<typeof addPostAC>
     | ReturnType<typeof updatePostTextAC>
     | ReturnType<typeof deletePostAC>
     | ReturnType<typeof setProfileAC>
     | ReturnType<typeof clickLikeAC>
+
 
 const initialState: PostDataType = {
     posts: [
@@ -149,10 +146,27 @@ export const profileReducer = (state = initialState, action: PostsActionType): P
             return {...state, profile: action.profile}
         }
         case CLICK_LIKE: {
-            if(action.name === "like") {
-                return {...state, posts: state.posts.map(el => el.id === action.id ? {...el, like: el.like + 1, isLike: true, isDislike: false} : el)}
+            if (action.name === "like") {
+                return {
+                    ...state,
+                    posts: state.posts.map(el => el.id === action.id ? {
+                        ...el,
+                        like: el.like + 1,
+                        isLike: true,
+                        isDislike: false
+                    } : el)
+                }
             } else {
-                return {...state, posts: state.posts.map(el => el.id === action.id ? {...el, like: el.like - 1, dislike: el.dislike + 1, isLike: false, isDislike: true} : el)}
+                return {
+                    ...state,
+                    posts: state.posts.map(el => el.id === action.id ? {
+                        ...el,
+                        like: el.like - 1,
+                        dislike: el.dislike + 1,
+                        isLike: false,
+                        isDislike: true
+                    } : el)
+                }
             }
         }
         default:
@@ -184,3 +198,16 @@ export const clickLikeAC = (id: string, name: string) => ({
     id,
     name
 }) as const
+
+
+export type ThunkActionType = ThunkAction<void, AppStateType, unknown, ActionTypeForApp>
+export type ThunkDispatchType = ThunkDispatch<AppStateType, unknown, ActionTypeForApp>
+
+export const getUserProfileTC = (id: string): ThunkActionType => (dispatch:ThunkDispatchType) => {
+
+    api.getUserProfile(id)
+        .then(response => {
+            dispatch(setProfileAC(response.data))
+            console.log(response.data)
+        })
+}

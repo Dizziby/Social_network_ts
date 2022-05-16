@@ -19,6 +19,7 @@
     "@types/react-redux": "^7.1.23",
     "@types/redux": "^3.6.0",
     "@types/redux-saga": "^0.10.5",
+    "@types/redux-thunk": "^2.1.0",
     "@types/uuid": "^8.3.4",
     "addon-redux": "^2.0.11",
     "axios": "^0.27.2",

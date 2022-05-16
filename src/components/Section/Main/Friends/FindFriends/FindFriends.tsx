@@ -3,30 +3,16 @@ import styles from "./FindFriends.module.css";
 import {Friend} from "../Friend/Friend";
 import {
     followingUserAC,
+    getUsersTC,
     setCurrentPageAC,
-    setTotalFoundFriendsAC,
-    setUsersAC,
     showMoreFoundUsersAC,
     toggleFollowingInProgressAC,
-    toggleIsReceivedAC,
     unfollowingUserAC
 } from "../../../../../redux/reducers/friendsReducer";
 import {Preloader} from "../../../../UIKit/Preloader";
 import {useAppDispatch, useAppSelector} from "../../../../../redux/hooks";
-import {followingUser, getUsers, unfollowingUser} from "../../../../../api/api";
+import {api} from "../../../../../api/api";
 import {ShowMore} from "../../../../UIKit/ShowMore";
-
-// type FriendsGetType = {
-//     name: string
-//     id: number
-//     uniqueUrlName: string
-//     photos: {
-//         small: string
-//         large: string
-//     }
-//     status: string
-//     followed: boolean
-// }
 
 export const FindFriends = () => {
 
@@ -36,36 +22,25 @@ export const FindFriends = () => {
     const pageSize = useAppSelector(state => state.friendsData.pageSize)
     const totalFoundFriends = useAppSelector(state => state.friendsData.totalFoundFriends)
     const currentPageFoundFriends = useAppSelector(state => state.friendsData.currentPageFoundFriends)
-    const isReceived = useAppSelector(state => state.friendsData.isReceived)
+    const isFetching = useAppSelector(state => state.friendsData.isFetching)
     const isFollowingInProgress = useAppSelector(state => state.friendsData.isFollowingInProgress)
 
-    useEffect(() => {
-        dispatch(toggleIsReceivedAC(true))
-        getUsers(currentPageFoundFriends, pageSize).then(data => {
-            const friends = data.items.map((el: any) => ({
-                id: el.id,
-                name: el.name,
-                followed: el.followed,
-                photos: el.photos.small === null ? el.name : el.photos.small,
-                status: el.status === null ? "..." : el.status,
-                email: `${el.name.replace(" ", "").toLowerCase()}@gmail.com`
-            }))
-            dispatch(toggleIsReceivedAC(false))
-            dispatch(setUsersAC(friends))
-            dispatch(setTotalFoundFriendsAC(100))
-        })
+        useEffect(() => {
+
+            // @ts-ignore
+            dispatch(getUsersTC(currentPageFoundFriends, pageSize))
     }, [pageSize, currentPageFoundFriends, totalFoundFriends])
 
     const changeFollowingUser = (id: string, followed: boolean) => {
         dispatch(toggleFollowingInProgressAC(id, true))
         if (!followed) {
-            followingUser(id)
+            api.followingUser(id)
                 .then(response => {
                     response.data.resultCode === 0 && dispatch(followingUserAC(id))
                     dispatch(toggleFollowingInProgressAC(id, false))
                 })
         } else {
-            unfollowingUser(id)
+            api.unfollowingUser(id)
                 .then(response => {
                     response.data.resultCode === 0 && dispatch(unfollowingUserAC(id))
                     dispatch(toggleFollowingInProgressAC(id, false))
@@ -102,7 +77,7 @@ export const FindFriends = () => {
 
     return (
         <div className={styles.findFriends}>
-            {isReceived
+            {isFetching
                 ? <Preloader/>
                 :
                 <div>

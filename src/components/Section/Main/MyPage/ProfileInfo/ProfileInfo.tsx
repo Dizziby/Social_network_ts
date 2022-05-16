@@ -2,9 +2,8 @@ import React, {useEffect} from "react";
 import styles from "./ProfileInfo.module.css"
 import userAvatar from "../../../../../img/user-avatar.jpg";
 import {useAppDispatch, useAppSelector} from "../../../../../redux/hooks";
-import {setProfileAC} from "../../../../../redux/reducers/profileReducer";
+import {getUserProfileTC} from "../../../../../redux/reducers/profileReducer";
 import {useParams} from "react-router-dom";
-import {getUserProfile} from "../../../../../api/api";
 
 export const ProfileInfo = () => {
 
@@ -14,10 +13,13 @@ export const ProfileInfo = () => {
     let { id } = useParams<"id">();
 
     useEffect(() => {
-        getUserProfile(id)
-            .then(response => {
-                dispatch(setProfileAC(response.data))
-            })
+
+        // @ts-ignore
+        dispatch(getUserProfileTC(id))
+        // api.getUserProfile(id)
+        //     .then(response => {
+        //         dispatch(setProfileAC(response.data))
+        //     })
     }, [])
 
     return (

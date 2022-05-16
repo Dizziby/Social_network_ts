@@ -1,5 +1,6 @@
 import {v1} from "uuid";
 import {
+    ActionTypeForApp,
     CHANGE_FRIEND_STATUS,
     FOLLOWING_USER,
     SET_CURRENT_PAGE,
@@ -7,9 +8,13 @@ import {
     SET_USERS,
     SHOW_MORE_FOUND_USERS,
     TOGGLE_FOLLOWING_IN_PROGRESS,
-    TOGGLE_IS_RECEIVED,
+    TOGGLE_IS_FETCHING,
     UNFOLLOWING_USER
 } from "../types";
+import {api} from "../../api/api";
+import {AppStateType} from "../store";
+import {ThunkAction, ThunkDispatch} from "redux-thunk";
+
 
 export type FriendsType = {
     id: string
@@ -25,21 +30,9 @@ export type FriendsDataType = {
     pageSize: number
     totalFoundFriends: number
     currentPageFoundFriends: number
-    isReceived: boolean
+    isFetching: boolean
     isFollowingInProgress: string[]
 }
-
-type FriendsActionType =
-    ReturnType<typeof changeStatusFriendAC>
-    | ReturnType<typeof followingUserAC>
-    | ReturnType<typeof unfollowingUserAC>
-    | ReturnType<typeof setUsersAC>
-    | ReturnType<typeof showMoreFoundUsersAC>
-    | ReturnType<typeof setCurrentPageAC>
-    | ReturnType<typeof setTotalFoundFriendsAC>
-    | ReturnType<typeof toggleIsReceivedAC>
-    | ReturnType<typeof toggleFollowingInProgressAC>
-
 
 const initialState: FriendsDataType = {
     friends: [
@@ -115,9 +108,10 @@ const initialState: FriendsDataType = {
     pageSize: 10,
     totalFoundFriends: 12,
     currentPageFoundFriends: 1,
-    isReceived: false,
+    isFetching: false,
     isFollowingInProgress: []
 }
+
 
 export const friendsReducer = (state = initialState, action: FriendsActionType): FriendsDataType => {
 
@@ -152,11 +146,12 @@ export const friendsReducer = (state = initialState, action: FriendsActionType):
         case SET_TOTAL_FOUND_FRIENDS: {
             return {...state, totalFoundFriends: action.totalCount}
         }
-        case TOGGLE_IS_RECEIVED: {
-            return {...state, isReceived: action.isReceived}
+        case TOGGLE_IS_FETCHING: {
+            return {...state, isFetching: action.isFetching}
         }
         case TOGGLE_FOLLOWING_IN_PROGRESS: {
-            return {...state,
+            return {
+                ...state,
                 isFollowingInProgress: action.isProgress
                     ? [...state.isFollowingInProgress, action.userId]
                     : state.isFollowingInProgress.filter(id => id !== action.userId)
@@ -166,6 +161,21 @@ export const friendsReducer = (state = initialState, action: FriendsActionType):
             return state
     }
 }
+
+
+//ActionCreator
+
+export type FriendsActionType =
+    ReturnType<typeof changeStatusFriendAC>
+    | ReturnType<typeof followingUserAC>
+    | ReturnType<typeof unfollowingUserAC>
+    | ReturnType<typeof setUsersAC>
+    | ReturnType<typeof showMoreFoundUsersAC>
+    | ReturnType<typeof setCurrentPageAC>
+    | ReturnType<typeof setTotalFoundFriendsAC>
+    | ReturnType<typeof toggleIsFetchingAC>
+    | ReturnType<typeof toggleFollowingInProgressAC>
+
 
 export const changeStatusFriendAC = (id: string) => ({
     type: CHANGE_FRIEND_STATUS,
@@ -201,9 +211,9 @@ export const setTotalFoundFriendsAC = (totalCount: number) => ({
     totalCount
 }) as const
 
-export const toggleIsReceivedAC = (isReceived: boolean) => ({
-    type: TOGGLE_IS_RECEIVED,
-    isReceived
+export const toggleIsFetchingAC = (isFetching: boolean) => ({
+    type: TOGGLE_IS_FETCHING,
+    isFetching
 }) as const
 
 export const toggleFollowingInProgressAC = (userId: string, isProgress: boolean) => ({
@@ -212,3 +222,26 @@ export const toggleFollowingInProgressAC = (userId: string, isProgress: boolean)
     isProgress
 }) as const
 
+
+//Thunk Creator
+
+export type ThunkActionType = ThunkAction<void, AppStateType, unknown, ActionTypeForApp>
+export type ThunkDispatchType = ThunkDispatch<AppStateType, unknown, ActionTypeForApp>
+
+
+export const getUsersTC = (currentPageFoundFriends: number, pageSize: number): ThunkActionType => (dispatch: ThunkDispatchType) => {
+    dispatch(toggleIsFetchingAC(true))
+    api.getUsers(currentPageFoundFriends, pageSize).then(data => {
+        const users = data.items.map((el: any) => ({
+            id: el.id,
+            name: el.name,
+            followed: el.followed,
+            photos: el.photos.small === null ? el.name : el.photos.small,
+            status: el.status === null ? "..." : el.status,
+            email: `${el.name.replace(" ", "").toLowerCase()}@gmail.com`
+        }))
+        dispatch(toggleIsFetchingAC(false))
+        dispatch(setUsersAC(users))
+        dispatch(setTotalFoundFriendsAC(100))
+    })
+}

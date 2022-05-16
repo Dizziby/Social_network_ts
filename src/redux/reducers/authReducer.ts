@@ -7,7 +7,7 @@ export type AuthType = {
     isAuth: boolean
 }
 
-type AuthActionType = ReturnType<typeof setUserDataAC>
+export type AuthActionType = ReturnType<typeof setUserDataAC>
 
 const initialState: AuthType = {
     id: null,
@@ -34,6 +34,3 @@ export const setUserDataAC = (data: AuthType) => ({
     type: SET_USER_DATA,
     data
 }) as const
-
-
-
