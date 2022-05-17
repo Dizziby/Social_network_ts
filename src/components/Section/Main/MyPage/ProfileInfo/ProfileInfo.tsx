@@ -13,13 +13,7 @@ export const ProfileInfo = () => {
     let { id } = useParams<"id">();
 
     useEffect(() => {
-
-        // @ts-ignore
-        dispatch(getUserProfileTC(id))
-        // api.getUserProfile(id)
-        //     .then(response => {
-        //         dispatch(setProfileAC(response.data))
-        //     })
+        id && dispatch(getUserProfileTC(id))
     }, [])
 
     return (

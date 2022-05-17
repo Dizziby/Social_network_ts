@@ -3,6 +3,7 @@ import {ActionTypeForApp, ADD_POST, CLICK_LIKE, DELETE_POST, SET_PROFILE, UPDATE
 import {api} from "../../api/api";
 import {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {AppStateType} from "../store";
+import {ThunkActionType, ThunkDispatchType} from "../hooks";
 
 export type PostType = {
     id: string
@@ -200,11 +201,9 @@ export const clickLikeAC = (id: string, name: string) => ({
 }) as const
 
 
-export type ThunkActionType = ThunkAction<void, AppStateType, unknown, ActionTypeForApp>
-export type ThunkDispatchType = ThunkDispatch<AppStateType, unknown, ActionTypeForApp>
+//Thunk Creator
 
 export const getUserProfileTC = (id: string): ThunkActionType => (dispatch:ThunkDispatchType) => {
-
     api.getUserProfile(id)
         .then(response => {
             dispatch(setProfileAC(response.data))

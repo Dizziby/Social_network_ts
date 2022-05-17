@@ -14,6 +14,7 @@ import {
 import {api} from "../../api/api";
 import {AppStateType} from "../store";
 import {ThunkAction, ThunkDispatch} from "redux-thunk";
+import {ThunkActionType, ThunkDispatchType} from "../hooks";
 
 
 export type FriendsType = {
@@ -224,10 +225,6 @@ export const toggleFollowingInProgressAC = (userId: string, isProgress: boolean)
 
 
 //Thunk Creator
-
-export type ThunkActionType = ThunkAction<void, AppStateType, unknown, ActionTypeForApp>
-export type ThunkDispatchType = ThunkDispatch<AppStateType, unknown, ActionTypeForApp>
-
 
 export const getUsersTC = (currentPageFoundFriends: number, pageSize: number): ThunkActionType => (dispatch: ThunkDispatchType) => {
     dispatch(toggleIsFetchingAC(true))

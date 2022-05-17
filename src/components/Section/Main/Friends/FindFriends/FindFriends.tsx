@@ -26,8 +26,6 @@ export const FindFriends = () => {
     const isFollowingInProgress = useAppSelector(state => state.friendsData.isFollowingInProgress)
 
         useEffect(() => {
-
-            // @ts-ignore
             dispatch(getUsersTC(currentPageFoundFriends, pageSize))
     }, [pageSize, currentPageFoundFriends, totalFoundFriends])
 
