@@ -7,6 +7,5 @@ import {ActionTypeForApp} from "./types";
 export type ThunkActionType = ThunkAction<void, AppStateType, unknown, ActionTypeForApp>
 export type ThunkDispatchType = ThunkDispatch<AppStateType, unknown, ActionTypeForApp>
 
-
 export const useAppDispatch = () => useDispatch<ThunkDispatchType>()
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector

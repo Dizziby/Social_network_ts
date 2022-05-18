@@ -1,8 +1,6 @@
 import {v1} from "uuid";
-import {ActionTypeForApp, ADD_POST, CLICK_LIKE, DELETE_POST, SET_PROFILE, UPDATE_POST_TEXT} from "../types";
+import {ADD_POST, CLICK_LIKE, DELETE_POST, SET_PROFILE, UPDATE_POST_TEXT} from "../types";
 import {api} from "../../api/api";
-import {ThunkAction, ThunkDispatch} from "redux-thunk";
-import {AppStateType} from "../store";
 import {ThunkActionType, ThunkDispatchType} from "../hooks";
 
 export type PostType = {

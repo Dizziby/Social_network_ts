@@ -1,5 +1,5 @@
 import React from "react";
-import {Route, Routes} from "react-router-dom";
+import {Navigate, Route, Routes} from "react-router-dom";
 import styles from "./Main.module.css"
 import {Messages} from "./Messages/Messages";
 import {Friends} from "./Friends/Friends";
@@ -10,6 +10,7 @@ import {Videos} from "./Videos/Videos";
 import {Groups} from "./Groups/Groups";
 import {SectionCSSType} from "../../../App";
 import {Error} from "../../Error";
+import {useAppSelector} from "../../../redux/hooks";
 
 type MainPropsType = {
     section: string
@@ -18,13 +19,21 @@ type MainPropsType = {
 
 export const Main: React.FC<MainPropsType> = (props) => {
 
+    const isAuth = useAppSelector(state => state.auth.isAuth)
+
     if (props.section === "sectionLogout") {
         return null
     }
+
+    if(!isAuth) {
+        props.changeGrid("sectionLogout")
+        return <Navigate to="/logout"/>
+    }
+
     return (
         <div className={styles.main}>
             <Routes>
-                <Route path="*" element={<Error/>}/>
+                <Route path="*" element={<Error/> }/>
                 <Route path="React-Social-Network-TS" element={<MyPage/>}/>
                 <Route path="/" element={<MyPage/>}/>
                 <Route path="/:id" element={<MyPage/>}/>

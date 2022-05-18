@@ -5,12 +5,11 @@ import {Message} from "./Message/Message";
 import {AddMessage} from "./AddMessage/AddMessage";
 import {useAppSelector} from "../../../../redux/hooks";
 
-export const Messages = () => {
+export const Messages= () => {
 
     const friendsData = useAppSelector(state => state.friendsData.friends)
 
     let friendsDataFilter = friendsData.filter(el => el.followed);
-
 
     const contactElement = friendsDataFilter.map(contact => <Contact key={contact.id} name={contact.name}
                                                                 email={contact.email}

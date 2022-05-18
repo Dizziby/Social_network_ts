@@ -1,4 +1,6 @@
 import {SET_USER_DATA} from "../types";
+import {api} from "../../api/api";
+import {ThunkActionType, ThunkDispatchType} from "../hooks";
 
 export type AuthType = {
     id: string | null
@@ -30,7 +32,21 @@ export const authReducer = (state = initialState, action: AuthActionType): AuthT
     }
 }
 
+
+// ActionCreator
+
 export const setUserDataAC = (data: AuthType) => ({
     type: SET_USER_DATA,
     data
 }) as const
+
+
+//Thunk Creator
+
+export const getAuthUserDataTC = (): ThunkActionType => (dispatch: ThunkDispatchType) => {
+    api.authMe().then(response => {
+        if (response.data.resultCode === 0) {
+            dispatch(setUserDataAC(response.data.data))
+        }
+    })
+}

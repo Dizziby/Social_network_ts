@@ -3,10 +3,9 @@ import styles from "./Header.module.css"
 import userAvatar from "../../img/user-avatar.jpg"
 import {NavLink} from "react-router-dom";
 import {SectionCSSType} from "../../App";
-import axios from "axios";
 import {useAppDispatch, useAppSelector} from "../../redux/hooks";
-import {setUserDataAC} from "../../redux/reducers/authReducer";
-import {faDoorOpen, faDoorClosed} from "@fortawesome/free-solid-svg-icons";
+import {getAuthUserDataTC} from "../../redux/reducers/authReducer";
+import {faDoorClosed, faDoorOpen} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 type HeaderPropsType = {
@@ -21,15 +20,7 @@ export const Header: React.FC<HeaderPropsType> = (props) => {
     const login = useAppSelector(state => state.auth.login)
 
     useEffect(() => {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
-            withCredentials: true
-
-        })
-            .then(response => {
-                if (response.data.resultCode === 0) {
-                    dispatch(setUserDataAC(response.data.data))
-                }
-            })
+        dispatch(getAuthUserDataTC())
     }, [])
 
     if (props.section === "sectionLogout" || props.section === "sectionError") {

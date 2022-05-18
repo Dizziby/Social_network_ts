@@ -19,7 +19,7 @@ export const ProfileInfo = () => {
     return (
         <div className={styles.profileInfo}>
             <div>
-                <img className={styles.userAvatar} src={infoProfile?.photos.large !== null ? infoProfile?.photos.large : userAvatar}/>
+                <img className={styles.userAvatar} src={infoProfile?.photos.large ? infoProfile?.photos.large : userAvatar}/>
             </div>
             <div>
                 <p><b>Name:</b> {infoProfile?.fullName}</p>

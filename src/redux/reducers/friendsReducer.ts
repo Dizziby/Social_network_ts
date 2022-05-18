@@ -1,6 +1,5 @@
 import {v1} from "uuid";
 import {
-    ActionTypeForApp,
     CHANGE_FRIEND_STATUS,
     FOLLOWING_USER,
     SET_CURRENT_PAGE,
@@ -12,8 +11,6 @@ import {
     UNFOLLOWING_USER
 } from "../types";
 import {api} from "../../api/api";
-import {AppStateType} from "../store";
-import {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {ThunkActionType, ThunkDispatchType} from "../hooks";
 
 
@@ -164,7 +161,7 @@ export const friendsReducer = (state = initialState, action: FriendsActionType):
 }
 
 
-//ActionCreator
+// ActionCreator
 
 export type FriendsActionType =
     ReturnType<typeof changeStatusFriendAC>

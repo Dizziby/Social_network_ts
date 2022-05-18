@@ -45,7 +45,11 @@ export const api = {
     },
     getUserProfile (id: string) {
         return instance.get<ProfileType>(`profile/${id}`)
+    },
+    authMe () {
+        return instance.get(`auth/me`)
     }
+
 }
 
 
