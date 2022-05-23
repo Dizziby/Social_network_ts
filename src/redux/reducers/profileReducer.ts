@@ -1,6 +1,6 @@
 import {v1} from "uuid";
-import {ADD_POST, CLICK_LIKE, DELETE_POST, SET_PROFILE, UPDATE_POST_TEXT} from "../types";
-import {api} from "../../api/api";
+import {ADD_POST, CLICK_LIKE, DELETE_POST, SET_PROFILE, SET_STATUS, UPDATE_POST_TEXT} from "../types";
+import {profileAPI} from "../../api/api";
 import {ThunkActionType, ThunkDispatchType} from "../hooks";
 
 export type PostType = {
@@ -48,6 +48,7 @@ export type PostDataType = {
     posts: Array<PostType>
     newPostText: string
     profile: null | ProfileType
+    status: string
 }
 
 export type PostsActionType =
@@ -56,6 +57,7 @@ export type PostsActionType =
     | ReturnType<typeof deletePostAC>
     | ReturnType<typeof setProfileAC>
     | ReturnType<typeof clickLikeAC>
+    | ReturnType<typeof setStatusAC>
 
 
 const initialState: PostDataType = {
@@ -104,7 +106,8 @@ const initialState: PostDataType = {
         },
     ],
     newPostText: "",
-    profile: null
+    profile: null,
+    status: "set status"
 }
 
 export const profileReducer = (state = initialState, action: PostsActionType): PostDataType => {
@@ -168,6 +171,9 @@ export const profileReducer = (state = initialState, action: PostsActionType): P
                 }
             }
         }
+        case SET_STATUS: {
+            return {...state, status: action.status}
+        }
         default:
             return state;
     }
@@ -198,13 +204,33 @@ export const clickLikeAC = (id: string, name: string) => ({
     name
 }) as const
 
+export const setStatusAC = (status: string) => ({
+    type: SET_STATUS,
+    status
+}) as const
+
 
 //Thunk Creator
 
-export const getUserProfileTC = (id: string): ThunkActionType => (dispatch:ThunkDispatchType) => {
-    api.getUserProfile(id)
+export const getUserProfileTC = (id: string): ThunkActionType => (dispatch: ThunkDispatchType) => {
+    profileAPI.getUserProfile(id)
         .then(response => {
             dispatch(setProfileAC(response.data))
-            console.log(response.data)
+        })
+}
+
+export const getStatusProfileTC = (id: string): ThunkActionType => (dispatch: ThunkDispatchType) => {
+    profileAPI.getStatusProfile(id)
+        .then(response => {
+            dispatch(setStatusAC(response.data))
+        })
+}
+
+export const updateStatusProfileTC = (status: string): ThunkActionType => (dispatch: ThunkDispatchType) => {
+    profileAPI.updateStatusProfile(status)
+        .then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(setStatusAC(status))
+            }
         })
 }

@@ -5,7 +5,7 @@ import {Messages} from "./Messages/Messages";
 import {Friends} from "./Friends/Friends";
 import {Photos} from "./Photos/Photos";
 import {Logout} from "./Logout/Logout";
-import {MyPage} from "./MyPage/MyPage";
+import {Profile} from "./MyPage/Profile";
 import {Videos} from "./Videos/Videos";
 import {Groups} from "./Groups/Groups";
 import {SectionCSSType} from "../../../App";
@@ -34,9 +34,9 @@ export const Main: React.FC<MainPropsType> = (props) => {
         <div className={styles.main}>
             <Routes>
                 <Route path="*" element={<Error/> }/>
-                <Route path="React-Social-Network-TS" element={<MyPage/>}/>
-                <Route path="/" element={<MyPage/>}/>
-                <Route path="/:id" element={<MyPage/>}/>
+                {/*<Route path="React-Social-Network-TS" element={<Profile/>}/>*/}
+                {/*<Route path="/" element={<Profile/>}/>*/}
+                <Route path="profile/*" element={<Profile/>}/>
                 <Route path="messages" element={<Messages/>}/>
                 <Route path="friends/*" element={<Friends/>}/>
                 <Route path="groups" element={<Groups/>}/>

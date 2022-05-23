@@ -18,7 +18,7 @@ export const Logout: React.FC<LogoutPropsType> = (props) => {
     return (
         <div className={styles.logout}>
             <div className={styles.left}>
-                Hello
+                <h2>Hello!</h2>
                 <img
                     src={logo}
                     alt="Dizzi_by"/>
@@ -26,8 +26,8 @@ export const Logout: React.FC<LogoutPropsType> = (props) => {
             <div className={styles.right}>
                 <div className={styles.form}>
                     <textarea>Login</textarea>
-                    <button ><NavLink to='/' onClick={loginProfile}>Login</NavLink></button>
-                    <button ><NavLink to='/' onClick={loginProfile}>Register</NavLink></button>
+                    <button ><NavLink to='profile' onClick={loginProfile}>Login</NavLink></button>
+                    <button ><NavLink to='profile' onClick={loginProfile}>Register</NavLink></button>
                 </div>
             </div>
         </div>

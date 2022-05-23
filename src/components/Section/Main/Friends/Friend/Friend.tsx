@@ -16,8 +16,6 @@ type FriendsPropsType = {
 
 export const Friend = (props: FriendsPropsType) => {
 
-    console.log("Rendering friend")
-
     const onClickButtonHandler = () => {
         props.callback(props.id, props.followed)
     }
@@ -25,7 +23,7 @@ export const Friend = (props: FriendsPropsType) => {
     return (
         <div className={styles.friend}>
             <div className={styles.info}>
-                <NavLink to={`/${props.id}`} >
+                <NavLink to={`/profile/${props.id}`} >
                     <img src={/^http/.test(props.photos) ? props.photos : friendAvatar} alt={props.name}/>
                     <a href="#">{props.name.length > 12 ? `${props.name.slice(0,12)}...` : props.name}</a>
                 </NavLink>

@@ -29,7 +29,7 @@ export const Nav = (props: NavPropsType) => {
             <p className={styles.title}>Shortcuts</p>
             <div className={styles.link}>
                 <FontAwesomeIcon icon={faPager} size="lg" pull="left"/>
-                <NavLink to="/" onClick={() => props.changeGrid("sectionAll")}>My Page</NavLink>
+                <NavLink to="profile" onClick={() => props.changeGrid("sectionAll")}>My Page</NavLink>
             </div>
             <div className={styles.link}>
                 <FontAwesomeIcon icon={faMessage} size="lg" pull="left"/>

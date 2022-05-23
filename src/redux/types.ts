@@ -13,6 +13,8 @@ export const UPDATE_POST_TEXT = "UPDATE_POST_TEXT"
 export const DELETE_POST = "DELETE_POST"
 export const SET_PROFILE = "SET_PROFILE"
 export const CLICK_LIKE = "CLICK_LIKE"
+export const SET_STATUS = "SET_STATUS"
+
 
 // MESSAGE
 export const ADD_MESSAGE = "ADD_MESSAGE"

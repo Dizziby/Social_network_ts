@@ -2,24 +2,35 @@ import React, {useEffect} from "react";
 import styles from "./ProfileInfo.module.css"
 import userAvatar from "../../../../../img/user-avatar.jpg";
 import {useAppDispatch, useAppSelector} from "../../../../../redux/hooks";
-import {getUserProfileTC} from "../../../../../redux/reducers/profileReducer";
+import {getStatusProfileTC, getUserProfileTC} from "../../../../../redux/reducers/profileReducer";
 import {useParams} from "react-router-dom";
+import {ProfileStatus} from "../../../../UIKit/ProfileStatus";
 
 export const ProfileInfo = () => {
 
+    console.log("Rendering ProfileInfo")
+
     const dispatch = useAppDispatch()
 
-    const infoProfile =  useAppSelector(state => state.profileData.profile)
-    let { id } = useParams<"id">();
+    const infoProfile = useAppSelector(state => state.profileData.profile)
+
+    let {"*": id} =  useParams<"*">();
+
+    if(id === "") {
+        id = "23909"
+    }
 
     useEffect(() => {
         id && dispatch(getUserProfileTC(id))
-    }, [])
+        id && dispatch(getStatusProfileTC(id))
+    }, [id])
 
     return (
         <div className={styles.profileInfo}>
             <div>
-                <img className={styles.userAvatar} src={infoProfile?.photos.large ? infoProfile?.photos.large : userAvatar}/>
+                <img className={styles.userAvatar}
+                     src={infoProfile?.photos.large ? infoProfile?.photos.large : userAvatar}/>
+                <ProfileStatus/>
             </div>
             <div>
                 <p><b>Name:</b> {infoProfile?.fullName}</p>

@@ -3,16 +3,22 @@
     height: 100vh;
 }
 
-.left{
+.left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     flex-grow: 1;
     background-color: #1FB6FF;
-    text-align: center;
 }
 
 .right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     flex-grow: 1;
     font-size: 25px;
-    text-align: center;
     margin: 150px auto;
     background-color: #F4F7F6;
 }

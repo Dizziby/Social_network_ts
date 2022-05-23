@@ -1,5 +1,5 @@
 import {SET_USER_DATA} from "../types";
-import {api} from "../../api/api";
+import {api, authAPI} from "../../api/api";
 import {ThunkActionType, ThunkDispatchType} from "../hooks";
 
 export type AuthType = {
@@ -44,7 +44,7 @@ export const setUserDataAC = (data: AuthType) => ({
 //Thunk Creator
 
 export const getAuthUserDataTC = (): ThunkActionType => (dispatch: ThunkDispatchType) => {
-    api.authMe().then(response => {
+    authAPI.authMe().then(response => {
         if (response.data.resultCode === 0) {
             dispatch(setUserDataAC(response.data.data))
         }

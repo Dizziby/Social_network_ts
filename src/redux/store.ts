@@ -1,10 +1,10 @@
-import {applyMiddleware, combineReducers, createStore} from "redux";
+import {combineReducers} from "redux";
 import {profileReducer} from "./reducers/profileReducer";
 import {messagesReducer} from "./reducers/messagesReducer";
 import {groupsReducer} from "./reducers/groupsReducer";
 import {friendsReducer} from "./reducers/friendsReducer";
 import {authReducer} from "./reducers/authReducer";
-import thunk from 'redux-thunk'
+import {configureStore} from "@reduxjs/toolkit";
 
 const rootReducer = combineReducers({
         profileData: profileReducer,
@@ -15,9 +15,11 @@ const rootReducer = combineReducers({
     }
 )
 
-export const store = createStore(rootReducer, applyMiddleware(thunk));
+export const store = configureStore({
+        reducer: rootReducer
+})
 
-export type AppStateType = ReturnType<typeof rootReducer>
+//export type AppStateType = ReturnType<typeof rootReducer>
 
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch
