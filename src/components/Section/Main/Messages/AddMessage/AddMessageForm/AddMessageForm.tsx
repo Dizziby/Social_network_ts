@@ -3,7 +3,6 @@ import {SubmitHandler, useForm} from "react-hook-form";
 import {faPaperPlane} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
-
 type AddMessageFormPropsType = {
     callback: (message: string) => void
 }
@@ -13,8 +12,12 @@ type FormInputs = {
 
 export const AddMessageForm: React.FC<AddMessageFormPropsType> = (props) => {
 
-    const {register, handleSubmit, watch} = useForm<FormInputs>();
-    const onSubmit: SubmitHandler<FormInputs> = (data) => props.callback(data.newMessage);
+    const {register, handleSubmit, reset} = useForm<FormInputs>();
+    const onSubmit: SubmitHandler<FormInputs> = (data) => {
+        props.callback(data.newMessage)
+        reset()
+    };
+
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>

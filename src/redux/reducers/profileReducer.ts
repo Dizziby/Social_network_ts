@@ -1,5 +1,5 @@
 import {v1} from "uuid";
-import {ADD_POST, CLICK_LIKE, DELETE_POST, SET_PROFILE, SET_STATUS, UPDATE_POST_TEXT} from "../types";
+import {ADD_POST, CLICK_LIKE, DELETE_POST, SET_PROFILE, SET_STATUS} from "../types";
 import {profileAPI} from "../../api/api";
 import {ThunkActionType, ThunkDispatchType} from "../hooks";
 
@@ -50,14 +50,6 @@ export type PostDataType = {
     profile: null | ProfileType
     status: string
 }
-
-export type PostsActionType =
-    ReturnType<typeof addPostAC>
-    | ReturnType<typeof updatePostTextAC>
-    | ReturnType<typeof deletePostAC>
-    | ReturnType<typeof setProfileAC>
-    | ReturnType<typeof clickLikeAC>
-    | ReturnType<typeof setStatusAC>
 
 
 const initialState: PostDataType = {
@@ -120,7 +112,7 @@ export const profileReducer = (state = initialState, action: PostsActionType): P
                         id: v1(),
                         name: "Janice Griffith",
                         date: new Date().toLocaleString(),
-                        text: state.newPostText,
+                        text: action.newPostText,
                         views: 0,
                         comments: 0,
                         like: 0,
@@ -132,11 +124,7 @@ export const profileReducer = (state = initialState, action: PostsActionType): P
                     },
                     ...state.posts
                 ],
-                newPostText: ""
             }
-        }
-        case UPDATE_POST_TEXT: {
-            return {...state, newPostText: action.postText}
         }
         case DELETE_POST: {
             return {
@@ -179,14 +167,25 @@ export const profileReducer = (state = initialState, action: PostsActionType): P
     }
 }
 
-export const addPostAC = () => ({
-    type: ADD_POST
+
+// ActionCreator
+
+export type PostsActionType =
+    ReturnType<typeof addPostAC>
+    | ReturnType<typeof deletePostAC>
+    | ReturnType<typeof setProfileAC>
+    | ReturnType<typeof clickLikeAC>
+    | ReturnType<typeof setStatusAC>
+
+export const addPostAC = (newPostText: string) => ({
+    type: ADD_POST,
+    newPostText
 }) as const
 
-export const updatePostTextAC = (postText: string) => ({
-    type: UPDATE_POST_TEXT,
-    postText
-}) as const
+// export const updatePostTextAC = (postText: string) => ({
+//     type: UPDATE_POST_TEXT,
+//     postText
+// }) as const
 
 export const deletePostAC = (id: string) => ({
     type: DELETE_POST,

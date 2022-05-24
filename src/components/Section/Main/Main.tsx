@@ -25,10 +25,12 @@ export const Main: React.FC<MainPropsType> = (props) => {
         return null
     }
 
-    if(!isAuth) {
-        props.changeGrid("sectionLogout")
-        return <Navigate to="/logout"/>
-    }
+    //----authorization check
+
+    // if(!isAuth) {
+    //     props.changeGrid("sectionLogout")
+    //     return <Navigate to="/logout"/>
+    // }
 
     return (
         <div className={styles.main}>
