@@ -8,8 +8,6 @@ import {ProfileStatus} from "../../../../UIKit/ProfileStatus";
 
 export const ProfileInfo = () => {
 
-    console.log("Rendering ProfileInfo")
-
     const dispatch = useAppDispatch()
 
     const infoProfile = useAppSelector(state => state.profileData.profile)

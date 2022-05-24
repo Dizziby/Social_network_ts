@@ -4,7 +4,12 @@ import {GroupActionType} from "./reducers/groupsReducer";
 import {MessagesActionType} from "./reducers/messagesReducer";
 import {FriendsActionType} from "./reducers/friendsReducer";
 
-export type ActionTypeForApp = FriendsActionType | PostsActionType | AuthActionType | GroupActionType | MessagesActionType
+export type ActionTypeForApp =
+    FriendsActionType
+    | PostsActionType
+    | AuthActionType
+    | GroupActionType
+    | MessagesActionType
 
 // PROFILE
 
@@ -15,10 +20,8 @@ export const SET_PROFILE = "SET_PROFILE"
 export const CLICK_LIKE = "CLICK_LIKE"
 export const SET_STATUS = "SET_STATUS"
 
-
 // MESSAGE
 export const ADD_MESSAGE = "ADD_MESSAGE"
-export const UPDATE_MESSAGE_TEXT = "UPDATE_MESSAGE_TEXT"
 
 // FRIENDS
 export const CHANGE_FRIEND_STATUS = "CHANGE_FRIEND_STATUS"

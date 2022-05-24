@@ -1,5 +1,5 @@
 import {v1} from "uuid";
-import {ADD_MESSAGE, UPDATE_MESSAGE_TEXT} from "../types";
+import {ADD_MESSAGE} from "../types";
 
 export type MessagesData = {
     id: string
@@ -7,7 +7,6 @@ export type MessagesData = {
 }
 export type MessagesDataType = {
     messages: Array<MessagesData>,
-    newMessageText: string
 }
 
 const initialState: MessagesDataType = {
@@ -15,8 +14,7 @@ const initialState: MessagesDataType = {
         {id: v1(), message: "Hello"},
         {id: v1(), message: "How are you?"},
         {id: v1(), message: "Bye"},
-    ],
-    newMessageText: ""
+    ]
 }
 
 export const messagesReducer = (state = initialState, action: MessagesActionType): MessagesDataType => {
@@ -30,16 +28,9 @@ export const messagesReducer = (state = initialState, action: MessagesActionType
                         ...state.messages,
                         {
                             id: v1(),
-                            message: state.newMessageText
+                            message: action.newMessage
                         }
                     ],
-                newMessageText: ""
-            }
-        }
-        case UPDATE_MESSAGE_TEXT: {
-            return {
-                ...state,
-                newMessageText: action.messageText
             }
         }
         default:
@@ -49,14 +40,9 @@ export const messagesReducer = (state = initialState, action: MessagesActionType
 
 //ActionCreator
 
-export type MessagesActionType = ReturnType<typeof addMessageAC> | ReturnType<typeof updateMessageTextAC>
+export type MessagesActionType = ReturnType<typeof addMessageAC>
 
-
-export const addMessageAC = () => ({
-    type: ADD_MESSAGE
-}) as const;
-
-export const updateMessageTextAC = (messageText: string) => ({
-    type: UPDATE_MESSAGE_TEXT,
-    messageText
+export const addMessageAC = (newMessage: string) => ({
+    type: ADD_MESSAGE,
+    newMessage
 }) as const;

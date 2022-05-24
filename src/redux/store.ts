@@ -1,17 +1,19 @@
 import {combineReducers} from "redux";
+import {configureStore} from "@reduxjs/toolkit";
 import {profileReducer} from "./reducers/profileReducer";
 import {messagesReducer} from "./reducers/messagesReducer";
 import {groupsReducer} from "./reducers/groupsReducer";
 import {friendsReducer} from "./reducers/friendsReducer";
 import {authReducer} from "./reducers/authReducer";
-import {configureStore} from "@reduxjs/toolkit";
+import {formReducer} from "./reducers/formReducer";
 
 const rootReducer = combineReducers({
         profileData: profileReducer,
         messagesData: messagesReducer,
         groupsData: groupsReducer,
         friendsData: friendsReducer,
-        auth: authReducer
+        auth: authReducer,
+        // form: formReducer
     }
 )
 

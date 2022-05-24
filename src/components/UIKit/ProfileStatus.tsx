@@ -5,9 +5,6 @@ import {getStatusProfileTC, updateStatusProfileTC} from "../../redux/reducers/pr
 import {useParams} from "react-router-dom";
 
 export const ProfileStatus = () => {
-
-    console.log("Rendering ProfileStatus")
-
     const dispatch = useAppDispatch()
 
     let {"*": id} = useParams<"*">();

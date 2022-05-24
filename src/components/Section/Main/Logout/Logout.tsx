@@ -3,7 +3,7 @@ import styles from "./Logout.module.css"
 import {NavLink} from "react-router-dom";
 import {SectionCSSType} from "../../../../App";
 import logo from "../../../../img/other/dizzi.png";
-
+import {LoginForm} from "./LoginForm/LoginForm";
 
 type LogoutPropsType = {
     changeGrid: (value: SectionCSSType) => void
@@ -24,11 +24,11 @@ export const Logout: React.FC<LogoutPropsType> = (props) => {
                     alt="Dizzi_by"/>
             </div>
             <div className={styles.right}>
-                <div className={styles.form}>
-                    <textarea>Login</textarea>
-                    <button ><NavLink to='profile' onClick={loginProfile}>Login</NavLink></button>
-                    <button ><NavLink to='profile' onClick={loginProfile}>Register</NavLink></button>
-                </div>
+                <LoginForm/>
+                <hr />
+                <textarea>Login</textarea>
+                <button><NavLink to='profile' onClick={loginProfile}>Login</NavLink></button>
+                {/*<button ><NavLink to='profile' onClick={loginProfile}>Register</NavLink></button>*/}
             </div>
         </div>
     )
