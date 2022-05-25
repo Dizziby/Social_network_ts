@@ -12,8 +12,6 @@ export type PostType = {
     comments: number
     like: number
     dislike: number
-    isViews: boolean
-    isComments: boolean
     isLike: boolean
     isDislike: boolean
 }
@@ -46,7 +44,6 @@ export type PhotosProfileType = {
 
 export type PostDataType = {
     posts: Array<PostType>
-    newPostText: string
     profile: null | ProfileType
     status: string
 }
@@ -63,8 +60,6 @@ const initialState: PostDataType = {
             comments: 10,
             like: 14,
             dislike: 3,
-            isViews: false,
-            isComments: false,
             isLike: false,
             isDislike: false,
         },
@@ -77,8 +72,6 @@ const initialState: PostDataType = {
             comments: 445,
             like: 45,
             dislike: 2,
-            isViews: false,
-            isComments: false,
             isLike: false,
             isDislike: false,
         },
@@ -91,13 +84,10 @@ const initialState: PostDataType = {
             comments: 1,
             like: 556,
             dislike: 14,
-            isViews: false,
-            isComments: false,
             isLike: false,
             isDislike: false,
         },
     ],
-    newPostText: "",
     profile: null,
     status: "set status"
 }
@@ -117,8 +107,6 @@ export const profileReducer = (state = initialState, action: PostsActionType): P
                         comments: 0,
                         like: 0,
                         dislike: 0,
-                        isViews: false,
-                        isComments: false,
                         isLike: false,
                         isDislike: false,
                     },
@@ -142,6 +130,7 @@ export const profileReducer = (state = initialState, action: PostsActionType): P
                     posts: state.posts.map(el => el.id === action.id ? {
                         ...el,
                         like: el.like + 1,
+                        dislike: el.isDislike ? el.dislike - 1 : el.dislike,
                         isLike: true,
                         isDislike: false
                     } : el)
@@ -151,7 +140,7 @@ export const profileReducer = (state = initialState, action: PostsActionType): P
                     ...state,
                     posts: state.posts.map(el => el.id === action.id ? {
                         ...el,
-                        like: el.like - 1,
+                        like: el.isLike ? el.like - 1 : el.like,
                         dislike: el.dislike + 1,
                         isLike: false,
                         isDislike: true
@@ -181,11 +170,6 @@ export const addPostAC = (newPostText: string) => ({
     type: ADD_POST,
     newPostText
 }) as const
-
-// export const updatePostTextAC = (postText: string) => ({
-//     type: UPDATE_POST_TEXT,
-//     postText
-// }) as const
 
 export const deletePostAC = (id: string) => ({
     type: DELETE_POST,

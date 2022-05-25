@@ -34,7 +34,6 @@ const Post = (props: PostPropsType) => {
     }
 
     const onClickDisLike = () => {
-        debugger
         if(!props.isDislike) {
             dispatch(clickLikeAC(props.id, "disLike"))
         }
