@@ -67,7 +67,7 @@ const initialState: PostDataType = {
             id: v1(),
             name: "Janice Griffith",
             date: "02.03.2021, 17:02:02",
-            text: "Curabitur world's most beautiful car in #test drive booking ! the most beatuiful car available in america and the saudia arabia, you can book your test drive by our official website",
+            text: "Curabitur world's most beautiful car in #test drive booking! the most beatuiful car available in america and the saudia arabia, you can book your test drive by our official website",
             views: 145,
             comments: 445,
             like: 45,

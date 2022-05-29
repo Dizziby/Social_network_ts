@@ -5,7 +5,6 @@ import {messagesReducer} from "./reducers/messagesReducer";
 import {groupsReducer} from "./reducers/groupsReducer";
 import {friendsReducer} from "./reducers/friendsReducer";
 import {authReducer} from "./reducers/authReducer";
-import {formReducer} from "./reducers/formReducer";
 
 const rootReducer = combineReducers({
         profileData: profileReducer,
@@ -13,12 +12,11 @@ const rootReducer = combineReducers({
         groupsData: groupsReducer,
         friendsData: friendsReducer,
         auth: authReducer,
-        // form: formReducer
     }
 )
 
 export const store = configureStore({
-        reducer: rootReducer
+    reducer: rootReducer
 })
 
 //export type AppStateType = ReturnType<typeof rootReducer>

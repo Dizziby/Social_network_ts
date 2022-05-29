@@ -44,7 +44,10 @@
     background-color: #8b8b8b;
 }
 
-
 .main {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
     margin: 20px;
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import {NavLink} from "react-router-dom";
+import {Navigate, NavLink} from "react-router-dom";
 import styles from "./Nav.module.css";
 import {
     faPager,
@@ -12,6 +12,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {SectionCSSType} from "../../../App";
+import {logoutTC} from "../../../redux/reducers/authReducer";
+import {useAppDispatch, useAppSelector} from "../../../redux/hooks";
 
 
 type NavPropsType = {
@@ -20,8 +22,17 @@ type NavPropsType = {
 }
 
 export const Nav = (props: NavPropsType) => {
+
+    const dispatch = useAppDispatch()
+    const isAuth = useAppSelector(state => state.auth.isAuth)
+
     if (props.section === "sectionLogout" || props.section === "sectionError") {
         return null;
+    }
+
+    const onClickHandlerLogout = () => {
+        dispatch(logoutTC())
+        // props.changeGrid("sectionLogout")
     }
 
     return (
@@ -53,7 +64,7 @@ export const Nav = (props: NavPropsType) => {
             </div>
             <div className={styles.link}>
                 <FontAwesomeIcon icon={faArrowRightFromBracket} size="lg" pull="left"/>
-                <NavLink to='logout' onClick={() => props.changeGrid("sectionLogout")}>Logout</NavLink>
+                <NavLink to='logout' onClick={onClickHandlerLogout}>Logout</NavLink>
             </div>
         </div>
     )

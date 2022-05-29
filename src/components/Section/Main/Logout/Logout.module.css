@@ -1,5 +1,6 @@
 .logout {
     display: flex;
+    flex-wrap: wrap;
     height: 100vh;
 }
 
@@ -20,5 +21,4 @@
     flex-grow: 1;
     font-size: 25px;
     margin: 150px auto;
-    background-color: #F4F7F6;
 }

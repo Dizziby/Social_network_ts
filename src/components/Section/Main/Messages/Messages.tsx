@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Messages.module.css"
 import {Contact} from "../../Contacts/Contact/Contact";
-import {Message} from "./Message/Message";
+import {Dialog} from "./Message/Dialog";
 import {AddMessage} from "./AddMessage/AddMessage";
 import {useAppSelector} from "../../../../redux/hooks";
 
@@ -24,7 +24,7 @@ export const Messages= () => {
                     </div>
                 </div>
                 <div className={styles.main}>
-                    <Message />
+                    <Dialog />
                     <AddMessage/>
                 </div>
             </div>

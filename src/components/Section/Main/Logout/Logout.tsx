@@ -1,9 +1,10 @@
-import React, {MouseEvent} from "react";
+import React from "react";
 import styles from "./Logout.module.css"
-import {NavLink} from "react-router-dom";
+import {Navigate} from "react-router-dom";
 import {SectionCSSType} from "../../../../App";
 import logo from "../../../../img/other/dizzi.png";
 import {LoginForm} from "./LoginForm/LoginForm";
+import {useAppSelector} from "../../../../redux/hooks";
 
 type LogoutPropsType = {
     changeGrid: (value: SectionCSSType) => void
@@ -11,8 +12,11 @@ type LogoutPropsType = {
 
 export const Logout: React.FC<LogoutPropsType> = (props) => {
 
-    const loginProfile = (e: MouseEvent<HTMLAnchorElement>) => {
+    const isAuth = useAppSelector(state => state.auth.isAuth)
+
+    if(isAuth) {
         props.changeGrid("sectionAll")
+        return <Navigate to="/profile"/>
     }
 
     return (
@@ -22,13 +26,13 @@ export const Logout: React.FC<LogoutPropsType> = (props) => {
                 <img
                     src={logo}
                     alt="Dizzi_by"/>
+                <p>Welcome to my social network!</p>
+                <p>Test account</p>
+                <p>Email: free@samuraijs.com</p>
+                <p>Password: free</p>
             </div>
             <div className={styles.right}>
                 <LoginForm/>
-                <hr />
-                <textarea>Login</textarea>
-                <button><NavLink to='profile' onClick={loginProfile}>Login</NavLink></button>
-                {/*<button ><NavLink to='profile' onClick={loginProfile}>Register</NavLink></button>*/}
             </div>
         </div>
     )
