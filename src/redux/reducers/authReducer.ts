@@ -1,4 +1,4 @@
-import {SET_USER_DATA} from "../types";
+import {SET_USER_DATA, STOP_SUBMIT} from "../types";
 import {authAPI} from "../../api/api";
 import {ThunkActionType, ThunkDispatchType} from "../hooks";
 
@@ -7,15 +7,19 @@ export type AuthType = {
     email: string | null
     login: string | null
     isAuth: boolean
+    isStopSubmit: boolean
+    messageStopSubmit: string
 }
 
-export type AuthActionType = ReturnType<typeof setAuthUserDataAC>
+export type AuthActionType = ReturnType<typeof setAuthUserDataAC> | ReturnType<typeof stopSubmitAC>
 
 const initialState: AuthType = {
     id: null,
     email: null,
     login: null,
-    isAuth: false
+    isAuth: false,
+    isStopSubmit: false,
+    messageStopSubmit: ""
 }
 
 export const authReducer = (state = initialState, action: AuthActionType): AuthType => {
@@ -26,6 +30,13 @@ export const authReducer = (state = initialState, action: AuthActionType): AuthT
                 ...action.payload
             }
         }
+        case STOP_SUBMIT: {
+            return {
+                ...state,
+                isStopSubmit: action.payload.isStopSubmit,
+                messageStopSubmit: action.payload.messageStopSubmit
+            }
+        }
         default:
             return state
     }
@@ -33,11 +44,6 @@ export const authReducer = (state = initialState, action: AuthActionType): AuthT
 
 
 // ActionCreator
-
-// export const setAuthUserDataAC = (data: AuthType) => ({
-//     type: SET_USER_DATA,
-//     data
-// }) as const
 
 export const setAuthUserDataAC = (id: string | null, email: string | null, login: string | null, isAuth: boolean) => ({
     type: SET_USER_DATA,
@@ -49,6 +55,14 @@ export const setAuthUserDataAC = (id: string | null, email: string | null, login
     }
 }) as const
 
+
+export const stopSubmitAC = (isStopSubmit: boolean, messageStopSubmit: string) => ({
+    type: STOP_SUBMIT,
+    payload: {
+        isStopSubmit,
+        messageStopSubmit
+    }
+}) as const
 
 
 //Thunk Creator
@@ -66,6 +80,9 @@ export const loginTC = (email: string, password:string, rememberMe: boolean): Th
     authAPI.login(email, password, rememberMe).then(response => {
         if (response.data.resultCode === 0) {
             dispatch(getAuthUserDataTC())
+            dispatch(stopSubmitAC(false, ""))
+        } else {
+            dispatch(stopSubmitAC(true, response.data.messages[0]))
         }
     })
 }

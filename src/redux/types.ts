@@ -39,4 +39,5 @@ export const LEAVE_GROUP = "LEAVE_GROUP"
 
 // AUTH
 export const SET_USER_DATA = "SET_USER_DATA"
+export const STOP_SUBMIT = "STOP_SUBMIT"
 
