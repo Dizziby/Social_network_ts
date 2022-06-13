@@ -1,6 +1,6 @@
 import {v1} from "uuid";
-import {ADD_POST, CLICK_LIKE, DELETE_POST, SET_PROFILE, SET_STATUS} from "../types";
-import {profileAPI} from "../../api/api";
+import {ADD_POST, CLICK_LIKE, DELETE_POST, SET_PHOTO, SET_PROFILE, SET_PROFILE_INFO, SET_STATUS} from "../types";
+import {profileAPI, updateProfileInfoRequestType} from "../../api/api";
 import {ThunkActionType, ThunkDispatchType} from "../hooks";
 
 export type PostType = {
@@ -27,14 +27,14 @@ export type ProfileType = {
 }
 
 export type ContactsProfileType = {
-    facebook: null | string,
-    website: null | string,
-    vk: null | string
-    twitter: null | string,
-    instagram: null | string,
-    youtube: null | string,
-    github: null | string,
-    mainLink: null | string
+    facebook: string,
+    website: string,
+    vk: string
+    twitter: string,
+    instagram: string,
+    youtube: string,
+    github: string,
+    mainLink: string
 }
 
 export type PhotosProfileType = {
@@ -53,7 +53,7 @@ const initialState: PostDataType = {
     posts: [
         {
             id: v1(),
-            name: "Janice Griffith",
+            name: "Pavel Kukayeu",
             date: "02.03.2021, 17:02:02",
             text: "World's most beautiful car in Curabitur #test drive booking ! the most beatuiful car available in america and the saudia arabia, you can book your test drive by our official website",
             views: 125,
@@ -65,7 +65,7 @@ const initialState: PostDataType = {
         },
         {
             id: v1(),
-            name: "Janice Griffith",
+            name: "Pavel Kukayeu",
             date: "02.03.2021, 17:02:02",
             text: "Curabitur world's most beautiful car in #test drive booking! the most beatuiful car available in america and the saudia arabia, you can book your test drive by our official website",
             views: 145,
@@ -77,7 +77,7 @@ const initialState: PostDataType = {
         },
         {
             id: v1(),
-            name: "Janice Griffith",
+            name: "Pavel Kukayeu",
             date: "02.03.2021, 17:02:02",
             text: "Lonely Cat Enjoying in Summer Curabitur #mypage ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc",
             views: 45,
@@ -93,6 +93,7 @@ const initialState: PostDataType = {
 }
 
 export const profileReducer = (state = initialState, action: PostsActionType): PostDataType => {
+
     switch (action.type) {
         case ADD_POST: {
             return {
@@ -100,7 +101,7 @@ export const profileReducer = (state = initialState, action: PostsActionType): P
                 posts: [
                     {
                         id: v1(),
-                        name: "Janice Griffith",
+                        name: state.profile?.fullName || "No Name",
                         date: new Date().toLocaleString(),
                         text: action.newPostText,
                         views: 0,
@@ -151,8 +152,20 @@ export const profileReducer = (state = initialState, action: PostsActionType): P
         case SET_STATUS: {
             return {...state, status: action.status}
         }
+        case SET_PHOTO: {
+            if(state.profile !== null) {
+                return {...state, profile: {...state.profile, photos: action.photos}}
+            }
+            return state
+        }
+        case SET_PROFILE_INFO: {
+            if(state.profile !== null) {
+                return {...state, profile: {...state.profile, ...action.info}}
+            }
+            return state
+        }
         default:
-            return state;
+            return state
     }
 }
 
@@ -165,6 +178,8 @@ export type PostsActionType =
     | ReturnType<typeof setProfileAC>
     | ReturnType<typeof clickLikeAC>
     | ReturnType<typeof setStatusAC>
+    | ReturnType<typeof setPhotoAC>
+    | ReturnType<typeof setProfileInfoAC>
 
 export const addPostAC = (newPostText: string) => ({
     type: ADD_POST,
@@ -173,7 +188,7 @@ export const addPostAC = (newPostText: string) => ({
 
 export const deletePostAC = (id: string) => ({
     type: DELETE_POST,
-    id: id
+    id
 }) as const
 
 export const setProfileAC = (profile: ProfileType) => ({
@@ -192,28 +207,51 @@ export const setStatusAC = (status: string) => ({
     status
 }) as const
 
+export const setPhotoAC = (photos: PhotosProfileType) => ({
+    type: SET_PHOTO,
+    photos
+}) as const
+
+export const setProfileInfoAC = (info: updateProfileInfoRequestType) => ({
+    type: SET_PROFILE_INFO,
+    info
+}) as const
 
 //Thunk Creator
 
-export const getUserProfileTC = (id: string): ThunkActionType => (dispatch: ThunkDispatchType) => {
-    profileAPI.getUserProfile(id)
-        .then(response => {
-            dispatch(setProfileAC(response.data))
-        })
+export const getUserProfileTC = (id: number): ThunkActionType => async (dispatch: ThunkDispatchType) => {
+    const response = await profileAPI.getUserProfile(id)
+    dispatch(setProfileAC(response.data))
 }
 
-export const getStatusProfileTC = (id: string): ThunkActionType => (dispatch: ThunkDispatchType) => {
-    profileAPI.getStatusProfile(id)
-        .then(response => {
-            dispatch(setStatusAC(response.data))
-        })
+export const getStatusProfileTC = (id: number): ThunkActionType => async (dispatch: ThunkDispatchType) => {
+    const response = await profileAPI.getStatusProfile(id)
+    let status
+    if (response.data) {
+        status = response.data
+    } else {
+        status = "No status"
+    }
+    dispatch(setStatusAC(status))
 }
 
-export const updateStatusProfileTC = (status: string): ThunkActionType => (dispatch: ThunkDispatchType) => {
-    profileAPI.updateStatusProfile(status)
-        .then(response => {
-            if (response.data.resultCode === 0) {
-                dispatch(setStatusAC(status))
-            }
-        })
+export const updateStatusProfileTC = (status: string): ThunkActionType => async (dispatch: ThunkDispatchType) => {
+    const response = await profileAPI.updateStatusProfile(status)
+    if (response.data.resultCode === 0) {
+        dispatch(setStatusAC(status))
+    }
+}
+
+export const updatePhotoProfileTC = (photo: any): ThunkActionType => async (dispatch: ThunkDispatchType) => {
+    const response = await profileAPI.updatePhotoProfile(photo)
+    if(response.data.resultCode === 0) {
+        dispatch(setPhotoAC(response.data.data))
+    }
+}
+
+export const updateProfileInfoTC = (info: updateProfileInfoRequestType): ThunkActionType => async  (dispatch: ThunkDispatchType) => {
+    const response = await profileAPI.updateProfileInfo(info)
+    if(response.data.resultCode === 0) {
+        dispatch(setProfileInfoAC(info))
+    }
 }

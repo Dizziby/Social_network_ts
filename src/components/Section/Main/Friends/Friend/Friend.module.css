@@ -16,6 +16,8 @@
 .info {
     display: flex;
     align-items: center;
+    text-decoration: none;
+    color: inherit;
 }
 
 .info img {
@@ -27,7 +29,7 @@
 
 .info a {
     text-decoration: none;
-    color:inherit;
+    color: inherit;
     font-weight: 500;
     font-size: 15px;
 }

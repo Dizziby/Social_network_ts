@@ -14,11 +14,12 @@ export type ActionTypeForApp =
 // PROFILE
 
 export const ADD_POST = "ADD_POST"
-export const UPDATE_POST_TEXT = "UPDATE_POST_TEXT"
 export const DELETE_POST = "DELETE_POST"
 export const SET_PROFILE = "SET_PROFILE"
 export const CLICK_LIKE = "CLICK_LIKE"
 export const SET_STATUS = "SET_STATUS"
+export const SET_PHOTO = "SET_PHOTO"
+export const SET_PROFILE_INFO= "SET_PROFILE_INFO"
 
 // MESSAGE
 export const ADD_MESSAGE = "ADD_MESSAGE"

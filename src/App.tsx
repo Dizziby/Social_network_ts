@@ -6,10 +6,20 @@ import {Nav} from "./components/Section/Nav/Nav";
 import {Main} from "./components/Section/Main/Main";
 import {Contacts} from "./components/Section/Contacts/Contacts";
 import {Logout} from "./components/Section/Main/Logout/Logout";
+import {getAuthUserDataTC} from "./redux/reducers/authReducer";
+import {useAppDispatch} from "./redux/hooks";
 
-export type SectionCSSType = "sectionAll" | "sectionMessages" | "sectionLogout"
+export type SectionCSSType = "sectionAll" | "sectionMessages" | "sectionLogout" | "sectionError"
 
 function App() {
+
+    const dispatch = useAppDispatch()
+
+    useEffect(() => {
+        dispatch(getAuthUserDataTC())
+    }, [])
+
+
     const useLocalStateSection = (key: string, defaultValue: SectionCSSType) => {
         const [section, setSection] = useState(()=> JSON.parse(localStorage.getItem(key) || `"${defaultValue}"`))
         useEffect(() => {
@@ -26,7 +36,7 @@ function App() {
 
     return (
         <div className="App">
-            <Header section={section} changeGrid={changeGrid}/>
+            <Header section={section}/>
             <div className={section}>
                 <Nav section={section} changeGrid={changeGrid}/>
                 <Main section={section} changeGrid={changeGrid}/>

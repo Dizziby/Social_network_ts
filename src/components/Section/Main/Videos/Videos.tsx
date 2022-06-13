@@ -14,7 +14,7 @@ import photo11 from "../../../../img/Images/photo11.jpg";
 import photo12 from "../../../../img/Images/photo12.jpg";
 import {ShowMore} from "../../../UIKit/ShowMore";
 
-export const Videos = () => {
+const Videos = () => {
     return (
         <div className={styles.videos}>
             <div className={styles.videosInner}>
@@ -35,3 +35,5 @@ export const Videos = () => {
         </div>
     )
 }
+
+export default Videos

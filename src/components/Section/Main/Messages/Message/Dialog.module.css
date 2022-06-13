@@ -3,7 +3,7 @@
 }
 
 .messages {
-    max-height: 330px;
+    max-height: 300px;
     height: 100%;
     overflow: auto;
 }
@@ -22,22 +22,23 @@
 }
 
 .contact {
-    display: grid;
-    grid-template-areas:
-            "avatar name"
-            "avatar online";
-    grid-template-rows: auto 1fr;
-    grid-template-columns: auto 1fr;
-    grid-column-gap: 20px;
+    display: flex;
+    justify-content: start;
+    margin-bottom: 20px;
     border-bottom: 1px solid;
-    align-items: center;
+}
+
+.contactInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin-left: 10px;
 }
 
 
 .name {
-    font-size: 16px;
+    font-size: 13px;
     font-weight: 500;
-    grid-area: name;
 }
 
 .name a {
@@ -50,12 +51,8 @@
     font-size: 13px;
     font-weight: 400;
     font-style: italic;
-    grid-area: online;
 }
 
-.avatar {
-    grid-area: avatar;
-}
 
 .avatar img {
     border-radius: 20px;

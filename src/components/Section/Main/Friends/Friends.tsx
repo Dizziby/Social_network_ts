@@ -3,6 +3,7 @@ import styles from "./Friends.module.css";
 import {NavLink, Route, Routes} from "react-router-dom";
 import {MyFriends} from "./MyFriends/MyFriends";
 import {FindFriends} from "./FindFriends/FindFriends";
+import {Error} from "../../../Error";
 
 export const Friends = () => {
 
@@ -23,6 +24,7 @@ export const Friends = () => {
                     Friends</NavLink>
             </div>
             <Routes>
+                <Route path="*" element={<Error/>}/>
                 <Route path="my" element={<MyFriends filter={filter}/>}/>
                 <Route path="requests" element={<MyFriends filter={filter}/>}/>
                 <Route path="find" element={<FindFriends/>}/>

@@ -8,9 +8,9 @@ type ButtonProps = {
     callback: () => void
 }
 
-export const Button: React.FC<ButtonProps> = (props) => {
+export const Button: React.FC<ButtonProps> = React.memo((props) => {
 
     const btnClass = props.status ? `${styles.btn} ${styles.grey}` : `${styles.btn} ${styles.blue}`
 
     return <button className={btnClass} onClick={()=>props.callback()} disabled={props.disabled}>{props.name}</button>
-}
+})

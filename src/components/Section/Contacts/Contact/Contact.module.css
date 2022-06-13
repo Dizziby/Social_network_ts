@@ -1,21 +1,20 @@
 .contact {
-    display: grid;
-    grid-template-areas:
-            "avatar name"
-            "avatar email";
-    grid-template-rows: auto 1fr;
-    grid-template-columns: auto 1fr;
-    grid-column-gap: 20px;
-
+    display: flex;
+    justify-content: start;
     margin-bottom: 20px;
-
 }
+
+.contactInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin-left: 10px;
+}
+
 
 .name {
     font-size: 13px;
     font-weight: 500;
-
-    grid-area: name;
 }
 
 .name a {
@@ -23,17 +22,10 @@
     color: inherit;
 }
 
-
 .email {
     font-size: 11px;
     font-weight: 400;
     font-style: italic;
-
-    grid-area: email;
-}
-
-.avatar {
-    grid-area: avatar;
 }
 
 .avatar img {

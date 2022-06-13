@@ -10,9 +10,8 @@ import {
     TOGGLE_IS_FETCHING,
     UNFOLLOWING_USER
 } from "../types";
-import {api} from "../../api/api";
+import {friendsAPI} from "../../api/api";
 import {ThunkActionType, ThunkDispatchType} from "../hooks";
-
 
 export type FriendsType = {
     id: string
@@ -22,12 +21,13 @@ export type FriendsType = {
     status: string
     email: string
 }
+
 export type FriendsDataType = {
     friends: Array<FriendsType>
     foundFriends: Array<FriendsType>
     pageSize: number
     totalFoundFriends: number
-    currentPageFoundFriends: number
+    currentPageFindFriends: number
     isFetching: boolean
     isFollowingInProgress: string[]
 }
@@ -75,8 +75,8 @@ const initialState: FriendsDataType = {
             status: "I'm OK",
             email: 'ameliaspan@gmail.com'
         },
-        {id: v1(), name: "Isla Ken", followed: false, photos: "Isla Ken", status: "I'm OK", email: 'islaken@gmail.com'},
-        {id: v1(), name: "Ruby Cry", followed: false, photos: "Ruby Cry", status: "I'm OK", email: 'rubycry@gmail.com'},
+        {id: v1(), name: "Isla Ken", followed: true, photos: "Isla Ken", status: "I'm OK", email: 'islaken@gmail.com'},
+        {id: v1(), name: "Ruby Cry", followed: true, photos: "Ruby Cry", status: "I'm OK", email: 'rubycry@gmail.com'},
         {
             id: v1(),
             name: "Ella Wins",
@@ -105,14 +105,13 @@ const initialState: FriendsDataType = {
     foundFriends: [],
     pageSize: 10,
     totalFoundFriends: 12,
-    currentPageFoundFriends: 1,
+    currentPageFindFriends: 1,
     isFetching: false,
     isFollowingInProgress: []
 }
 
 
 export const friendsReducer = (state = initialState, action: FriendsActionType): FriendsDataType => {
-
     switch (action.type) {
         case CHANGE_FRIEND_STATUS: {
             return {
@@ -139,7 +138,7 @@ export const friendsReducer = (state = initialState, action: FriendsActionType):
             return {...state, pageSize: state.pageSize + 10}
         }
         case SET_CURRENT_PAGE: {
-            return {...state, currentPageFoundFriends: action.currentPage}
+            return {...state, currentPageFindFriends: action.currentPage}
         }
         case SET_TOTAL_FOUND_FRIENDS: {
             return {...state, totalFoundFriends: action.totalCount}
@@ -223,19 +222,30 @@ export const toggleFollowingInProgressAC = (userId: string, isProgress: boolean)
 
 //Thunk Creator
 
-export const getUsersTC = (currentPageFoundFriends: number, pageSize: number): ThunkActionType => (dispatch: ThunkDispatchType) => {
+export const getUsersTC = (currentPageFoundFriends: number, pageSize: number): ThunkActionType => async (dispatch: ThunkDispatchType) => {
     dispatch(toggleIsFetchingAC(true))
-    api.getUsers(currentPageFoundFriends, pageSize).then(data => {
-        const users = data.items.map((el: any) => ({
-            id: el.id,
-            name: el.name,
-            followed: el.followed,
-            photos: el.photos.small === null ? el.name : el.photos.small,
-            status: el.status === null ? "..." : el.status,
-            email: `${el.name.replace(" ", "").toLowerCase()}@gmail.com`
-        }))
-        dispatch(toggleIsFetchingAC(false))
-        dispatch(setUsersAC(users))
-        dispatch(setTotalFoundFriendsAC(100))
-    })
+    const data = await friendsAPI.getUsers(currentPageFoundFriends, pageSize)
+    const users = data.items.map((el: any) => ({
+        id: el.id,
+        name: el.name,
+        followed: el.followed,
+        photos: el.photos.small === null ? el.name : el.photos.small,
+        status: el.status === null ? "..." : el.status,
+        email: `${el.name.replace(" ", "").toLowerCase()}@gmail.com`
+    }))
+    dispatch(toggleIsFetchingAC(false))
+    dispatch(setUsersAC(users))
+    dispatch(setTotalFoundFriendsAC(data.totalCount))
+}
+
+export const followingUserTC = (id: string): ThunkActionType => async (dispatch: ThunkDispatchType) => {
+    const response = await friendsAPI.followingUser(id)
+    response.data.resultCode === 0 && dispatch(followingUserAC(id))
+    dispatch(toggleFollowingInProgressAC(id, false))
+}
+
+export const unfollowingUserTC = (id: string): ThunkActionType => async (dispatch: ThunkDispatchType) => {
+    const response = await friendsAPI.unfollowingUser(id)
+    response.data.resultCode === 0 && dispatch(unfollowingUserAC(id))
+    dispatch(toggleFollowingInProgressAC(id, false))
 }

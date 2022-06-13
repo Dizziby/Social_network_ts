@@ -1,36 +1,50 @@
 .header {
     grid-area: header;
-    background: #fff url(../../img/timeline-1.png) no-repeat center;
-    background-size: 100%;
-
-    min-height: 440px;
-
-    height: 100%;
+    background: #fff url(../../img/timeline0.jpg) no-repeat center;
+    background-size: cover;
+    height: 400px;
     margin-bottom: 30px;
 }
 
-
-.userAvatar {
-    border-radius: 50% ;
-    border: solid white 5px;
-
-    position: absolute;
-    top: 200px;
-    left: 250px;
+.container {
+    display: flex;
+    align-items: flex-end;
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 100%;
 }
 
-.header button {
+.headerInner {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    margin-bottom: 50px;
+}
+
+.userAvatar img {
+    height: 170px;
+    width: 170px;
+    border-radius: 50% ;
+    border: solid white 5px;
+}
+
+.editPhoto label {
+    margin-left: 20px;
     padding: 10px 15px;
     background-color: #000;
     border: none;
     color: #fff;
     transition: background-color .5s linear;
-
-    position: absolute;
-    top: 275px;
-    left: 500px;
 }
 
-.header button:hover {
+.editPhoto label:hover {
     background-color: transparent;
+    cursor: pointer;
+}
+
+
+.editPhoto input {
+    display: none;
+    visibility: hidden;
+    opacity: 0;
 }

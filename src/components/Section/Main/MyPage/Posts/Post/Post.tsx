@@ -1,10 +1,10 @@
 import React from "react";
 import styles from "./Post.module.css"
-import userAvatar from "../../../../../../img/user-avatar.jpg"
+import userAvatar from "../../../../../../img/user-avatar0.png"
 import {faComment, faEye, faHeart, faHeartCrack, faXmark} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {clickLikeAC, deletePostAC} from "../../../../../../redux/reducers/profileReducer";
-import {useAppDispatch} from "../../../../../../redux/hooks";
+import {useAppDispatch, useAppSelector} from "../../../../../../redux/hooks";
 
 type PostPropsType = {
     id: string
@@ -22,6 +22,7 @@ type PostPropsType = {
 const Post = (props: PostPropsType) => {
 
     const dispatch = useAppDispatch()
+    const profileUserAvatar = useAppSelector(state => state.profileData.profile?.photos.large)
 
     const onClickButtonHandler = (id: string) => {
         dispatch(deletePostAC(id))
@@ -47,7 +48,7 @@ const Post = (props: PostPropsType) => {
         <div className={styles.post}>
             <div className={styles.title}>
                 <div className={styles.avatar}>
-                    <img src={userAvatar} alt="logo"/>
+                    <img src={profileUserAvatar ? profileUserAvatar : userAvatar} alt="logo"/>
                 </div>
                 <div className={styles.info}>
                     <div>

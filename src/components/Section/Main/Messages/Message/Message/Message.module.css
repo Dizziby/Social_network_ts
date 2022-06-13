@@ -2,7 +2,6 @@
     display: flex;
     align-items: center;
     padding: 10px;
-    /*border: 1px solid;*/
 }
 
 .avatar img {
@@ -11,8 +10,11 @@
 }
 
 .text {
+    padding: 0 10px;
     margin-left: 10px;
-    background-color: #d29a9a;
+    background-color: #f3dede;
     max-width: 300px;
     width: 100%;
+
+    border-radius: 5px;
 }

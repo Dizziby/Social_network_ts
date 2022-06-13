@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./Contact.module.css";
-import friendAvatar from "../../../../img/Contacts/friend-avatar4.jpg"
+import friendAvatar from "../../../../img/Contacts/friend-avatar0.jpg"
 import {NavLink} from "react-router-dom";
 
 type ContactPropsType = {
@@ -16,10 +16,13 @@ export const Contact = (props: ContactPropsType) => {
             <div className={styles.avatar}>
                 <img src={friendAvatar} alt={props.photos}/>
             </div>
-            <div className={styles.name}>
-                <NavLink to={"/messages/" + props.id}>{props.name}</NavLink>
+            <div className={styles.contactInfo}>
+                <div className={styles.name}>
+                    <NavLink to={"/messages/" + props.id}>{props.name}</NavLink>
+                </div>
+                <div className={styles.email}>{props.email}</div>
             </div>
-            <div className={styles.email}>{props.email}</div>
+
         </div>
     )
 }

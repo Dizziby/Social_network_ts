@@ -22,13 +22,11 @@ export const Friend = (props: FriendsPropsType) => {
 
     return (
         <div className={styles.friend}>
-            <div className={styles.info}>
-                <NavLink to={`/profile/${props.id}`} >
-                    <img src={/^http/.test(props.photos) ? props.photos : friendAvatar} alt={props.name}/>
-                    <a href="#">{props.name.length > 12 ? `${props.name.slice(0,12)}...` : props.name}</a>
-                </NavLink>
-            </div>
-            <div>{props.status.length > 20 ? `${props.status.slice(0,20)}...` : props.status}</div>
+            <NavLink to={`/profile/${props.id}`} className={styles.info}>
+                <img src={/^http/.test(props.photos) ? props.photos : friendAvatar} alt={props.name}/>
+                <a href="#">{props.name.length > 12 ? `${props.name.slice(0, 12)}...` : props.name}</a>
+            </NavLink>
+            <div>{props.status.length > 15 ? `${props.status.slice(0, 15)}...` : props.status}</div>
             <Button name={props.followed ? "Unfriends" : "Add Friend"} status={props.followed}
                     callback={onClickButtonHandler} disabled={props.disabled}/>
         </div>

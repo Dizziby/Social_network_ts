@@ -2,7 +2,7 @@ import React from 'react';
 import styles from "./Dialog.module.css"
 import {useAppSelector} from "../../../../../redux/hooks";
 import {Message} from "./Message/Message";
-import friendAvatar from "../../../../../img/Contacts/friend-avatar4.jpg";
+import friendAvatar from "../../../../../img/Contacts/friend-avatar0.jpg";
 
 export const Dialog = () => {
 
@@ -16,10 +16,13 @@ export const Dialog = () => {
                 <div className={styles.avatar}>
                     <img src={friendAvatar} alt={"Jason Bourne"}/>
                 </div>
-                <div className={styles.name}>
-                    Jason Bourne
+                <div className={styles.contactInfo}>
+                    <div className={styles.name}>
+                        Jason Bourne
+                    </div>
+                    <div className={styles.online}>Online</div>
                 </div>
-                <div className={styles.online}>Online</div>
+
             </div>
             <div className={styles.messages}>
                 {messageElement}

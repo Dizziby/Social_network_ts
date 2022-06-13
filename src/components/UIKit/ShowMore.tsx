@@ -7,7 +7,7 @@ type ShowMoreType = {
     callback: () => void
 }
 
-export const ShowMore: React.FC<ShowMoreType> = (props) => {
+export const ShowMore: React.FC<ShowMoreType> = React.memo((props) => {
 
     const onClickHandler = () => {
         props.callback()
@@ -20,4 +20,4 @@ export const ShowMore: React.FC<ShowMoreType> = (props) => {
                                                                                   size="lg"/></div>
         </div>
     );
-};
+})

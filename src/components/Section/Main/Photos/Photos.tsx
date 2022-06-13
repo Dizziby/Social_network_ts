@@ -12,10 +12,9 @@ import photo9 from "../../../../img/Images/photo9.jpg";
 import photo10 from "../../../../img/Images/photo10.jpg";
 import photo11 from "../../../../img/Images/photo11.jpg";
 import photo12 from "../../../../img/Images/photo12.jpg";
-import {Preloader} from "../../../UIKit/Preloader";
 import {ShowMore} from "../../../UIKit/ShowMore";
 
-export const Photos = () => {
+const Photos = () => {
     return (
         <div className={styles.photos}>
             <div className={styles.photosInner}>
@@ -36,3 +35,5 @@ export const Photos = () => {
         </div>
     )
 }
+
+export default Photos
