@@ -1,12 +1,11 @@
-import React, {ChangeEvent, useState} from "react";
+import React, {ChangeEvent, ReactElement, useState} from "react";
 import {Contact} from "./Contact/Contact";
 import styles from "./Contacts.module.css"
 import {useSelector} from "react-redux";
 import {RootState} from "../../../redux/store";
 import {FriendsType} from "../../../redux/reducers/friendsReducer";
 
-export const Contacts = () => {
-
+export const Contacts = (): ReactElement => {
     const friendsData = useSelector<RootState, Array<FriendsType>>(state => state.friendsData.friends)
 
     let friendsDataFilter = friendsData.filter(el => el.followed);

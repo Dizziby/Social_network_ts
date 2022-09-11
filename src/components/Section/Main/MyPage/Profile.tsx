@@ -1,18 +1,16 @@
-import React from "react";
-import styles from "./Profile.module.css"
-import {AddPost} from "./AddPost/AddPost";
-import {Posts} from "./Posts/Posts";
-import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
-import {useAppSelector} from "../../../../redux/hooks";
+import React, {ReactElement} from "react"
+import {AddPost} from "./AddPost/AddPost"
+import {Posts} from "./Posts/Posts"
+import {ProfileInfo} from "./ProfileInfo/ProfileInfo"
+import {useAppSelector} from "../../../../hooks/useAppSelector"
 
-export const Profile = () => {
-
+export const Profile = (): ReactElement => {
     const authId = useAppSelector(state => state.auth.id)
     const profileId = useAppSelector(state => state.profileData.profile?.userId)
 
-    if(authId === profileId) {
+    if (authId === profileId) {
         return (
-            <div className={styles.myPage}>
+            <div>
                 <ProfileInfo />
                 <AddPost />
                 <Posts />
@@ -20,7 +18,7 @@ export const Profile = () => {
         )
     } else {
         return (
-            <div className={styles.myPage}>
+            <div>
                 <ProfileInfo />
             </div>
         )

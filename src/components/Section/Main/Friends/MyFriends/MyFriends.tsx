@@ -1,41 +1,45 @@
-import React from "react";
-import styles from "./MyFriends.module.css";
-import {changeStatusFriendAC} from "../../../../../redux/reducers/friendsReducer";
-import {Friend} from "../Friend/Friend";
-import {useAppDispatch, useAppSelector} from "../../../../../redux/hooks";
+import React, {ReactElement} from "react"
+import styles from "./MyFriends.module.css"
+import {changeStatusFriendAC} from "../../../../../redux/reducers/friendsReducer"
+import {Friend} from "../Friend/Friend"
+import {useAppDispatch} from "../../../../../hooks/useAppDispatch"
+import {useAppSelector} from "../../../../../hooks/useAppSelector"
 
-type MyFriendsProps = {
-    filter: boolean
-}
-
-export const MyFriends: React.FC<MyFriendsProps> = (props) => {
+export const MyFriends: React.FC<MyFriendsProps> = ({filter}): ReactElement => {
+    const dispatch = useAppDispatch()
 
     const friendsData = useAppSelector(state => state.friendsData.friends)
 
-    const dispatch = useAppDispatch()
-
-    const changeStatusFriend = (id: string) => {
+    const changeStatusFriend = (id: string): void => {
         dispatch(changeStatusFriendAC(id))
     }
 
-    let friendsDataFilter = friendsData;
+    let friendsDataFilter = friendsData
     let friendsDataFilterTrue = friendsData.filter(el => el.followed)
     let friendsDataFilterFalse = friendsData.filter(el => !el.followed)
 
-    if (props.filter) {
+    if (filter) {
         friendsDataFilter = friendsDataFilterTrue
     } else {
         friendsDataFilter = friendsDataFilterFalse
     }
 
-    const friendElement = friendsDataFilter.map(friend => <Friend key={friend.id} id={friend.id} name={friend.name}
-                                                                  followed={friend.followed} photos={friend.photos}
-                                                                  status={friend.status}
-                                                                  callback={changeStatusFriend}/>)
+    const friendElement = friendsDataFilter.map(friend => (
+        <Friend
+            key={friend.id}
+            id={friend.id}
+            name={friend.name}
+            followed={friend.followed}
+            photos={friend.photos}
+            status={friend.status}
+            callback={changeStatusFriend}
+        />
+    ))
 
-    return (
-        <div className={styles.myFriends}>
-            {friendElement}
-        </div>
-    )
+    return <div className={styles.myFriends}>{friendElement}</div>
+}
+
+// TYPES
+type MyFriendsProps = {
+    filter: boolean
 }

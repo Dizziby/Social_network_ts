@@ -1,34 +1,38 @@
-import React, {useEffect} from "react";
-import styles from "./FindFriends.module.css";
-import {Friend} from "../Friend/Friend";
+import React, {ReactElement, useEffect} from "react"
+import styles from "./FindFriends.module.css"
+import {Friend} from "../Friend/Friend"
 import {
     followingUserTC,
     getUsersTC,
     showMoreFoundUsersAC,
     toggleFollowingInProgressAC,
-    unfollowingUserTC
-} from "../../../../../redux/reducers/friendsReducer";
-import {Preloader} from "../../../../UIKit/Preloader";
-import {useAppDispatch, useAppSelector} from "../../../../../redux/hooks";
-import {ShowMore} from "../../../../UIKit/ShowMore";
-import {Pagination} from "./Pagination";
+    unfollowingUserTC,
+} from "../../../../../redux/reducers/friendsReducer"
+import {Preloader} from "../../../../UIKit/Preloader"
+import {ShowMore} from "../../../../UIKit/ShowMore"
+import {Pagination} from "./Pagination"
+import {useAppDispatch} from "../../../../../hooks/useAppDispatch"
+import {useAppSelector} from "../../../../../hooks/useAppSelector"
 
-export const FindFriends = () => {
-
+export const FindFriends = (): ReactElement => {
     const dispatch = useAppDispatch()
 
     const friendsFindData = useAppSelector(state => state.friendsData.foundFriends)
     const pageSize = useAppSelector(state => state.friendsData.pageSize)
     const totalFoundFriends = useAppSelector(state => state.friendsData.totalFoundFriends)
-    const currentPageFindFriends = useAppSelector(state => state.friendsData.currentPageFindFriends)
+    const currentPageFindFriends = useAppSelector(
+        state => state.friendsData.currentPageFindFriends,
+    )
     const isFetching = useAppSelector(state => state.friendsData.isFetching)
-    const isFollowingInProgress = useAppSelector(state => state.friendsData.isFollowingInProgress)
+    const isFollowingInProgress = useAppSelector(
+        state => state.friendsData.isFollowingInProgress,
+    )
 
     useEffect(() => {
         dispatch(getUsersTC(currentPageFindFriends, pageSize))
-    }, [pageSize, currentPageFindFriends, totalFoundFriends])
+    }, [dispatch, pageSize, currentPageFindFriends, totalFoundFriends])
 
-    const changeFollowingUser = (id: string, followed: boolean) => {
+    const changeFollowingUser = (id: string, followed: boolean): void => {
         dispatch(toggleFollowingInProgressAC(id, true))
         if (!followed) {
             dispatch(followingUserTC(id))
@@ -37,29 +41,38 @@ export const FindFriends = () => {
         }
     }
 
-    const friendsFindElement = friendsFindData.map(friend => <Friend key={friend.id} id={friend.id} name={friend.name}
-                                                                     followed={friend.followed} photos={friend.photos}
-                                                                     status={friend.status}
-                                                                     callback={changeFollowingUser}
-                                                                     disabled={isFollowingInProgress.some(id => id === friend.id)}/>)
+    const friendsFindElement = friendsFindData.map(friend => (
+        <Friend
+            key={friend.id}
+            id={friend.id}
+            name={friend.name}
+            followed={friend.followed}
+            photos={friend.photos}
+            status={friend.status}
+            callback={changeFollowingUser}
+            disabled={isFollowingInProgress.some(id => id === friend.id)}
+        />
+    ))
 
-    const showMoreFoundUsers = () => {
+    const showMoreFoundUsers = (): void => {
         dispatch(showMoreFoundUsersAC())
     }
 
     return (
         <div className={styles.findFriends}>
-            {isFetching
-                ? <Preloader/>
-                :
+            {isFetching ? (
+                <Preloader />
+            ) : (
                 <div>
                     {friendsFindElement}
-                    <ShowMore callback={showMoreFoundUsers}/>
-                    <Pagination totalFoundFriends={totalFoundFriends} pageSize={pageSize}
-                                currentPageFindFriends={currentPageFindFriends}/>
+                    <ShowMore callback={showMoreFoundUsers} />
+                    <Pagination
+                        totalFoundFriends={totalFoundFriends}
+                        pageSize={pageSize}
+                        currentPageFindFriends={currentPageFindFriends}
+                    />
                 </div>
-            }
+            )}
         </div>
     )
 }
-

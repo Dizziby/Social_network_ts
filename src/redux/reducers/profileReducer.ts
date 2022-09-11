@@ -1,53 +1,16 @@
-import {v1} from "uuid";
-import {ADD_POST, CLICK_LIKE, DELETE_POST, SET_PHOTO, SET_PROFILE, SET_PROFILE_INFO, SET_STATUS} from "../types";
-import {profileAPI, updateProfileInfoRequestType} from "../../api/api";
-import {ThunkActionType, ThunkDispatchType} from "../hooks";
-
-export type PostType = {
-    id: string
-    name: string
-    date: string
-    text: string
-    views: number
-    comments: number
-    like: number
-    dislike: number
-    isLike: boolean
-    isDislike: boolean
-}
-
-export type ProfileType = {
-    userId: number
-    aboutMe: string
-    lookingForAJob: boolean
-    lookingForAJobDescription: string
-    fullName: string
-    contacts: ContactsProfileType
-    photos: PhotosProfileType
-}
-
-export type ContactsProfileType = {
-    facebook: string,
-    website: string,
-    vk: string
-    twitter: string,
-    instagram: string,
-    youtube: string,
-    github: string,
-    mainLink: string
-}
-
-export type PhotosProfileType = {
-    small: string
-    large: string
-}
-
-export type PostDataType = {
-    posts: Array<PostType>
-    profile: null | ProfileType
-    status: string
-}
-
+import {v1} from "uuid"
+import {
+    ADD_POST,
+    CLICK_LIKE,
+    DELETE_POST,
+    SET_PHOTO,
+    SET_PROFILE,
+    SET_PROFILE_INFO,
+    SET_STATUS,
+    ThunkActionType,
+    ThunkDispatchType,
+} from "../types"
+import {profileAPI, updateProfileInfoRequestType} from "../../api/api"
 
 const initialState: PostDataType = {
     posts: [
@@ -89,13 +52,15 @@ const initialState: PostDataType = {
         },
     ],
     profile: null,
-    status: "set status"
+    status: "set status",
 }
 
-export const profileReducer = (state = initialState, action: PostsActionType): PostDataType => {
-
+export const profileReducer = (
+    state = initialState,
+    action: PostsActionType,
+): PostDataType => {
     switch (action.type) {
-        case ADD_POST: {
+        case ADD_POST:
             return {
                 ...state,
                 posts: [
@@ -111,147 +76,208 @@ export const profileReducer = (state = initialState, action: PostsActionType): P
                         isLike: false,
                         isDislike: false,
                     },
-                    ...state.posts
+                    ...state.posts,
                 ],
             }
-        }
-        case DELETE_POST: {
+        case DELETE_POST:
             return {
                 ...state,
-                posts: state.posts.filter(el => el.id !== action.id)
+                posts: state.posts.filter(el => el.id !== action.id),
             }
-        }
-        case SET_PROFILE: {
+        case SET_PROFILE:
             return {...state, profile: action.profile}
-        }
-        case CLICK_LIKE: {
+        case CLICK_LIKE:
             if (action.name === "like") {
                 return {
                     ...state,
-                    posts: state.posts.map(el => el.id === action.id ? {
-                        ...el,
-                        like: el.like + 1,
-                        dislike: el.isDislike ? el.dislike - 1 : el.dislike,
-                        isLike: true,
-                        isDislike: false
-                    } : el)
+                    posts: state.posts.map(el =>
+                        el.id === action.id
+                            ? {
+                                  ...el,
+                                  like: el.like + 1,
+                                  dislike: el.isDislike ? el.dislike - 1 : el.dislike,
+                                  isLike: true,
+                                  isDislike: false,
+                              }
+                            : el,
+                    ),
                 }
             } else {
                 return {
                     ...state,
-                    posts: state.posts.map(el => el.id === action.id ? {
-                        ...el,
-                        like: el.isLike ? el.like - 1 : el.like,
-                        dislike: el.dislike + 1,
-                        isLike: false,
-                        isDislike: true
-                    } : el)
+                    posts: state.posts.map(el =>
+                        el.id === action.id
+                            ? {
+                                  ...el,
+                                  like: el.isLike ? el.like - 1 : el.like,
+                                  dislike: el.dislike + 1,
+                                  isLike: false,
+                                  isDislike: true,
+                              }
+                            : el,
+                    ),
                 }
             }
-        }
-        case SET_STATUS: {
+        case SET_STATUS:
             return {...state, status: action.status}
-        }
-        case SET_PHOTO: {
-            if(state.profile !== null) {
+        case SET_PHOTO:
+            if (state.profile !== null) {
                 return {...state, profile: {...state.profile, photos: action.photos}}
             }
             return state
-        }
-        case SET_PROFILE_INFO: {
-            if(state.profile !== null) {
+        case SET_PROFILE_INFO:
+            if (state.profile !== null) {
                 return {...state, profile: {...state.profile, ...action.info}}
             }
             return state
-        }
         default:
             return state
     }
 }
 
-
 // ActionCreator
+export const addPostAC = (newPostText: string) =>
+    ({
+        type: ADD_POST,
+        newPostText,
+    } as const)
+
+export const deletePostAC = (id: string) =>
+    ({
+        type: DELETE_POST,
+        id,
+    } as const)
+
+export const setProfileAC = (profile: ProfileType) =>
+    ({
+        type: SET_PROFILE,
+        profile,
+    } as const)
+
+export const clickLikeAC = (id: string, name: string) =>
+    ({
+        type: CLICK_LIKE,
+        id,
+        name,
+    } as const)
+
+export const setStatusAC = (status: string) =>
+    ({
+        type: SET_STATUS,
+        status,
+    } as const)
+
+export const setPhotoAC = (photos: PhotosProfileType) =>
+    ({
+        type: SET_PHOTO,
+        photos,
+    } as const)
+
+export const setProfileInfoAC = (info: updateProfileInfoRequestType) =>
+    ({
+        type: SET_PROFILE_INFO,
+        info,
+    } as const)
+
+//Thunk Creator
+export const getUserProfileTC =
+    (id: number): ThunkActionType =>
+    async (dispatch: ThunkDispatchType) => {
+        const response = await profileAPI.getUserProfile(id)
+        dispatch(setProfileAC(response.data))
+    }
+
+export const getStatusProfileTC =
+    (id: number): ThunkActionType =>
+    async (dispatch: ThunkDispatchType) => {
+        const response = await profileAPI.getStatusProfile(id)
+        let status
+        if (response.data) {
+            status = response.data
+        } else {
+            status = "No status"
+        }
+        dispatch(setStatusAC(status))
+    }
+
+export const updateStatusProfileTC =
+    (status: string): ThunkActionType =>
+    async (dispatch: ThunkDispatchType) => {
+        const response = await profileAPI.updateStatusProfile(status)
+        if (response.data.resultCode === 0) {
+            dispatch(setStatusAC(status))
+        }
+    }
+
+export const updatePhotoProfileTC =
+    (photo: any): ThunkActionType =>
+    async (dispatch: ThunkDispatchType) => {
+        const response = await profileAPI.updatePhotoProfile(photo)
+        if (response.data.resultCode === 0) {
+            dispatch(setPhotoAC(response.data.data))
+        }
+    }
+
+export const updateProfileInfoTC =
+    (info: updateProfileInfoRequestType): ThunkActionType =>
+    async (dispatch: ThunkDispatchType) => {
+        const response = await profileAPI.updateProfileInfo(info)
+        if (response.data.resultCode === 0) {
+            dispatch(setProfileInfoAC(info))
+        }
+    }
+
+// Types
+export type PostType = {
+    id: string
+    name: string
+    date: string
+    text: string
+    views: number
+    comments: number
+    like: number
+    dislike: number
+    isLike: boolean
+    isDislike: boolean
+}
+
+export type ProfileType = {
+    userId: number
+    aboutMe: string
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    contacts: ContactsProfileType
+    photos: PhotosProfileType
+}
+
+export type ContactsProfileType = {
+    facebook: string
+    website: string
+    vk: string
+    twitter: string
+    instagram: string
+    youtube: string
+    github: string
+    mainLink: string
+}
+
+export type PhotosProfileType = {
+    small: string
+    large: string
+}
+
+export type PostDataType = {
+    posts: Array<PostType>
+    profile: null | ProfileType
+    status: string
+}
 
 export type PostsActionType =
-    ReturnType<typeof addPostAC>
+    | ReturnType<typeof addPostAC>
     | ReturnType<typeof deletePostAC>
     | ReturnType<typeof setProfileAC>
     | ReturnType<typeof clickLikeAC>
     | ReturnType<typeof setStatusAC>
     | ReturnType<typeof setPhotoAC>
     | ReturnType<typeof setProfileInfoAC>
-
-export const addPostAC = (newPostText: string) => ({
-    type: ADD_POST,
-    newPostText
-}) as const
-
-export const deletePostAC = (id: string) => ({
-    type: DELETE_POST,
-    id
-}) as const
-
-export const setProfileAC = (profile: ProfileType) => ({
-    type: SET_PROFILE,
-    profile
-}) as const
-
-export const clickLikeAC = (id: string, name: string) => ({
-    type: CLICK_LIKE,
-    id,
-    name
-}) as const
-
-export const setStatusAC = (status: string) => ({
-    type: SET_STATUS,
-    status
-}) as const
-
-export const setPhotoAC = (photos: PhotosProfileType) => ({
-    type: SET_PHOTO,
-    photos
-}) as const
-
-export const setProfileInfoAC = (info: updateProfileInfoRequestType) => ({
-    type: SET_PROFILE_INFO,
-    info
-}) as const
-
-//Thunk Creator
-
-export const getUserProfileTC = (id: number): ThunkActionType => async (dispatch: ThunkDispatchType) => {
-    const response = await profileAPI.getUserProfile(id)
-    dispatch(setProfileAC(response.data))
-}
-
-export const getStatusProfileTC = (id: number): ThunkActionType => async (dispatch: ThunkDispatchType) => {
-    const response = await profileAPI.getStatusProfile(id)
-    let status
-    if (response.data) {
-        status = response.data
-    } else {
-        status = "No status"
-    }
-    dispatch(setStatusAC(status))
-}
-
-export const updateStatusProfileTC = (status: string): ThunkActionType => async (dispatch: ThunkDispatchType) => {
-    const response = await profileAPI.updateStatusProfile(status)
-    if (response.data.resultCode === 0) {
-        dispatch(setStatusAC(status))
-    }
-}
-
-export const updatePhotoProfileTC = (photo: any): ThunkActionType => async (dispatch: ThunkDispatchType) => {
-    const response = await profileAPI.updatePhotoProfile(photo)
-    if(response.data.resultCode === 0) {
-        dispatch(setPhotoAC(response.data.data))
-    }
-}
-
-export const updateProfileInfoTC = (info: updateProfileInfoRequestType): ThunkActionType => async  (dispatch: ThunkDispatchType) => {
-    const response = await profileAPI.updateProfileInfo(info)
-    if(response.data.resultCode === 0) {
-        dispatch(setProfileInfoAC(info))
-    }
-}

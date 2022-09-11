@@ -1,4 +1,4 @@
-import {addMessageAC, MessagesDataType, messagesReducer} from "./messagesReducer";
+import {addMessageAC, MessagesDataType, messagesReducer} from "../messagesReducer";
 
 
 test("correct should be added message", () => {

@@ -1,6 +1,6 @@
-import {addPostAC, PostDataType, profileReducer} from "./profileReducer";
+import {addPostAC, PostDataType, profileReducer} from "../profileReducer";
 import {v1} from "uuid";
-import {FriendsDataType, friendsReducer} from "./friendsReducer";
+import {FriendsDataType, friendsReducer} from "../friendsReducer";
 
 
 // test("correct should be added post", () => {

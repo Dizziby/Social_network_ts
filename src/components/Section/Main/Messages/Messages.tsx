@@ -1,31 +1,34 @@
-import React from "react";
+import React, {ReactElement} from "react"
 import styles from "./Messages.module.css"
-import {Contact} from "../../Contacts/Contact/Contact";
-import {Dialog} from "./Message/Dialog";
-import {AddMessage} from "./AddMessage/AddMessage";
-import {useAppSelector} from "../../../../redux/hooks";
+import {Contact} from "../../Contacts/Contact/Contact"
+import {Dialog} from "./Message/Dialog"
+import {AddMessage} from "./AddMessage/AddMessage"
+import {useAppSelector} from "../../../../hooks/useAppSelector"
 
-export const Messages= () => {
-
+export const Messages = (): ReactElement => {
     const friendsData = useAppSelector(state => state.friendsData.friends)
 
-    let friendsDataFilter = friendsData.filter(el => el.followed);
+    let friendsDataFilter = friendsData.filter(el => el.followed)
 
-    const contactElement = friendsDataFilter.map(contact => <Contact key={contact.id} name={contact.name}
-                                                                email={contact.email}
-                                                                photos={contact.photos} id={contact.id}/>)
+    const contactElement = friendsDataFilter.map(contact => (
+        <Contact
+            key={contact.id}
+            name={contact.name}
+            email={contact.email}
+            photos={contact.photos}
+            id={contact.id}
+        />
+    ))
     return (
         <div className={styles.messages}>
             <div className={styles.title}>All Messages</div>
             <div className={styles.content}>
                 <div>
-                    <div className={styles.contactElement}>
-                        {contactElement}
-                    </div>
+                    <div className={styles.contactElement}>{contactElement}</div>
                 </div>
                 <div className={styles.main}>
                     <Dialog />
-                    <AddMessage/>
+                    <AddMessage />
                 </div>
             </div>
         </div>

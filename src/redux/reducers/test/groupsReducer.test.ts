@@ -1,4 +1,4 @@
-import {GroupsDataType, groupsReducer, leaveGroupAC} from "./groupsReducer";
+import {GroupsDataType, groupsReducer, leaveGroupAC} from "../groupsReducer";
 
 
 test("one group must be correctly lost", () => {

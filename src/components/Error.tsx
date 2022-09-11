@@ -1,7 +1,7 @@
-import React from "react";
+import React, {ReactElement} from "react";
 import styles from "./Error.module.css"
 
-export const Error = () => {
+export const Error = (): ReactElement => {
 
     return (
         <div className={styles.error}>

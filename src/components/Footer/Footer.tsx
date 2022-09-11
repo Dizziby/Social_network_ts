@@ -1,4 +1,4 @@
-import React from "react";
+import React, {ReactElement} from "react";
 import styles from "./Footer.module.css";
 import {
     faCcMastercard,
@@ -19,13 +19,9 @@ import {
 
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
-type FooterPropsType = {
-    section: string
-}
-
-export const Footer: React.FC<FooterPropsType> = (props) => {
-    if (props.section === "sectionLogout" || props.section === "sectionError") {
-        return null;
+export const Footer: React.FC<FooterPropsType> = ({section}): ReactElement | null => {
+    if (section === "sectionLogout" || section === "sectionError") {
+        return null
     }
 
     return (
@@ -38,20 +34,27 @@ export const Footer: React.FC<FooterPropsType> = (props) => {
                     <p>The Social Network. <br/> 2022.
                     </p>
                     <ul>
-                        <li><FontAwesomeIcon icon={faMapLocation} size="lg" pull="left"/>Belarus, Vitebsk, 210036</li>
-                        <li><FontAwesomeIcon icon={faMobileScreen} size="lg" pull="left"/>+375-29-290-90-90</li>
+                        <li><FontAwesomeIcon icon={faMapLocation} size="lg" pull="left"/>Belarus,
+                            Vitebsk, 210036
+                        </li>
+                        <li><FontAwesomeIcon icon={faMobileScreen} size="lg" pull="left"/>+375-29-290-90-90
+                        </li>
                     </ul>
                 </div>
                 <div className={styles.footerColumn}>
                     <h4>Follow</h4>
                     <ul>
-                        <li><FontAwesomeIcon icon={faFacebook} size="lg" pull="left"/><a href={"#"}>Facebook</a></li>
-                        <li><FontAwesomeIcon icon={faTwitter} size="lg" pull="left"/><a href={"#"}>Twitter</a></li>
-                        <li><FontAwesomeIcon icon={faInstagram} size="lg" pull="left"/><a href={"#"}>Instagram</a></li>
-                        <li><FontAwesomeIcon icon={faGooglePlusG} size="lg" pull="left"/><a href={"#"}>Google+</a></li>
-                        <li><FontAwesomeIcon icon={faPinterestSquare} size="lg" pull="left"/><a href={"#"}>Pintrest</a>
+                        <li><FontAwesomeIcon icon={faFacebook} size="lg" pull="left"/><a
+                            href={"#"}>Facebook</a></li>
+                        <li><FontAwesomeIcon icon={faTwitter} size="lg" pull="left"/><a
+                            href={"#"}>Twitter</a></li>
+                        <li><FontAwesomeIcon icon={faInstagram} size="lg" pull="left"/><a
+                            href={"#"}>Instagram</a></li>
+                        <li><FontAwesomeIcon icon={faGooglePlusG} size="lg" pull="left"/><a
+                            href={"#"}>Google+</a></li>
+                        <li><FontAwesomeIcon icon={faPinterestSquare} size="lg" pull="left"/><a
+                            href={"#"}>Pintrest</a>
                         </li>
-
                     </ul>
                 </div>
                 <div className={styles.footerColumn}>
@@ -62,7 +65,6 @@ export const Footer: React.FC<FooterPropsType> = (props) => {
                         <li><a href={"#"}>Us Terms & Conditions</a></li>
                         <li><a href={"#"}>RSS Syndication</a></li>
                         <li><a href={"#"}>Sitemap</a></li>
-
                     </ul>
                 </div>
                 <div className={styles.footerColumn}>
@@ -74,16 +76,18 @@ export const Footer: React.FC<FooterPropsType> = (props) => {
                         <li><a href={"#"}>Agent Listings</a></li>
                         <li><a href={"#"}>View All</a></li>
                     </ul>
-
                 </div>
                 <div className={styles.footerColumnButton}>
                     <h4>Download Apps</h4>
                     <ul>
-                        <li><FontAwesomeIcon className={styles.fa} icon={faAndroid} size="lg" pull="left"/><a
+                        <li><FontAwesomeIcon className={styles.fa} icon={faAndroid} size="lg"
+                                             pull="left"/><a
                             href="#">Android</a></li>
-                        <li><FontAwesomeIcon className={styles.fa} icon={faApple} size="lg" pull="left"/><a
+                        <li><FontAwesomeIcon className={styles.fa} icon={faApple} size="lg"
+                                             pull="left"/><a
                             href="#">IPhone</a></li>
-                        <li><FontAwesomeIcon className={styles.fa} icon={faWindows} size="lg" pull="left"/><a
+                        <li><FontAwesomeIcon className={styles.fa} icon={faWindows} size="lg"
+                                             pull="left"/><a
                             href="#">Windows</a></li>
                     </ul>
                 </div>
@@ -96,4 +100,9 @@ export const Footer: React.FC<FooterPropsType> = (props) => {
             </div>
         </div>
     )
+}
+
+// TYPES
+type FooterPropsType = {
+    section: string
 }

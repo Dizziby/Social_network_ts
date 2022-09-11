@@ -1,4 +1,4 @@
-import {addPostAC, clickLikeAC, deletePostAC, PostDataType, profileReducer} from "./profileReducer";
+import {addPostAC, clickLikeAC, deletePostAC, PostDataType, profileReducer} from "../profileReducer";
 
 test("correct should be added post", () => {
 
